@@ -1,0 +1,67 @@
+#include <jni.h>
+#include "common.h"
+//#include <BulletDynamics/btGeneric6DofSpringConstraint.h>
+
+extern "C"
+{
+	JNIEXPORT jint Java_org_bulletSamples_physics_Spring_constructor( JNIEnv* env, jobject self, jint dynamicsWorld, jint irb1, jint irb2, jobject frameA, jobject frameB, jboolean linear )
+	{
+		btRigidBody* rb1 = (btRigidBody*)btObjects::get(irb1);
+		btRigidBody* rb2 = (btRigidBody*)btObjects::get(irb2);
+		btVector3 vA, vB;
+		jobjectToBtVector3(env, frameA, vA);
+		jobjectToBtVector3(env, frameB, vB);
+		btQuaternion q1, q2;
+		btGeneric6DofSpringConstraint* spring = new btGeneric6DofSpringConstraint(*rb1, *rb2, btTransform(q1, vA), btTransform(q2, vB), linear);
+		((btDiscreteDynamicsWorld*)btObjects::get(dynamicsWorld))->addConstraint(spring, true);
+		return btObjects::put(spring);
+	}
+	
+	JNIEXPORT void Java_org_bulletSamples_physics_Spring_Nenable( JNIEnv* env, jobject self, jint id, jint index, jboolean enable)
+	{
+		((btGeneric6DofSpringConstraint*)btObjects::get(id))->enableSpring(index, enable);
+	}
+	
+	JNIEXPORT void Java_org_bulletSamples_physics_Spring_NsetDamping( JNIEnv* env, jobject self, jint id, jint index, float damping)
+	{
+		((btGeneric6DofSpringConstraint*)btObjects::get(id))->setDamping(index, damping);
+	}
+	
+	JNIEXPORT void Java_org_bulletSamples_physics_Spring_NsetStiffness( JNIEnv* env, jobject self, jint id, jint index, float stiffness)
+	{
+		((btGeneric6DofSpringConstraint*)btObjects::get(id))->setStiffness(index, stiffness);
+	}
+	
+	JNIEXPORT void Java_org_bulletSamples_physics_Spring_NsetEquilibriumPoint( JNIEnv* env, jobject self, jint id)
+	{
+		((btGeneric6DofSpringConstraint*)btObjects::get(id))->setEquilibriumPoint();
+	}
+	
+	JNIEXPORT void Java_org_bulletSamples_physics_Spring_NsetLinearUpperLimit( JNIEnv* env, jobject self, jint id, jobject vec)
+	{
+		btVector3 btVec;
+		jobjectToBtVector3(env, vec, btVec);
+		((btGeneric6DofSpringConstraint*)btObjects::get(id))->setLinearUpperLimit(btVec);
+	}
+	
+	JNIEXPORT void Java_org_bulletSamples_physics_Spring_NsetLinearLowerLimit( JNIEnv* env, jobject self, jint id, jobject vec)
+	{
+		btVector3 btVec;
+		jobjectToBtVector3(env, vec, btVec);
+		((btGeneric6DofSpringConstraint*)btObjects::get(id))->setLinearLowerLimit(btVec);
+	}
+	
+	JNIEXPORT void Java_org_bulletSamples_physics_Spring_NsetAngularUpperLimit( JNIEnv* env, jobject self, jint id, jobject vec)
+	{
+		btVector3 btVec;
+		jobjectToBtVector3(env, vec, btVec);
+		((btGeneric6DofSpringConstraint*)btObjects::get(id))->setAngularLowerLimit(btVec);
+	}
+	
+	JNIEXPORT void Java_org_bulletSamples_physics_Spring_NsetAngularLowerLimit( JNIEnv* env, jobject self, jint id, jobject vec)
+	{
+		btVector3 btVec;
+		jobjectToBtVector3(env, vec, btVec);
+		((btGeneric6DofSpringConstraint*)btObjects::get(id))->setAngularLowerLimit(btVec);
+	}
+}
