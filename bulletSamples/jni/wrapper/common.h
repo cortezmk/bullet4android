@@ -1,6 +1,7 @@
 #include <map>
 #include "btBulletDynamicsCommon.h"
 #include "btObjects.h"
+#include <jni.h>
 
 extern "C"
 {
@@ -9,3 +10,13 @@ extern "C"
 	void btQuaternionToJobject(JNIEnv* env, btQuaternion& quat, jobject& obj);
 	void jobjectToBtQuaternion(JNIEnv* env, jobject& obj, btQuaternion& quat);
 }
+
+template<class T>
+T* getObject(JNIEnv* env, jobject& obj);
+
+void setNamedObject(JNIEnv* env, jobject& obj, char* name, int value);
+
+template<class T>
+T* getNamedObject(JNIEnv* env, jobject& obj, char* name);
+
+int getIdNamedObject(JNIEnv* env, jobject& obj, char* name);
