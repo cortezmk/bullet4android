@@ -1,7 +1,7 @@
 obj/local/armeabi/objs/bulletWrapper/wrapper/CollisionShape.o: \
- jni/wrapper/CollisionShape.cpp \
- D:/programy/android/android-ndk-r7b/platforms/android-14/arch-arm/usr/include/jni.h \
- D:/programy/android/android-ndk-r7b/sources/cxx-stl/stlport/stlport/stdarg.h \
+ jni/wrapper/CollisionShape.cpp jni/wrapper/common.h \
+ D:/programy/android/android-ndk-r7b/sources/cxx-stl/stlport/stlport/map \
+ D:/programy/android/android-ndk-r7b/sources/cxx-stl/stlport/stlport/stl/_prolog.h \
  D:/programy/android/android-ndk-r7b/sources/cxx-stl/stlport/stlport/stl/_cprolog.h \
  D:/programy/android/android-ndk-r7b/sources/cxx-stl/stlport/stlport/stl/config/features.h \
  D:/programy/android/android-ndk-r7b/sources/cxx-stl/stlport/stlport/stl/_stlport_version.h \
@@ -13,11 +13,6 @@ obj/local/armeabi/objs/bulletWrapper/wrapper/CollisionShape.o: \
  D:/programy/android/android-ndk-r7b/sources/cxx-stl/stlport/stlport/stl/config/_gcc.h \
  D:/programy/android/android-ndk-r7b/sources/cxx-stl/stlport/stlport/stl/config/stl_confix.h \
  D:/programy/android/android-ndk-r7b/sources/cxx-stl/stlport/stlport/stl/config/_native_headers.h \
- D:/programy/android/android-ndk-r7b/sources/cxx-stl/stlport/stlport/stl/_epilog.h \
- D:/programy/android/android-ndk-r7b/sources/cxx-stl/stlport/stlport/stl/_config_compat_post.h \
- jni/wrapper/common.h \
- D:/programy/android/android-ndk-r7b/sources/cxx-stl/stlport/stlport/map \
- D:/programy/android/android-ndk-r7b/sources/cxx-stl/stlport/stlport/stl/_prolog.h \
  D:/programy/android/android-ndk-r7b/sources/cxx-stl/stlport/stlport/stl/debug/_debug.h \
  D:/programy/android/android-ndk-r7b/sources/cxx-stl/stlport/stlport/stl/_map.h \
  D:/programy/android/android-ndk-r7b/sources/cxx-stl/stlport/stlport/stl/_tree.h \
@@ -77,10 +72,13 @@ obj/local/armeabi/objs/bulletWrapper/wrapper/CollisionShape.o: \
  D:/programy/android/android-ndk-r7b/sources/cxx-stl/stlport/stlport/stl/_cstdio.h \
  D:/programy/android/android-ndk-r7b/sources/cxx-stl/stlport/stlport/stdio.h \
  D:/programy/android/android-ndk-r7b/platforms/android-14/arch-arm/usr/include/../include/stdio.h \
+ D:/programy/android/android-ndk-r7b/sources/cxx-stl/stlport/stlport/stdarg.h \
  D:/programy/android/android-ndk-r7b/sources/cxx-stl/stlport/stlport/stl/_construct.h \
  D:/programy/android/android-ndk-r7b/sources/cxx-stl/stlport/stlport/stl/_alloc.c \
  D:/programy/android/android-ndk-r7b/sources/cxx-stl/stlport/stlport/stl/_tree.c \
  D:/programy/android/android-ndk-r7b/sources/cxx-stl/stlport/stlport/stl/_relops_cont.h \
+ D:/programy/android/android-ndk-r7b/sources/cxx-stl/stlport/stlport/stl/_epilog.h \
+ D:/programy/android/android-ndk-r7b/sources/cxx-stl/stlport/stlport/stl/_config_compat_post.h \
  jni/btBulletDynamicsCommon.h jni/btBulletCollisionCommon.h \
  jni/BulletCollision/CollisionDispatch/btCollisionWorld.h \
  jni/LinearMath/btVector3.h jni/LinearMath/btScalar.h \
@@ -200,11 +198,14 @@ obj/local/armeabi/objs/bulletWrapper/wrapper/CollisionShape.o: \
  jni/BulletDynamics/Vehicle/btVehicleRaycaster.h \
  jni/BulletDynamics/Vehicle/btWheelInfo.h \
  jni/BulletDynamics/Dynamics/btActionInterface.h \
- jni/BulletDynamics/Dynamics/btRigidBody.h jni/wrapper/btObjects.h
+ jni/BulletDynamics/Dynamics/btRigidBody.h jni/wrapper/btObjects.h \
+ D:/programy/android/android-ndk-r7b/platforms/android-14/arch-arm/usr/include/jni.h
 
-D:/programy/android/android-ndk-r7b/platforms/android-14/arch-arm/usr/include/jni.h:
+jni/wrapper/common.h:
 
-D:/programy/android/android-ndk-r7b/sources/cxx-stl/stlport/stlport/stdarg.h:
+D:/programy/android/android-ndk-r7b/sources/cxx-stl/stlport/stlport/map:
+
+D:/programy/android/android-ndk-r7b/sources/cxx-stl/stlport/stlport/stl/_prolog.h:
 
 D:/programy/android/android-ndk-r7b/sources/cxx-stl/stlport/stlport/stl/_cprolog.h:
 
@@ -227,16 +228,6 @@ D:/programy/android/android-ndk-r7b/sources/cxx-stl/stlport/stlport/stl/config/_
 D:/programy/android/android-ndk-r7b/sources/cxx-stl/stlport/stlport/stl/config/stl_confix.h:
 
 D:/programy/android/android-ndk-r7b/sources/cxx-stl/stlport/stlport/stl/config/_native_headers.h:
-
-D:/programy/android/android-ndk-r7b/sources/cxx-stl/stlport/stlport/stl/_epilog.h:
-
-D:/programy/android/android-ndk-r7b/sources/cxx-stl/stlport/stlport/stl/_config_compat_post.h:
-
-jni/wrapper/common.h:
-
-D:/programy/android/android-ndk-r7b/sources/cxx-stl/stlport/stlport/map:
-
-D:/programy/android/android-ndk-r7b/sources/cxx-stl/stlport/stlport/stl/_prolog.h:
 
 D:/programy/android/android-ndk-r7b/sources/cxx-stl/stlport/stlport/stl/debug/_debug.h:
 
@@ -356,6 +347,8 @@ D:/programy/android/android-ndk-r7b/sources/cxx-stl/stlport/stlport/stdio.h:
 
 D:/programy/android/android-ndk-r7b/platforms/android-14/arch-arm/usr/include/../include/stdio.h:
 
+D:/programy/android/android-ndk-r7b/sources/cxx-stl/stlport/stlport/stdarg.h:
+
 D:/programy/android/android-ndk-r7b/sources/cxx-stl/stlport/stlport/stl/_construct.h:
 
 D:/programy/android/android-ndk-r7b/sources/cxx-stl/stlport/stlport/stl/_alloc.c:
@@ -363,6 +356,10 @@ D:/programy/android/android-ndk-r7b/sources/cxx-stl/stlport/stlport/stl/_alloc.c
 D:/programy/android/android-ndk-r7b/sources/cxx-stl/stlport/stlport/stl/_tree.c:
 
 D:/programy/android/android-ndk-r7b/sources/cxx-stl/stlport/stlport/stl/_relops_cont.h:
+
+D:/programy/android/android-ndk-r7b/sources/cxx-stl/stlport/stlport/stl/_epilog.h:
+
+D:/programy/android/android-ndk-r7b/sources/cxx-stl/stlport/stlport/stl/_config_compat_post.h:
 
 jni/btBulletDynamicsCommon.h:
 
@@ -629,3 +626,5 @@ jni/BulletDynamics/Dynamics/btActionInterface.h:
 jni/BulletDynamics/Dynamics/btRigidBody.h:
 
 jni/wrapper/btObjects.h:
+
+D:/programy/android/android-ndk-r7b/platforms/android-14/arch-arm/usr/include/jni.h:
