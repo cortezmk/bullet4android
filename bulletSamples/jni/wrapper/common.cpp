@@ -36,7 +36,7 @@ extern "C"
 	void btQuaternionToJobject(JNIEnv* env, btQuaternion& quat, jobject& obj)
 	{
 		jclass quaternion = env->GetObjectClass(obj);
-		jfieldID v3f = env->GetFieldID(quaternion, "axis", "Lorg/bulletSamples/Vector3;");
+		jfieldID v3f = env->GetFieldID(quaternion, "axis", "Lorg/bulletSamples/geometry/Vector3;");
 		jfieldID af = env->GetFieldID(quaternion, "angle", "F");
 		jobject axis = env->GetObjectField(obj, v3f);
 		jclass vector3 = env->GetObjectClass(axis);
@@ -52,7 +52,7 @@ extern "C"
 	void jobjectToBtQuaternion(JNIEnv* env, jobject& obj, btQuaternion& quat)
 	{
 		jclass quaternion = env->GetObjectClass(obj);
-		jfieldID v3f = env->GetFieldID(quaternion, "axis", "Lorg/bulletSamples/Vector3;");
+		jfieldID v3f = env->GetFieldID(quaternion, "axis", "Lorg/bulletSamples/geometry/Vector3;");
 		jfieldID af = env->GetFieldID(quaternion, "angle", "F");
 		jobject axis = env->GetObjectField(obj, v3f);
 		jclass vector3 = env->GetObjectClass(axis);

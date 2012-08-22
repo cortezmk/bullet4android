@@ -2,8 +2,8 @@ package org.bulletSamples.scene;
 
 import javax.microedition.khronos.opengles.GL10;
 
-import org.bulletSamples.Cube;
-import org.bulletSamples.Vector3;
+import org.bulletSamples.geometry.Cube;
+import org.bulletSamples.geometry.Vector3;
 import org.bulletSamples.physics.CollisionShape;
 import org.bulletSamples.physics.DynamicsWorld;
 

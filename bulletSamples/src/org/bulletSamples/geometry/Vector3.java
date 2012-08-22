@@ -1,4 +1,4 @@
-package org.bulletSamples;
+package org.bulletSamples.geometry;
 
 public class Vector3 {
 	public float x;

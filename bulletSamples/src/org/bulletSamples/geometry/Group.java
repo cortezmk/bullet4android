@@ -1,4 +1,4 @@
-package org.bulletSamples;
+package org.bulletSamples.geometry;
 
 import java.util.Vector;
 import javax.microedition.khronos.opengles.GL10;

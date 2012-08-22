@@ -1,4 +1,4 @@
-package org.bulletSamples;
+package org.bulletSamples.geometry;
 
 import java.nio.*;
 import javax.microedition.khronos.opengles.*;

@@ -1,6 +1,6 @@
 package org.bulletSamples.physics;
 
-import org.bulletSamples.Vector3;
+import org.bulletSamples.geometry.Vector3;
 
 public class UniversalConstraint {
 	public int id;

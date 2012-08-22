@@ -1,4 +1,4 @@
-package org.bulletSamples;
+package org.bulletSamples.geometry;
 
 public class Plane extends Mesh {
  

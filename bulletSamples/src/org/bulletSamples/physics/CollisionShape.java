@@ -1,7 +1,7 @@
 package org.bulletSamples.physics;
 
-import org.bulletSamples.Quaternion;
-import org.bulletSamples.Vector3;
+import org.bulletSamples.geometry.Quaternion;
+import org.bulletSamples.geometry.Vector3;
 
 public class CollisionShape {
 	public enum Shape

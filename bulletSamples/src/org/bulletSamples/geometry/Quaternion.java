@@ -1,4 +1,4 @@
-package org.bulletSamples;
+package org.bulletSamples.geometry;
 
 public class Quaternion {
 	public Vector3 axis;

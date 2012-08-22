@@ -53,7 +53,7 @@ extern "C"
 	JNIEXPORT void Java_org_bulletSamples_physics_CollisionShape_NgetRotation( JNIEnv* env, jobject self, jint id, jobject quat)
 	{
 		jclass quaternion = env->GetObjectClass(quat);
-		jfieldID v3f = env->GetFieldID(quaternion, "axis", "Lorg/bulletSamples/Vector3;");
+		jfieldID v3f = env->GetFieldID(quaternion, "axis", "Lorg/bulletSamples/geometry/Vector3;");
 		jfieldID af = env->GetFieldID(quaternion, "angle", "F");
 		jobject axis = env->GetObjectField(quat, v3f);
 		jclass vector3 = env->GetObjectClass(axis);
@@ -88,7 +88,7 @@ extern "C"
 	JNIEXPORT void Java_org_bulletSamples_physics_CollisionShape_NsetRotation( JNIEnv* env, jobject self, jint id, jobject quat)
 	{
 		jclass quaternion = env->GetObjectClass(quat);
-		jfieldID v3f = env->GetFieldID(quaternion, "axis", "Lorg/bulletSamples/Vector3;");
+		jfieldID v3f = env->GetFieldID(quaternion, "axis", "Lorg/bulletSamples/geometry/Vector3;");
 		jfieldID af = env->GetFieldID(quaternion, "angle", "F");
 		jobject axis = env->GetObjectField(quat, v3f);
 		jclass vector3 = env->GetObjectClass(axis);

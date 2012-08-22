@@ -3,6 +3,8 @@ package org.bulletSamples.scene;
 import javax.microedition.khronos.opengles.GL10;
 
 import org.bulletSamples.*;
+import org.bulletSamples.geometry.Cube;
+import org.bulletSamples.geometry.Vector3;
 import org.bulletSamples.physics.*;
 
 public class NewtonPendulumScene extends BaseScene {
