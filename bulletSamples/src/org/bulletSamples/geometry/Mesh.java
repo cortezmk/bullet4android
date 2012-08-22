@@ -75,6 +75,12 @@ public class Mesh {
     
     public void draw(GL10 gl) {
     	gl.glLoadIdentity();
+    	if(Camera.active != null)
+    	{
+    		gl.glRotatef(-Camera.active.yaw, 0, 1, 0);
+    		gl.glRotatef(-Camera.active.pitch, 1, 0, 0);
+    		gl.glTranslatef(-Camera.active.position.x, -Camera.active.position.y, -Camera.active.position.z);
+    	}
         gl.glTranslatef(x, y, z);
         //gl.glRotatef(rx, 1, 0, 0);
         //gl.glRotatef(ry, 0, 1, 0);

@@ -15,4 +15,9 @@ public class Quaternion {
 		this.axis = axis;
 		this.angle = angle;
 	}
+	
+	public Quaternion negate()
+	{
+		return new Quaternion(axis, -angle);
+	}
 }

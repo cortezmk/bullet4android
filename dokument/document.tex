@@ -82,6 +82,15 @@ TODO
   
   Dodać również należy informację o wykorzystaniu STL w pliku
   Application.mk(który również muisi być dodany do projektu).
+  
+  \lstinputlisting[language=make, caption=Zawartość pliku Application.mk,
+  label=andMake,
+  breaklines=true,numbers=left,frame=single]{./listings/Application.mk}
+  
+  Po tych czynnościach można edytować projekt ze składnią Javy jak i C++,
+  korzystając z autouzupełniania i jednolitej kompilacji. Należy jednak
+  pamiętać, że przy dodawaniu nowego pliku z kodem źródłowym w C++ do folderu
+  jni konieczne jest umieszczenie o nim informacji w Android.mk .
   \subsection{Zbudowanie biblioteki Bullet na platformę ARM.}
 Budowę biblioteki Bullet na platformę Android rozpoczyna się od stworzenia odpowiednika pliku makefile - Android.mk. Należy skopiować źródła bibliotek LinearMath, BulletCollision oraz BulletDynamics do folderu jni w głównym folderze projketu. Następnie dodać do pliku Android.mk informacje o plikach z kodem tych bibliotek, jak to przedstawia listing \ref{andMake}.
 

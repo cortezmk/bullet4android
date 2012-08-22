@@ -1,17 +1,10 @@
 package org.bulletSamples.physics;
 
 import org.bulletSamples.geometry.Quaternion;
+import org.bulletSamples.geometry.Shape;
 import org.bulletSamples.geometry.Vector3;
 
 public class CollisionShape {
-	public enum Shape
-	{
-		Box(0),
-		Sphere(1);
-		private final int index;   
-	    Shape(int index) { this.index = index;}
-	    public int index() { return index; }
-	}
 	public Shape shape;
 	public int id;
 	private native int constructor();

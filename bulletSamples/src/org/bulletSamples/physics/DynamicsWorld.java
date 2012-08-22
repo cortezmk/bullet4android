@@ -1,4 +1,5 @@
 package org.bulletSamples.physics;
+import org.bulletSamples.geometry.Shape;
 import org.bulletSamples.geometry.Vector3;
 
 public class DynamicsWorld {
@@ -35,7 +36,7 @@ public class DynamicsWorld {
 		return shape;
 	}
 	
-	public CollisionShape createShape(CollisionShape.Shape shape, Vector3 pos, float mass)
+	public CollisionShape createShape(Shape shape, Vector3 pos, float mass)
 	{
 		CollisionShape cShape = new CollisionShape();
 		switch(shape)
