@@ -55,7 +55,7 @@ extern "C"
 	{
 		btVector3 btVec;
 		jobjectToBtVector3(env, vec, btVec);
-		((btGeneric6DofSpringConstraint*)btObjects::get(id))->setAngularLowerLimit(btVec);
+		((btGeneric6DofSpringConstraint*)btObjects::get(id))->setAngularUpperLimit(btVec);
 	}
 	
 	JNIEXPORT void Java_org_bulletSamples_physics_Spring_NsetAngularLowerLimit( JNIEnv* env, jobject self, jint id, jobject vec)
