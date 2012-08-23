@@ -5,7 +5,10 @@ public class Box extends Mesh {
 	
 	
     public Box(float width, float height, float depth) {
-        width  /= 2;
+    	this.width = width;
+    	this.height = height;
+    	this.depth = depth;
+    	width  /= 2;
         height /= 2;
         depth  /= 2;
  

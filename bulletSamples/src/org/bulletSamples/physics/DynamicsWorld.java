@@ -1,7 +1,5 @@
 package org.bulletSamples.physics;
-import org.bulletSamples.geometry.Shape;
-import org.bulletSamples.geometry.Vector3;
-
+import org.bulletSamples.geometry.*;
 public class DynamicsWorld {
 	public int id;
 	
@@ -12,8 +10,8 @@ public class DynamicsWorld {
 	native private void NstepSimulation(int id, int timeStep);
 	native private void NgetTransform(int id, Vector3 ret);
 	native private int BlaCreateRigidBody(int id, Vector3 pos);
-	native private int NCreateBox(int id, float mass, Vector3 pos);
-	native private int NCreateSphere(int id, float mass, Vector3 pos);
+	native private int NCreateBox(int id, float mass, Vector3 pos, float width, float height, float depth);
+	native private int NCreateSphere(int id, float mass, Vector3 pos, float radius);
 	
 	native private int Bla0();
 	
@@ -22,32 +20,16 @@ public class DynamicsWorld {
 		id = constructor();
 	}
 	
-	public CollisionShape createShape(Vector3 pos)
+	public CollisionShape createShape(Mesh mesh, Vector3 pos, float mass)
 	{
-		CollisionShape shape = new CollisionShape();
-		shape.id = NCreateBox(id, 1, pos);
-		return shape;
-	}
-	
-	public CollisionShape createShape(Vector3 pos, float mass)
-	{
-		CollisionShape shape = new CollisionShape();
-		shape.id = NCreateBox(id, mass, pos);
-		return shape;
-	}
-	
-	public CollisionShape createShape(Shape shape, Vector3 pos, float mass)
-	{
-		CollisionShape cShape = new CollisionShape();
-		switch(shape)
+		CollisionShape cShape = new CollisionShape(mesh);
+		if(mesh.getClass() == Sphere.class) cShape.id = NCreateSphere(id, mass, pos, ((Sphere)mesh).getRadius());
+		if(mesh.getClass() == Box.class)
 		{
-			case Box:
-				cShape.id = NCreateBox(id, mass, pos);
-				break;
-			case Sphere:
-				cShape.id = NCreateSphere(id, mass, pos);
-				break;	
+			Box box = (Box)mesh;
+			cShape.id = NCreateBox(id, mass, pos, box.getWidth(), box.getHeight(), box.getDepth());
 		}
+		if(cShape.id == Integer.MAX_VALUE) throw new UnsupportedOperationException();
 		return cShape;
 	}
 	

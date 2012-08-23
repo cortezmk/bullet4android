@@ -1,13 +1,18 @@
 package org.bulletSamples.physics;
 
+import javax.microedition.khronos.opengles.GL10;
+
+import org.bulletSamples.geometry.Mesh;
 import org.bulletSamples.geometry.Quaternion;
-import org.bulletSamples.geometry.Shape;
 import org.bulletSamples.geometry.Vector3;
 
 public class CollisionShape {
-	public Shape shape;
+	private Mesh mesh;
+	public Mesh getMesh() {
+		return mesh;
+	}
+
 	public int id;
-	private native int constructor();
 	native private void destructor(int id);
 	native void NgetTranslation(int id, Vector3 vec);
 	native void NsetTranslation(int id, Vector3 vec);
@@ -18,7 +23,11 @@ public class CollisionShape {
 	native void NgetTransform(int id, Vector3 vec, Quaternion quat);
 	native void NsetMass(int id, float mass);
 	
-	public CollisionShape() { id = constructor(); }
+	public CollisionShape(Mesh mesh)
+	{
+		this.mesh = mesh;
+		id = Integer.MAX_VALUE;
+	}
 	
 	public void getTransform(Vector3 vec, Quaternion quat)
 	{
@@ -62,6 +71,12 @@ public class CollisionShape {
 	public void setMass(float mass)
 	{
 		NsetMass(id, mass);
+	}
+	
+	public void render(GL10 gl)
+	{
+		mesh.applyTransform(this);
+		mesh.render(gl);
 	}
 	
 	protected void finalize() throws Throwable

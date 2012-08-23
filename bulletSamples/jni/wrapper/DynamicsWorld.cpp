@@ -21,10 +21,10 @@ extern "C"
 		return btObjects::put(dynamicsWorld);
 	}
 	
-	JNIEXPORT int Java_org_bulletSamples_physics_DynamicsWorld_NCreateBox( JNIEnv* env, jobject self, jint idDynamicsWorld, jfloat mass, jobject position )
+	JNIEXPORT int Java_org_bulletSamples_physics_DynamicsWorld_NCreateBox( JNIEnv* env, jobject self, jint idDynamicsWorld, jfloat mass, jobject position, jfloat width, jfloat height, jfloat depth )
 	{
 		btDiscreteDynamicsWorld* dynamicsWorld = ((btDiscreteDynamicsWorld*)btObjects::get(idDynamicsWorld));
-		btCollisionShape* fallShape = new btBoxShape(btVector3(.5f, .5f, .5f));
+		btCollisionShape* fallShape = new btBoxShape(btVector3(width/2.0f, height/2.0f, depth/2.0f));
 		btVector3 btPosition;
 		jobjectToBtVector3(env, position, btPosition);
 		btDefaultMotionState* fallMotionState = new btDefaultMotionState(btTransform(btQuaternion(0,0,0,1),btPosition));
@@ -36,10 +36,10 @@ extern "C"
 		return btObjects::put(fallRigidBody);
 	}
 	
-	JNIEXPORT int Java_org_bulletSamples_physics_DynamicsWorld_NCreateSphere( JNIEnv* env, jobject self, jint idDynamicsWorld, jfloat mass, jobject position )
+	JNIEXPORT int Java_org_bulletSamples_physics_DynamicsWorld_NCreateSphere( JNIEnv* env, jobject self, jint idDynamicsWorld, jfloat mass, jobject position, jfloat radius )
 	{
 		btDiscreteDynamicsWorld* dynamicsWorld = ((btDiscreteDynamicsWorld*)btObjects::get(idDynamicsWorld));
-		btCollisionShape* fallShape = new btSphereShape(.5f);
+		btCollisionShape* fallShape = new btSphereShape(radius);
 		btVector3 btPosition;
 		jobjectToBtVector3(env, position, btPosition);
 		btDefaultMotionState* fallMotionState = new btDefaultMotionState(btTransform(btQuaternion(0,0,0,1),btPosition));

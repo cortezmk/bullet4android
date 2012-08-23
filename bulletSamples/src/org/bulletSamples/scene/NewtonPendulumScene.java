@@ -4,7 +4,6 @@ import javax.microedition.khronos.opengles.GL10;
 
 import org.bulletSamples.*;
 import org.bulletSamples.geometry.Box;
-import org.bulletSamples.geometry.Shape;
 import org.bulletSamples.geometry.Sphere;
 import org.bulletSamples.geometry.Vector3;
 import org.bulletSamples.physics.*;
@@ -18,15 +17,16 @@ public class NewtonPendulumScene extends BaseScene {
 	
 	public void create()
 	{
+		sphere = new Sphere(.5f);
 		boxes = new CollisionShape[] {
-			dw.createShape(Shape.Sphere, new Vector3(0f,7,-20), 0),
-			dw.createShape(Shape.Sphere, new Vector3(0f,2,-20), 10),
-			dw.createShape(Shape.Sphere, new Vector3(1f,7,-20), 0),
-			dw.createShape(Shape.Sphere, new Vector3(1f,2,-20), 10),
-			dw.createShape(Shape.Sphere, new Vector3(-1f,7,-20), 0),
-			dw.createShape(Shape.Sphere, new Vector3(-1f,2,-20), 10),
-			dw.createShape(Shape.Sphere, new Vector3(2f,7,-20), 0),
-			dw.createShape(Shape.Sphere, new Vector3(2f,2f,-20), 10)
+			dw.createShape(sphere, new Vector3(0f,7,-20), 0),
+			dw.createShape(sphere, new Vector3(0f,2,-20), 10),
+			dw.createShape(sphere, new Vector3(1f,7,-20), 0),
+			dw.createShape(sphere, new Vector3(1f,2,-20), 10),
+			dw.createShape(sphere, new Vector3(-1f,7,-20), 0),
+			dw.createShape(sphere, new Vector3(-1f,2,-20), 10),
+			dw.createShape(sphere, new Vector3(2f,7,-20), 0),
+			dw.createShape(sphere, new Vector3(2f,2f,-20), 10)
 		};
 		boxes[5].applyCentralForce(new Vector3(-2000,0,0));
 		constraints = new UniversalConstraint[boxes.length/2];
@@ -37,14 +37,13 @@ public class NewtonPendulumScene extends BaseScene {
 	   		uc.setUpperLimit((float)(Math.PI / 2.0), (float)(Math.PI / 2.0));
 			constraints[i/2] = uc;
 		}
-		sphere = new Sphere(1f);
 	}
 	
 	public void render(GL10 gl)
 	{
 		for(int i = 0; i < boxes.length; i++)
 		{
-			sphere.applyTransformAndRender(boxes[i], gl);
+			boxes[i].render(gl);
 		}
 	}
 }

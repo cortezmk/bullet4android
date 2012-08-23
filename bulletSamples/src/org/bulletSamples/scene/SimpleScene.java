@@ -20,17 +20,15 @@ public class SimpleScene extends BaseScene {
 	
 	public void create()
 	{
-		box = dw.createShape(new Vector3(0, 1, -20));
-		box2 = dw.createShape(new Vector3(.5f, 7, -20));
 		cube = new Box(1,1,1);
 		cube2 = new Box(1,1,1);
+		box = dw.createShape(cube, new Vector3(0, 1, -20), 1);
+		box2 = dw.createShape(cube2, new Vector3(.5f, 7, -20), 1);
 	}
 	
 	public void render(GL10 gl)
 	{
-		cube.applyTransform(box);
-		cube.render(gl);
-		cube2.applyTransform(box2);
-		cube2.render(gl);
+		box.render(gl);
+		box2.render(gl);
 	}
 }

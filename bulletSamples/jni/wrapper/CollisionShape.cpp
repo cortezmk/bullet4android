@@ -2,20 +2,6 @@
 
 extern "C"
 {
-	JNIEXPORT jint Java_org_bulletSamples_physics_CollisionShape_constructor( JNIEnv* env, jobject self )
-	{
-		btCollisionShape* shape = new btBoxShape(btVector3(.5f, .5f, .5f));
-		btScalar mass = 1;
-		btVector3 inertia(0,0,0);
-		btDefaultMotionState* motionState = new btDefaultMotionState(btTransform(btQuaternion(0,0,0,0),btVector3(0,2,-15)));
-		btVector3 fallInertia(0,0,0);
-		shape->calculateLocalInertia(mass,fallInertia);
-		btRigidBody::btRigidBodyConstructionInfo rigidBodyCI(mass,motionState,shape,inertia);
-        btRigidBody* rigidBody = new btRigidBody(rigidBodyCI);
-		//rigidBody->setActivationState(ISLAND_SLEEPING);
-		return btObjects::put(rigidBody);
-	}
-	
 	JNIEXPORT void Java_org_bulletSamples_physics_CollisionShape_destructor( JNIEnv* env, jobject self )
 	{
 	}

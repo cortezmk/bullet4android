@@ -184,10 +184,4 @@ public class Mesh {
     	body.getTransform(vec, quat);
     	setTransform(vec, quat);
     }
-    
-    public void applyTransformAndRender(CollisionShape body, GL10 gl)
-    {
-    	applyTransform(body);
-    	render(gl);
-    }
 }
