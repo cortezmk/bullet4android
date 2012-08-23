@@ -3,8 +3,9 @@ package org.bulletSamples.scene;
 import javax.microedition.khronos.opengles.GL10;
 
 import org.bulletSamples.*;
-import org.bulletSamples.geometry.Cube;
+import org.bulletSamples.geometry.Box;
 import org.bulletSamples.geometry.Shape;
+import org.bulletSamples.geometry.Sphere;
 import org.bulletSamples.geometry.Vector3;
 import org.bulletSamples.physics.*;
 
@@ -13,7 +14,7 @@ public class NewtonPendulumScene extends BaseScene {
 
 	protected CollisionShape[] boxes;
 	protected UniversalConstraint[] constraints;
-	protected Cube cube;
+	protected Sphere sphere;
 	
 	public void create()
 	{
@@ -36,15 +37,14 @@ public class NewtonPendulumScene extends BaseScene {
 	   		uc.setUpperLimit((float)(Math.PI / 2.0), (float)(Math.PI / 2.0));
 			constraints[i/2] = uc;
 		}
-		cube = new Cube(1, 1, 1);
+		sphere = new Sphere(1f);
 	}
 	
 	public void render(GL10 gl)
 	{
 		for(int i = 0; i < boxes.length; i++)
 		{
-			cube.applyTransform(boxes[i]);
-			cube.draw(gl);
+			sphere.applyTransformAndRender(boxes[i], gl);
 		}
 	}
 }

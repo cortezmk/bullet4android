@@ -1,8 +1,10 @@
 package org.bulletSamples.geometry;
 
-public class Cube extends Mesh {
+public class Box extends Mesh {
+	private float width, height, depth;
 	
-    public Cube(float width, float height, float depth) {
+	
+    public Box(float width, float height, float depth) {
         width  /= 2;
         height /= 2;
         depth  /= 2;
@@ -32,21 +34,6 @@ public class Cube extends Mesh {
         		3, 1, 2,
         		};
         
-        /*float[] normals = {
-        	0, -1, 0,
-        	0, -1, 0,
-        	1, 0, 0,
-        	1, 0, 0,
-        	0, 1, 0,
-        	0, 1, 0,
-        	-1, 0, 0,
-        	-1, 0, 0,
-        	0, 0, -1,
-        	0, 0, -1,
-        	0, 0, 1,
-        	0, 0, 1,
-        };*/
-        
         float l = (float) Math.sqrt(Math.sqrt(2) + 1);
         
         float[] normals = { -l, -l, -l, // 0
@@ -61,7 +48,21 @@ public class Cube extends Mesh {
  
         setIndices(indices);
         setVertices(vertices);
-        //calculateNormals();
         setNormals(normals);
     }
+
+
+	public float getWidth() {
+		return width;
+	}
+
+
+	public float getHeight() {
+		return height;
+	}
+
+
+	public float getDepth() {
+		return depth;
+	}
 }

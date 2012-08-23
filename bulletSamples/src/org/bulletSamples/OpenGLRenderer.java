@@ -41,9 +41,9 @@ public class OpenGLRenderer implements Renderer {
 		
 		lastTime = Calendar.getInstance().getTimeInMillis();
    		phys = new DynamicsWorld();
-   		//scene = new NewtonPendulumScene(phys);
+   		scene = new NewtonPendulumScene(phys);
    		//scene = new SimpleScene(phys);
-   		scene = new SimpleSphereScene(phys);
+   		//scene = new SimpleSphereScene(phys);
    		scene.create();
 	}
 

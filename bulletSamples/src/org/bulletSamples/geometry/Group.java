@@ -7,10 +7,10 @@ public class Group extends Mesh {
     private Vector<Mesh> children = new Vector<Mesh>();
  
     @Override
-    public void draw(GL10 gl) {
+    public void render(GL10 gl) {
         int size = children.size();
         for( int i = 0; i < size; i++)
-            children.get(i).draw(gl);
+            children.get(i).render(gl);
     }
  
     public void add(int location, Mesh object) {

@@ -73,7 +73,7 @@ public class Mesh {
     	normalBuffer.position(0);
     }
     
-    public void draw(GL10 gl) {
+    public void render(GL10 gl) {
     	gl.glLoadIdentity();
     	if(Camera.active != null)
     	{
@@ -183,5 +183,11 @@ public class Mesh {
     	Quaternion quat = new Quaternion();
     	body.getTransform(vec, quat);
     	setTransform(vec, quat);
+    }
+    
+    public void applyTransformAndRender(CollisionShape body, GL10 gl)
+    {
+    	applyTransform(body);
+    	render(gl);
     }
 }
