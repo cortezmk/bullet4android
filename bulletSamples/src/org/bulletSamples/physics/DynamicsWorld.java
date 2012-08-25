@@ -10,8 +10,8 @@ public class DynamicsWorld {
 	native private void NstepSimulation(int id, int timeStep);
 	native private void NgetTransform(int id, Vector3 ret);
 	native private int BlaCreateRigidBody(int id, Vector3 pos);
-	native private int NCreateBox(int id, float mass, Vector3 pos, float width, float height, float depth);
-	native private int NCreateSphere(int id, float mass, Vector3 pos, float radius);
+	native private void NCreateBox(CollisionShape cs, float mass, Vector3 pos, float width, float height, float depth);
+	native private void NCreateSphere(CollisionShape cs, float mass, Vector3 pos, float radius);
 	
 	native private int Bla0();
 	
@@ -23,11 +23,11 @@ public class DynamicsWorld {
 	public CollisionShape createShape(Mesh mesh, Vector3 pos, float mass)
 	{
 		CollisionShape cShape = new CollisionShape(mesh);
-		if(mesh.getClass() == Sphere.class) cShape.id = NCreateSphere(id, mass, pos, ((Sphere)mesh).getRadius());
+		if(mesh.getClass() == Sphere.class) NCreateSphere(cShape, mass, pos, ((Sphere)mesh).getRadius());
 		if(mesh.getClass() == Box.class)
 		{
 			Box box = (Box)mesh;
-			cShape.id = NCreateBox(id, mass, pos, box.getWidth(), box.getHeight(), box.getDepth());
+			NCreateBox(cShape, mass, pos, box.getWidth(), box.getHeight(), box.getDepth());
 		}
 		if(cShape.id == Integer.MAX_VALUE) throw new UnsupportedOperationException();
 		return cShape;

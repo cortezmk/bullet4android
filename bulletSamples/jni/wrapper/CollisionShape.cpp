@@ -4,6 +4,9 @@ extern "C"
 {
 	JNIEXPORT void Java_org_bulletSamples_physics_CollisionShape_destructor( JNIEnv* env, jobject self )
 	{
+		removeNamedObject<btRigidBody>(env, self, "id");
+		removeNamedObject<btDefaultMotionState>(env, self, "idMState");
+		removeNamedObject<btCollisionShape>(env, self, "idShape");
 	}
 	
 	JNIEXPORT void Java_org_bulletSamples_physics_CollisionShape_NsetMass( JNIEnv* env, jobject self, jint idRigidBody, jfloat mass )

@@ -53,7 +53,7 @@ public class OpenGLRenderer implements Renderer {
 		long timeElapsed = Calendar.getInstance().getTimeInMillis() - lastTime;
 		lastTime = Calendar.getInstance().getTimeInMillis();
 		phys.stepSimulation((int)timeElapsed);
-		gl.glClearColor(1.0f, 0.0f, 0.0f, 0.5f);
+		gl.glClearColor(.5f, .7f, 1.0f, 1.0f);
 		gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
 		scene.render(gl);
 	}

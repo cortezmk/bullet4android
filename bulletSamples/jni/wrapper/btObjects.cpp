@@ -15,3 +15,8 @@ void* btObjects::get(int p)
 {
 	return (*pointer_map)[p];
 }
+
+void btObjects::remove(int p)
+{
+	(*pointer_map).erase((*pointer_map).find(p));
+}

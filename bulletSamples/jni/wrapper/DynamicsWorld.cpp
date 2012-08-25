@@ -21,35 +21,39 @@ extern "C"
 		return btObjects::put(dynamicsWorld);
 	}
 	
-	JNIEXPORT int Java_org_bulletSamples_physics_DynamicsWorld_NCreateBox( JNIEnv* env, jobject self, jint idDynamicsWorld, jfloat mass, jobject position, jfloat width, jfloat height, jfloat depth )
+	JNIEXPORT void Java_org_bulletSamples_physics_DynamicsWorld_NCreateBox( JNIEnv* env, jobject self, jobject collisionShape, jfloat mass, jobject position, jfloat width, jfloat height, jfloat depth )
 	{
-		btDiscreteDynamicsWorld* dynamicsWorld = ((btDiscreteDynamicsWorld*)btObjects::get(idDynamicsWorld));
+		btDiscreteDynamicsWorld* dynamicsWorld = getObject<btDiscreteDynamicsWorld>(env, self);
 		btCollisionShape* fallShape = new btBoxShape(btVector3(width/2.0f, height/2.0f, depth/2.0f));
+		setNamedObject(env, collisionShape, "idShape", fallShape);
 		btVector3 btPosition;
 		jobjectToBtVector3(env, position, btPosition);
 		btDefaultMotionState* fallMotionState = new btDefaultMotionState(btTransform(btQuaternion(0,0,0,1),btPosition));
+		setNamedObject(env, collisionShape, "idMState", fallMotionState);
         btVector3 fallInertia(0,0,0);
         fallShape->calculateLocalInertia(mass,fallInertia);
         btRigidBody::btRigidBodyConstructionInfo fallRigidBodyCI(mass,fallMotionState,fallShape,fallInertia);
         btRigidBody* fallRigidBody = new btRigidBody(fallRigidBodyCI);
         dynamicsWorld->addRigidBody(fallRigidBody);
-		return btObjects::put(fallRigidBody);
+        putObject(env, collisionShape, fallRigidBody);
 	}
 	
-	JNIEXPORT int Java_org_bulletSamples_physics_DynamicsWorld_NCreateSphere( JNIEnv* env, jobject self, jint idDynamicsWorld, jfloat mass, jobject position, jfloat radius )
+	JNIEXPORT void Java_org_bulletSamples_physics_DynamicsWorld_NCreateSphere( JNIEnv* env, jobject self, jobject collisionShape, jfloat mass, jobject position, jfloat radius )
 	{
-		btDiscreteDynamicsWorld* dynamicsWorld = ((btDiscreteDynamicsWorld*)btObjects::get(idDynamicsWorld));
+		btDiscreteDynamicsWorld* dynamicsWorld = getObject<btDiscreteDynamicsWorld>(env, self);
 		btCollisionShape* fallShape = new btSphereShape(radius);
+		setNamedObject(env, collisionShape, "idShape", fallShape);
 		btVector3 btPosition;
 		jobjectToBtVector3(env, position, btPosition);
 		btDefaultMotionState* fallMotionState = new btDefaultMotionState(btTransform(btQuaternion(0,0,0,1),btPosition));
+		setNamedObject(env, collisionShape, "idMState", fallMotionState);
         btVector3 fallInertia(0,0,0);
         fallShape->calculateLocalInertia(mass,fallInertia);
         btRigidBody::btRigidBodyConstructionInfo fallRigidBodyCI(mass,fallMotionState,fallShape,fallInertia);
         btRigidBody* fallRigidBody = new btRigidBody(fallRigidBodyCI);
 		fallRigidBody->setRestitution(1);
         dynamicsWorld->addRigidBody(fallRigidBody);
-		return btObjects::put(fallRigidBody);
+        putObject(env, collisionShape, fallRigidBody);
 	}
 	
 	JNIEXPORT void Java_org_bulletSamples_physics_DynamicsWorld_destructor( JNIEnv* env, jobject self )

@@ -13,6 +13,8 @@ public class CollisionShape {
 	}
 
 	public int id;
+	private int idShape;
+	private int idMState;
 	native private void destructor(int id);
 	native void NgetTranslation(int id, Vector3 vec);
 	native void NsetTranslation(int id, Vector3 vec);

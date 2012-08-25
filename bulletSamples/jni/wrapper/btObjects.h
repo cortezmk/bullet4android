@@ -8,6 +8,7 @@ extern "C"
 		
 		static int put(void* p);
 		static void* get(int p);
+		static void remove(int p);
 	};
 }
 
