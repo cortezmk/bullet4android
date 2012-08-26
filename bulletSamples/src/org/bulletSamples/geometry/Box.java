@@ -1,10 +1,13 @@
 package org.bulletSamples.geometry;
 
+import android.annotation.SuppressLint;
+
 public class Box extends Mesh {
 	private float width, height, depth;
 	
 	
-    public Box(float width, float height, float depth) {
+    @SuppressLint("FloatMath")
+	public Box(float width, float height, float depth) {
     	this.width = width;
     	this.height = height;
     	this.depth = depth;

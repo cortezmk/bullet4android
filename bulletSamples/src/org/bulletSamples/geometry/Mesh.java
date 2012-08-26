@@ -142,7 +142,7 @@ public class Mesh {
 		numOfIndices = indices.length;
     }
  
-    protected void setColor(float red, float green, float blue, float alpha) {
+    public void setColor(float red, float green, float blue, float alpha) {
         // Setting the flat color.
         rgba[0] = red;
         rgba[1] = green;

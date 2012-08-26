@@ -2,11 +2,11 @@ package org.bulletSamples.scene;
 
 import javax.microedition.khronos.opengles.GL10;
 
-import org.bulletSamples.*;
-import org.bulletSamples.geometry.Box;
 import org.bulletSamples.geometry.Sphere;
 import org.bulletSamples.geometry.Vector3;
-import org.bulletSamples.physics.*;
+import org.bulletSamples.physics.CollisionShape;
+import org.bulletSamples.physics.DynamicsWorld;
+import org.bulletSamples.physics.UniversalConstraint;
 
 public class NewtonPendulumScene extends BaseScene {
 	public NewtonPendulumScene(DynamicsWorld dw) { super(dw); }
