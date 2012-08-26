@@ -6,21 +6,40 @@ extern "C"
 	JNIEXPORT jint Java_org_bulletSamples_physics_DynamicsWorld_constructor( JNIEnv* env, jobject self )
 	{
 		btBroadphaseInterface* broadphase = new btDbvtBroadphase();
+		setNamedObject(env, self, "idBrodaphase", broadphase);
         btDefaultCollisionConfiguration* collisionConfiguration = new btDefaultCollisionConfiguration();
+        setNamedObject(env, self, "idConfiguration", collisionConfiguration);
         btCollisionDispatcher* dispatcher = new btCollisionDispatcher(collisionConfiguration);
+        setNamedObject(env, self, "idDispatcher", dispatcher);
         btSequentialImpulseConstraintSolver* solver = new btSequentialImpulseConstraintSolver;
+        setNamedObject(env, self, "idSolver", solver);
         btDiscreteDynamicsWorld* dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher,broadphase,solver,collisionConfiguration);
         dynamicsWorld->setGravity(btVector3(0,-10,0));
         btCollisionShape* groundShape = new btStaticPlaneShape(btVector3(0,1,0),1);
+        setNamedObject(env, self, "idGShape", groundShape);
  
         btDefaultMotionState* groundMotionState = new btDefaultMotionState(btTransform(btQuaternion(0,0,0,1),btVector3(0,-1,0)));
+        setNamedObject(env, self, "idGMState", groundMotionState);
         btRigidBody::btRigidBodyConstructionInfo
             groundRigidBodyCI(0,groundMotionState,groundShape,btVector3(0,0,0));
         btRigidBody* groundRigidBody = new btRigidBody(groundRigidBodyCI);
+        setNamedObject(env, self, "idGRbody", groundRigidBody);
         dynamicsWorld->addRigidBody(groundRigidBody);
 		return btObjects::put(dynamicsWorld);
 	}
 	
+	JNIEXPORT void Java_org_bulletSamples_physics_DynamicsWorld_destructor( JNIEnv* env, jobject self )
+	{
+		removeNamedObject<btRigidBody>(env, self, "idGRbody");
+		removeNamedObject<btDefaultMotionState>(env, self, "idGMState");
+		removeNamedObject<btDiscreteDynamicsWorld>(env, self, "id");
+		removeNamedObject<btCollisionShape>(env, self, "idGShape");
+		removeNamedObject<btSequentialImpulseConstraintSolver>(env, self, "idSolver");
+		removeNamedObject<btCollisionDispatcher>(env, self, "idDispatcher");
+		removeNamedObject<btDefaultCollisionConfiguration>(env, self, "idConfiguration");
+		removeNamedObject<btBroadphaseInterface>(env, self, "idBrodaphase");
+	}
+
 	JNIEXPORT void Java_org_bulletSamples_physics_DynamicsWorld_NCreateBox( JNIEnv* env, jobject self, jobject collisionShape, jfloat mass, jobject position, jfloat width, jfloat height, jfloat depth )
 	{
 		btDiscreteDynamicsWorld* dynamicsWorld = getObject<btDiscreteDynamicsWorld>(env, self);
@@ -54,11 +73,6 @@ extern "C"
 		fallRigidBody->setRestitution(1);
         dynamicsWorld->addRigidBody(fallRigidBody);
         putObject(env, collisionShape, fallRigidBody);
-	}
-	
-	JNIEXPORT void Java_org_bulletSamples_physics_DynamicsWorld_destructor( JNIEnv* env, jobject self )
-	{
-	
 	}
 	
 	JNIEXPORT void Java_org_bulletSamples_physics_DynamicsWorld_NsetGravity( JNIEnv* env, jobject self, jint id, jfloat x, jfloat y, jfloat z )

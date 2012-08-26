@@ -15,7 +15,7 @@ public class CollisionShape {
 	public int id;
 	private int idShape;
 	private int idMState;
-	native private void destructor(int id);
+	native private void destructor();
 	native void NgetTranslation(int id, Vector3 vec);
 	native void NsetTranslation(int id, Vector3 vec);
 	native void NgetRotation(int id, Quaternion q);
@@ -83,7 +83,7 @@ public class CollisionShape {
 	
 	protected void finalize() throws Throwable
 	{
-		destructor(id);
+		destructor();
 		super.finalize();
 	}
 }

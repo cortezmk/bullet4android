@@ -17,6 +17,11 @@ extern "C"
 		return btObjects::put(spring);
 	}
 	
+	JNIEXPORT void Java_org_bulletSamples_physics_Spring_destructor( JNIEnv* env, jobject self )
+	{
+		removeNamedObject<btGeneric6DofSpringConstraint>(env, self, "id");
+	}
+
 	JNIEXPORT void Java_org_bulletSamples_physics_Spring_Nenable( JNIEnv* env, jobject self, jint id, jint index, jboolean enable)
 	{
 		((btGeneric6DofSpringConstraint*)btObjects::get(id))->enableSpring(index, enable);

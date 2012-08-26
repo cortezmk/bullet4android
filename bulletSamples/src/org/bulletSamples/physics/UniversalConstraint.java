@@ -9,6 +9,7 @@ public class UniversalConstraint {
 	private native void NsetUpperLimit(int id, float ang1max, float ang2max);
 	private native void NsetLowerLimit(int id, float ang1min, float ang2min);
 	private native void NsetAxis(int id, Vector3 axis1, Vector3 axis2);
+	private native void destructor();
 	
 	public UniversalConstraint(DynamicsWorld dw, CollisionShape shape1, CollisionShape shape2, Vector3 anchor, Vector3 axis1, Vector3 axis2)
 	{
@@ -28,5 +29,11 @@ public class UniversalConstraint {
 	public void setAxis(Vector3 axis1, Vector3 axis2)
 	{
 		NsetAxis(id, axis1, axis2);
+	}
+	
+	protected void finalize() throws Throwable
+	{
+		destructor();
+		super.finalize();
 	}
 }

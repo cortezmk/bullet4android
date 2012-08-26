@@ -16,6 +16,11 @@ extern "C"
 		return btObjects::put(constraint);
 	}
 	
+	JNIEXPORT void Java_org_bulletSamples_physics_UniversalConstraint_destructor( JNIEnv* env, jobject self )
+	{
+		removeNamedObject<btUniversalConstraint>(env, self, "id");
+	}
+
 	JNIEXPORT void Java_org_bulletSamples_physics_UniversalConstraint_NsetUpperLimit( JNIEnv* env, jobject self, jint id, jfloat ang1max, jfloat ang2max)
 	{
 		((btUniversalConstraint*)btObjects::get(id))->setUpperLimit(ang1max, ang2max);

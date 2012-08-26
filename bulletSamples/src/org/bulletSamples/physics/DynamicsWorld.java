@@ -2,9 +2,10 @@ package org.bulletSamples.physics;
 import org.bulletSamples.geometry.*;
 public class DynamicsWorld {
 	public int id;
+	private int idGRbody, idGMState, idGShape, idSolver, idDispatcher, idConfiguration, idBrodaphase;
 	
 	native private int constructor();
-	native private void destructor(int id);
+	native private void destructor();
 	native private void NsetGravity(int id, float x, float y, float z);
 	native private void NaddBoxShape(int id, int idShape);
 	native private void NstepSimulation(int id, int timeStep);
@@ -35,7 +36,7 @@ public class DynamicsWorld {
 	
 	protected void finalize() throws Throwable
 	{
-		destructor(id);
+		destructor();
 		super.finalize();
 	}
 	

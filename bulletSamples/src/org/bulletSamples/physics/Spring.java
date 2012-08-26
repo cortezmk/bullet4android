@@ -13,6 +13,7 @@ public class Spring {
 	private native void NsetLinearLowerLimit(int id, Vector3 vec);
 	private native void NsetAngularUpperLimit(int id, Vector3 vec);
 	private native void NsetAngularLowerLimit(int id, Vector3 vec);
+	private native void destructor();
 	
 	public Spring(DynamicsWorld dw, CollisionShape rb1, CollisionShape rb2, Vector3 frameA, Vector3 frameB, boolean linear)
 	{
@@ -57,5 +58,11 @@ public class Spring {
 	public void setAnglarLowerLimit(Vector3 vec)
 	{
 		NsetAngularLowerLimit(id, vec);
+	}
+	
+	protected void finalize() throws Throwable
+	{
+		destructor();
+		super.finalize();
 	}
 }
