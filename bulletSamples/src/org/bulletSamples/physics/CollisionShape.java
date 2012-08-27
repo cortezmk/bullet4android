@@ -23,7 +23,13 @@ public class CollisionShape {
 	native void NapplyCentralForce(int id, Vector3 vec);
 	native void NapplyTorque(int id, Vector3 vec);
 	native void NgetTransform(int id, Vector3 vec, Quaternion quat);
-	native void NsetMass(int id, float mass);
+	//native void NsetMass(int id, float mass);
+	native void NsetRestitution(int id, float value);
+	native void NsetFriction(int id, float value);
+	native void NsetLinearVelocity(int id, Vector3 value);
+	native void NsetAngularVelocity(int id, Vector3 value);
+	native void NgetLinearVelocity(int id, Vector3 value);
+	native void NgetAngularVelocity(int id, Vector3 value);
 	
 	public CollisionShape(Mesh mesh)
 	{
@@ -70,15 +76,44 @@ public class CollisionShape {
 		NapplyCentralForce(id, vec);
 	}
 	
-	public void setMass(float mass)
-	{
-		NsetMass(id, mass);
-	}
-	
 	public void render(GL10 gl)
 	{
 		mesh.applyTransform(this);
 		mesh.render(gl);
+	}
+	
+	public void setRestitution(float value)
+	{
+		NsetRestitution(id, value);
+	}
+	
+	public void setFriction(float value)
+	{
+		NsetFriction(id, value);
+	}
+	
+	public void setLinearVelocity(Vector3 value)
+	{
+		NsetLinearVelocity(id, value);
+	}
+	
+	public void setAngularVelocity(Vector3 value)
+	{
+		NsetAngularVelocity(id, value);
+	}
+	
+	public Vector3 getLinearVelocity()
+	{
+		Vector3 value = new Vector3();
+		NgetLinearVelocity(id, value);
+		return value;
+	}
+	
+	public Vector3 getAngularVelocity()
+	{
+		Vector3 value = new Vector3();
+		NgetAngularVelocity(id, value);
+		return value;
 	}
 	
 	protected void finalize() throws Throwable

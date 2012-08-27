@@ -70,7 +70,6 @@ extern "C"
         fallShape->calculateLocalInertia(mass,fallInertia);
         btRigidBody::btRigidBodyConstructionInfo fallRigidBodyCI(mass,fallMotionState,fallShape,fallInertia);
         btRigidBody* fallRigidBody = new btRigidBody(fallRigidBodyCI);
-		fallRigidBody->setRestitution(1);
         dynamicsWorld->addRigidBody(fallRigidBody);
         putObject(env, collisionShape, fallRigidBody);
 	}

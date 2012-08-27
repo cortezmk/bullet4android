@@ -28,6 +28,7 @@ public class NewtonPendulumScene extends BaseScene {
 			dw.createShape(sphere, new Vector3(2f,7,-20), 0),
 			dw.createShape(sphere, new Vector3(2f,2f,-20), 10)
 		};
+		for(int i = 0; i < boxes.length; i++) boxes[i].setRestitution(.95f);
 		boxes[5].applyCentralForce(new Vector3(-2000,0,0));
 		constraints = new UniversalConstraint[boxes.length/2];
 		for(int i = 0; i < boxes.length-1; i+=2)

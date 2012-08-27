@@ -120,4 +120,40 @@ extern "C"
 		z = env->GetFloatField(vec, zf);
 		((btRigidBody*)btObjects::get(id))->applyTorque(btVector3(x, y, z));
 	}
+
+	JNIEXPORT void Java_org_bulletSamples_physics_CollisionShape_NsetRestitution( JNIEnv* env, jobject self, jint id, jfloat value)
+	{
+		((btRigidBody*)btObjects::get(id))->setRestitution(value);
+	}
+
+	JNIEXPORT void Java_org_bulletSamples_physics_CollisionShape_NsetFriction( JNIEnv* env, jobject self, jint id, jfloat value)
+	{
+		((btRigidBody*)btObjects::get(id))->setFriction(value);
+	}
+
+	JNIEXPORT void Java_org_bulletSamples_physics_CollisionShape_NsetLinearVelocity( JNIEnv* env, jobject self, jint id, jobject value)
+	{
+		btVector3 vec;
+		jobjectToBtVector3(env, value, vec);
+		((btRigidBody*)btObjects::get(id))->setLinearVelocity(vec);
+	}
+
+	JNIEXPORT void Java_org_bulletSamples_physics_CollisionShape_NsetAngularVelocity( JNIEnv* env, jobject self, jint id, jobject value)
+	{
+		btVector3 vec;
+		jobjectToBtVector3(env, value, vec);
+		((btRigidBody*)btObjects::get(id))->setAngularVelocity(vec);
+	}
+
+	JNIEXPORT void Java_org_bulletSamples_physics_CollisionShape_NgetLinearVelocity( JNIEnv* env, jobject self, jint id, jobject value)
+	{
+		btVector3 vec = ((btRigidBody*)btObjects::get(id))->getLinearVelocity();
+		btVector3ToJobject(env, vec, value);
+	}
+
+	JNIEXPORT void Java_org_bulletSamples_physics_CollisionShape_NgetAngularVelocity( JNIEnv* env, jobject self, jint id, jobject value)
+	{
+		btVector3 vec = ((btRigidBody*)btObjects::get(id))->getAngularVelocity();
+		btVector3ToJobject(env, vec, value);
+	}
 }
