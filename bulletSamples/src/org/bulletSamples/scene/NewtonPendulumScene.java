@@ -2,6 +2,7 @@ package org.bulletSamples.scene;
 
 import javax.microedition.khronos.opengles.GL10;
 
+import org.bulletSamples.Accelerometer;
 import org.bulletSamples.geometry.Sphere;
 import org.bulletSamples.geometry.Vector3;
 import org.bulletSamples.physics.CollisionShape;
@@ -42,6 +43,7 @@ public class NewtonPendulumScene extends BaseScene {
 	
 	public void render(GL10 gl)
 	{
+		dw.setGravity(Accelerometer.gravity);
 		for(int i = 0; i < boxes.length; i++)
 		{
 			boxes[i].render(gl);

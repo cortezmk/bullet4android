@@ -54,4 +54,19 @@ public class Vector3 {
 	{
 		return add(other.negate());
 	}
+	
+	public Vector3 multiply(float scalar)
+	{
+		return new Vector3(x*scalar, y*scalar, z*scalar);
+	}
+	
+	public Vector3 rotate(Quaternion q)
+	{
+		if(q.axis.x == 0 && q.axis.y == 0 && q.axis.z == 0) return new Vector3(1,0,0);
+		Vector3 axis = q.axis.normalize();
+		Vector3 o = axis.multiply(axis.dot(this));
+		Vector3 x = this.subtract(o);
+		Vector3 y = axis.cross(this);
+		return o.add(x.multiply((float)Math.cos(q.angle))).add(y.multiply((float)Math.sin(q.angle)));
+	}
 }

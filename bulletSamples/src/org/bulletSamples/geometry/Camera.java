@@ -16,13 +16,10 @@ public class Camera {
 		this.pitch = pitch;
 	}
 	
-	public void lookAt(Vector3 target)
-	{
-		throw new UnsupportedOperationException();
-	}
-	
 	public float yaw = 0;
 	public float pitch = 0;
 	public Vector3 position;
 	public Quaternion rotation;
+	public Vector3 target = new Vector3(0,0,0);
+	public boolean lookat = false;
 }

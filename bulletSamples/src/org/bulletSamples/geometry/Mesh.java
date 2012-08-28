@@ -5,6 +5,8 @@ import javax.microedition.khronos.opengles.*;
 
 import org.bulletSamples.physics.CollisionShape;
 
+import android.opengl.GLU;
+
 public class Mesh {
 	
 	// Translate params.
@@ -77,9 +79,19 @@ public class Mesh {
     	gl.glLoadIdentity();
     	if(Camera.active != null)
     	{
-    		gl.glRotatef(-Camera.active.yaw, 0, 1, 0);
-    		gl.glRotatef(-Camera.active.pitch, 1, 0, 0);
-    		gl.glTranslatef(-Camera.active.position.x, -Camera.active.position.y, -Camera.active.position.z);
+            if(Camera.active.lookat)
+            {
+            	Vector3 eye = Camera.active.position;
+            	Vector3 center = Camera.active.target;
+            	Vector3 up = eye.rotate(new Quaternion(eye.cross(Vector3.up), (float)Math.PI/2.0f));
+            	GLU.gluLookAt(gl, eye.x, eye.y, eye.z, center.x, center.y, center.z, 1, 0, up.z);
+            }
+            else
+    		{
+    			gl.glRotatef(-Camera.active.yaw, 0, 1, 0);
+    			gl.glRotatef(-Camera.active.pitch, 1, 0, 0);
+    			gl.glTranslatef(-Camera.active.position.x, -Camera.active.position.y, -Camera.active.position.z);
+    		}
     	}
         gl.glTranslatef(x, y, z);
         //gl.glRotatef(rx, 1, 0, 0);

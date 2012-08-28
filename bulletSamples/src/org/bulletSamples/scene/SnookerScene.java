@@ -8,6 +8,7 @@ import org.bulletSamples.geometry.Sphere;
 import org.bulletSamples.geometry.Vector3;
 import org.bulletSamples.physics.CollisionShape;
 import org.bulletSamples.physics.DynamicsWorld;
+import org.bulletSamples.Accelerometer;
 
 public class SnookerScene extends BaseScene {
 	public SnookerScene(DynamicsWorld dw) { super(dw); }
@@ -21,6 +22,7 @@ public class SnookerScene extends BaseScene {
 	public void create()
 	{
 		camera = new Camera(new Vector3(0, 60, 0), 0, 270);
+		camera.lookat = true;
 		Camera.active = camera;
 		tableBottom = new Box(18, 1, 36);
 		tableBottom.setColor(.3f, 1, .3f, 1);
@@ -58,10 +60,16 @@ public class SnookerScene extends BaseScene {
 			dw.createShape(ballShape, new Vector3(0,17,0), 1),
 			dw.createShape(ballShape, new Vector3(0,18,0), 1)
 		};
+		for(int i = 0; i < ball.length; i++)
+		{
+			ball[i].setRestitution(.95f);
+			ball[i].setFriction(1);
+		}
 	}
 	
 	public void render(GL10 gl)
 	{
+		Camera.active.position = Accelerometer.gravity.normalize().multiply(60);
 		for(int i = 0; i < table.length; i++)
 		{
 			table[i].render(gl);
