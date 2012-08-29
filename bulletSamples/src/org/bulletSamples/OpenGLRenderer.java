@@ -45,7 +45,8 @@ public class OpenGLRenderer implements Renderer {
    		//scene = new SimpleScene(phys);
    		//scene = new SimpleSphereScene(phys);
    		//scene = new SnookerScene(phys);
-   		scene = new ClosedSnookerScene(phys);
+   		//scene = new ClosedSnookerScene(phys);
+   		scene = new JellyScene(phys);
    		scene.create();
 	}
 

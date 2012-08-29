@@ -17,7 +17,8 @@ public class Vector3 {
 		this.z = z;
 	}
 	
-	public static Vector3 up = new Vector3(0,1,0);
+	public static Vector3 up() { return new Vector3(0,1,0); };
+	public static Vector3 zero() { return new Vector3(0,0,0); }
 	
 	public Vector3 cross(Vector3 other)
 	{
