@@ -44,7 +44,8 @@ public class OpenGLRenderer implements Renderer {
    		//scene = new NewtonPendulumScene(phys);
    		//scene = new SimpleScene(phys);
    		//scene = new SimpleSphereScene(phys);
-   		scene = new SnookerScene(phys);
+   		//scene = new SnookerScene(phys);
+   		scene = new ClosedSnookerScene(phys);
    		scene.create();
 	}
 

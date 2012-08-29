@@ -23,7 +23,7 @@ public class DynamicsWorld {
 	
 	public CollisionShape createShape(Mesh mesh, Vector3 pos, float mass)
 	{
-		CollisionShape cShape = new CollisionShape(mesh);
+		CollisionShape cShape = new CollisionShape(mesh, mass);
 		if(mesh.getClass() == Sphere.class) NCreateSphere(cShape, mass, pos, ((Sphere)mesh).getRadius());
 		if(mesh.getClass() == Box.class)
 		{

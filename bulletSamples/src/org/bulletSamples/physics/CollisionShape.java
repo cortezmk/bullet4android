@@ -12,6 +12,11 @@ public class CollisionShape {
 		return mesh;
 	}
 
+	private float mass;
+	public float getMass() {
+		return mass;
+	}
+
 	public int id;
 	private int idShape;
 	private int idMState;
@@ -31,9 +36,10 @@ public class CollisionShape {
 	native void NgetLinearVelocity(int id, Vector3 value);
 	native void NgetAngularVelocity(int id, Vector3 value);
 	
-	public CollisionShape(Mesh mesh)
+	public CollisionShape(Mesh mesh, float mass)
 	{
 		this.mesh = mesh;
+		this.mass = mass;
 		id = Integer.MAX_VALUE;
 	}
 	
