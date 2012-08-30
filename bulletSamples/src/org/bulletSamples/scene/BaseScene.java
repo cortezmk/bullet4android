@@ -48,7 +48,7 @@ public class BaseScene {
 		float bottom = -1.f;
 		float nearPlane = 1.f;
 		float tanFov = (top-bottom)*0.5f / nearPlane;
-		float fov = 2.0f * (float)Math.atan(tanFov);
+		float fov = (float)(Math.PI/4.0);//2.0f * (float)Math.atan(tanFov);
 		Vector3 rayFrom = Vector3.zero();
 		Vector3 rayForward = new Vector3(0,0,-1);
 		if(Camera.active != null)
@@ -71,8 +71,8 @@ public class BaseScene {
 		float tanfov = (float)Math.tan(.5f * fov);
 		hor = hor.multiply(2.0f * farPlane * tanfov);
 		vertical = vertical.multiply(2.0f * farPlane * tanfov);
-		if(width > height) hor = hor.multiply((float)width / (float)height);
-		else vertical = vertical.multiply((float)width / (float)height);
+		hor = hor.multiply((float)width / (float)height);//if(width < height) hor = hor.multiply((float)width / (float)height);
+		//else vertical = vertical.multiply((float)width / (float)height);
 		Vector3 rayToCenter = rayFrom.add(rayForward);
 		Vector3 dHor = hor.multiply(1.0f/(float)width);
 		Vector3 dVert = vertical.multiply(1.0f/(float)height);

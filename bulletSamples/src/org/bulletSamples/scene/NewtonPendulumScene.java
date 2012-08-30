@@ -43,7 +43,7 @@ public class NewtonPendulumScene extends BaseScene {
 	
 	public void render(GL10 gl)
 	{
-		dw.setGravity(Accelerometer.gravity);
+		//dw.setGravity(Accelerometer.gravity);
 		for(int i = 0; i < boxes.length; i++)
 		{
 			boxes[i].render(gl);
