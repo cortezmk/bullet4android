@@ -149,7 +149,7 @@ public class Mesh {
     	rx = quat.axis.x;
     	ry = quat.axis.y;
     	rz = quat.axis.z;
-    	ra = quat.angle * (180.0f / 3.14f);
+    	ra = quat.angle * (180.0f / (float)Math.PI);
     }
     
     public void applyTransform(CollisionShape body)

@@ -8,6 +8,8 @@ import org.bulletSamples.scene.*;
 
 import android.opengl.GLU;
 import android.opengl.GLSurfaceView.Renderer;
+import android.view.MotionEvent;
+
 import java.util.Calendar;
 
 public class OpenGLRenderer implements Renderer {
@@ -42,11 +44,11 @@ public class OpenGLRenderer implements Renderer {
 		lastTime = Calendar.getInstance().getTimeInMillis();
    		phys = new DynamicsWorld();
    		//scene = new NewtonPendulumScene(phys);
-   		//scene = new SimpleScene(phys);
+   		scene = new SimpleScene(phys);
    		//scene = new SimpleSphereScene(phys);
    		//scene = new SnookerScene(phys);
    		//scene = new ClosedSnookerScene(phys);
-   		scene = new JellyScene(phys);
+   		//scene = new JellyScene(phys);
    		scene.create();
 	}
 
@@ -60,8 +62,15 @@ public class OpenGLRenderer implements Renderer {
 		gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
 		scene.render(gl);
 	}
+	
+	public void onTouch(MotionEvent event)
+	{
+		scene.onTouch(event);
+	}
 
 	public void onSurfaceChanged(GL10 gl, int width, int height) {
+		BaseScene.width = width;
+		BaseScene.height = height;
 		gl.glViewport(0, 0, width, height);
 		gl.glMatrixMode(GL10.GL_PROJECTION);
 		gl.glLoadIdentity();

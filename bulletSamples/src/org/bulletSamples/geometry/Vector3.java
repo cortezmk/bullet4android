@@ -1,6 +1,6 @@
 package org.bulletSamples.geometry;
 
-public class Vector3 {
+public class Vector3 implements Cloneable {
 	public float x;
 	public float y;
 	public float z;
@@ -69,5 +69,10 @@ public class Vector3 {
 		Vector3 x = this.subtract(o);
 		Vector3 y = axis.cross(this);
 		return o.add(x.multiply((float)Math.cos(q.angle))).add(y.multiply((float)Math.sin(q.angle)));
+	}
+	
+	public Vector3 clone()
+	{
+		return new Vector3(x,y,z);
 	}
 }

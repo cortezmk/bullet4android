@@ -14,12 +14,12 @@ public class BulletTestActivity extends Activity implements SensorEventListener 
 	public OpenGLRenderer renderer;
     private SensorManager mSensorManager;
     private Sensor mAccelerometer;
-	/*private OnTouchListener touchListener = new OnTouchListener() {
-		@Override
-		public boolean onTouch(View arg0, MotionEvent arg1) {
+	private OnTouchListener touchListener = new OnTouchListener() {
+		public boolean onTouch(View v, MotionEvent event) {
+			renderer.onTouch(event);
 			return true;
 		}
-	};*/
+	};
 	
     /** Called when the activity is first created. */
     @Override
@@ -28,7 +28,7 @@ public class BulletTestActivity extends Activity implements SensorEventListener 
         this.requestWindowFeature(Window.FEATURE_NO_TITLE); // (NEW)
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN); // (NEW)
         GLSurfaceView view = new GLSurfaceView(this);
-        //view.setOnTouchListener(touchListener);
+        view.setOnTouchListener(touchListener);
         renderer = new OpenGLRenderer();
    		view.setRenderer(renderer);
    		setContentView(view);

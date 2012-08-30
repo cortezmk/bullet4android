@@ -14,6 +14,7 @@ public class JellyScene extends BaseScene {
 	protected Camera camera;
 	public void create()
 	{
+		enableObjectDrag = true;
 		camera = new Camera(new Vector3(0,0,30),0,0);
 		Camera.active = camera;
 		ball = new CollisionShape[]

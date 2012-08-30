@@ -13,6 +13,9 @@ public class DynamicsWorld {
 	native private int BlaCreateRigidBody(int id, Vector3 pos);
 	native private void NCreateBox(CollisionShape cs, float mass, Vector3 pos, float width, float height, float depth);
 	native private void NCreateSphere(CollisionShape cs, float mass, Vector3 pos, float radius);
+	native private void NpickObject(int id, Vector3 rayFrom, Vector3 rayTo);
+	native private void NdropObject(int id, Vector3 rayFrom, Vector3 rayTo);
+	native private void NdragObject(int id, Vector3 rayFrom, Vector3 rayTo);
 	
 	native private int Bla0();
 	
@@ -60,5 +63,20 @@ public class DynamicsWorld {
 		Vector3 ret = new Vector3(0, 0, 0);
 		NgetTransform(id, ret);
 		return ret;
+	}
+	
+	public void pickObject(Vector3 rayFrom, Vector3 rayTo)
+	{
+		NpickObject(id, rayFrom, rayTo);
+	}
+	
+	public void dropObject(Vector3 rayFrom, Vector3 rayTo)
+	{
+		NdropObject(id, rayFrom, rayTo);
+	}
+	
+	public void dragObject(Vector3 rayFrom, Vector3 rayTo)
+	{
+		NdragObject(id, rayFrom, rayTo);
 	}
 }

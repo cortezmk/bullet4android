@@ -20,6 +20,7 @@ public class SimpleScene extends BaseScene {
 	
 	public void create()
 	{
+		enableObjectDrag = true;
 		cube = new Box(1,1,1);
 		cube2 = new Box(1,1,1);
 		box = dw.createShape(cube, new Vector3(0, 1, -20), 1);
