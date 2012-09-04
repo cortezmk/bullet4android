@@ -40,30 +40,15 @@ public class ClosedSnookerScene extends BaseScene {
 			dw.createShape(tableHorizontalPart, new Vector3(0,2,-18.5f), 0)
 		};
 		ballShape = new Sphere(.25f);
-		ball = new CollisionShape[]
-		{
-			dw.createShape(ballShape, new Vector3(0,3,0), 1),
-			dw.createShape(ballShape, new Vector3(0,4,0), 1),
-			dw.createShape(ballShape, new Vector3(0,5,0), 1),
-			dw.createShape(ballShape, new Vector3(0,6,0), 1),
-			dw.createShape(ballShape, new Vector3(0,7,0), 1),
-			dw.createShape(ballShape, new Vector3(0,8,0), 1),
-			dw.createShape(ballShape, new Vector3(0,9,0), 1),
-			dw.createShape(ballShape, new Vector3(0,10,0), 1),
-			dw.createShape(ballShape, new Vector3(0,11,0), 1),
-			dw.createShape(ballShape, new Vector3(0,12,0), 1),
-			dw.createShape(ballShape, new Vector3(0,13,0), 1),
-			dw.createShape(ballShape, new Vector3(0,14,0), 1),
-			dw.createShape(ballShape, new Vector3(0,15,0), 1),
-			dw.createShape(ballShape, new Vector3(0,16,0), 1),
-			dw.createShape(ballShape, new Vector3(0,17,0), 1),
-			dw.createShape(ballShape, new Vector3(0,18,0), 1)
-		};
+		ball = new CollisionShape[6*6+1];
+		ball[0] = dw.createShape(ballShape, new Vector3(0,3,-12), 1);
+		for(int i = 0; i < 6; i++) for(int j = 0; j < 6; j++) ball[i*6+j+1] = dw.createShape(ballShape, new Vector3(-1.25f+i/2.0f, 3, 7.25f+j/2.0f), 1);
 		for(int i = 0; i < ball.length; i++)
 		{
 			ball[i].setRestitution(.95f);
 			ball[i].setFriction(1);
 		}
+		ball[0].setLinearVelocity(new Vector3(0,0,100));
 	}
 	
 	public void render(GL10 gl)

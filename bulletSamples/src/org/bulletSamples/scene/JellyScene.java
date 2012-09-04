@@ -27,12 +27,18 @@ public class JellyScene extends BaseScene {
 		spring.setLinerLowerLimit(new Vector3(-5,0,0));
 		spring.setAnglarLowerLimit(new Vector3(0,0,-1.5f));
 		spring.setAnglarUpperLimit(new Vector3(0,0,1.5f));
-		spring.enable(0,true);
-		spring.setStifness(0,  39.478f);
-		spring.setDamping(0, .1f);
-		spring.enable(5,true);
-		spring.setStifness(5,  39.478f);
-		spring.setDamping(0, .1f);
+		spring.enable(Dof.translateX,true);
+		spring.setStifness(Dof.translateX,  1.478f);
+		spring.setDamping(Dof.translateX, .1f);
+		spring.enable(Dof.translateY,true);
+		spring.setStifness(Dof.translateY,  1.478f);
+		spring.setDamping(Dof.translateY, .1f);
+		spring.enable(Dof.translateZ,true);
+		spring.setStifness(Dof.translateZ,  1.478f);
+		spring.setDamping(Dof.translateZ, .1f);
+		/*spring.enable(Dof.rotateZ,false);
+		spring.setStifness(Dof.rotateZ,  39.478f);
+		spring.setDamping(Dof.rotateZ, .1f);*/
 		spring.setEquilibrumPoint();
 	}
 	

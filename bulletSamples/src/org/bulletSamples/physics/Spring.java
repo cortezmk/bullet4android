@@ -20,19 +20,26 @@ public class Spring {
 		id = constructor(dw.id, rb1.id, rb2.id, frameA, frameB, linear);
 	}
 	
-	public void enable(int index, boolean enable)
+	public void setupDof(Dof index, float stiffness, float damping)
 	{
-		Nenable(id, index, enable);
+		enable(index, true);
+		setDamping(index, damping);
+		setStifness(index, stiffness);
 	}
 	
-	public void setDamping(int index, float damping)
+	public void enable(Dof index, boolean enable)
 	{
-		NsetDamping(id, index, damping);
+		Nenable(id, index.toInt(), enable);
 	}
 	
-	public void setStifness(int index, float stiffness)
+	public void setDamping(Dof index, float damping)
 	{
-		NsetDamping(id, index, stiffness);
+		NsetDamping(id, index.toInt(), damping);
+	}
+	
+	public void setStifness(Dof index, float stiffness)
+	{
+		NsetDamping(id, index.toInt(), stiffness);
 	}
 	
 	public void setEquilibrumPoint()
