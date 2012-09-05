@@ -20,6 +20,22 @@ extern "C"
 		env->SetFloatField(obj, zf, vec.getZ());
 	}
 	
+	jobject jVector3(JNIEnv* env, const btVector3& vec)
+	{
+		jclass claz = env->FindClass("org/bulletSamples/geometry/Vector3");
+		jmethodID cid = env->GetMethodID(claz, "<init>", "()V");
+		jobject obj = env->NewObject(claz, cid);
+		jclass vector3 = env->GetObjectClass(obj);
+		jfieldID xf = env->GetFieldID(vector3, "x", "F");
+		jfieldID yf = env->GetFieldID(vector3, "y", "F");
+		jfieldID zf = env->GetFieldID(vector3, "z", "F");
+		float x, y, z;
+		env->SetFloatField(obj, xf, vec.getX());
+		env->SetFloatField(obj, yf, vec.getY());
+		env->SetFloatField(obj, zf, vec.getZ());
+		return obj;
+	}
+
 	void jobjectToBtVector3(JNIEnv* env, jobject& obj, btVector3& vec)
 	{
 		jclass vector3 = env->GetObjectClass(obj);

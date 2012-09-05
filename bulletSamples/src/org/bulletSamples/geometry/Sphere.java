@@ -8,9 +8,6 @@ public class Sphere extends Mesh {
 	public float getRadius() {
 		return radius;
 	}
-
-	public static float[] vertices;
-	public static short[] indices;
 	
 	public Sphere(float radius)
 	{
@@ -20,7 +17,7 @@ public class Sphere extends Mesh {
 		int r, s;
 		this.radius = radius;
 		int vc = 0, nc = 0;
-		vertices = new float[rings * sectors * 3];
+		float[] vertices = new float[rings * sectors * 3];
 		float[] normals = new float[rings * sectors * 3];
 		for(r = 0; r < rings; r++) for(s = 0; s < sectors; s++)
 		{
@@ -34,7 +31,7 @@ public class Sphere extends Mesh {
 			normals[nc++] = y;
 			normals[nc++] = z;
 		}
-		indices = new short[rings * sectors * 6];
+		short[] indices = new short[rings * sectors * 6];
 		int ic = 0;
 		for(r = 0; r < (rings-1); r++) for(s = 0; s < (sectors-1); s++)
 		{

@@ -1,5 +1,6 @@
 #include <jni.h>
 #include "common.h"
+#include "DebugDrawer.h"
 
 static btRigidBody* pickedBody = 0;
 static bool use6Dof = false;
@@ -46,6 +47,12 @@ extern "C"
 		removeNamedObject<btCollisionDispatcher>(env, self, "idDispatcher");
 		removeNamedObject<btDefaultCollisionConfiguration>(env, self, "idConfiguration");
 		removeNamedObject<btBroadphaseInterface>(env, self, "idBrodaphase");
+		btDiscreteDynamicsWorld* dynamicsWorld = getObject<btDiscreteDynamicsWorld>(env, self);
+		if(dynamicsWorld->getDebugDrawer())
+		{
+			delete dynamicsWorld->getDebugDrawer();
+		}
+		delete dynamicsWorld;
 	}
 
 	JNIEXPORT void Java_org_bulletSamples_physics_DynamicsWorld_NCreateBox( JNIEnv* env, jobject self, jobject collisionShape, jfloat mass, jobject position, jfloat width, jfloat height, jfloat depth )
@@ -94,8 +101,14 @@ extern "C"
 
 	JNIEXPORT void Java_org_bulletSamples_physics_DynamicsWorld_NpickObject( JNIEnv* env, jobject self, jint id, jobject jRayFrom, jobject jRayTo )
 	{
-		if(pickConstraint != 0 || pickedBody != 0) return;
 		btDiscreteDynamicsWorld* dw = (btDiscreteDynamicsWorld*)btObjects::get(id);
+		if(pickConstraint != 0)
+		{
+			dw->removeConstraint(pickConstraint);
+			delete pickConstraint;
+			pickConstraint = 0;
+			pickedBody = 0;
+		}
 		btVector3 rayFrom, rayTo;
 		jobjectToBtVector3(env, jRayFrom, rayFrom);
 		jobjectToBtVector3(env, jRayTo, rayTo);
@@ -161,19 +174,24 @@ extern "C"
 
 	JNIEXPORT void Java_org_bulletSamples_physics_DynamicsWorld_NdropObject( JNIEnv* env, jobject self, jint id, jobject jRayFrom, jobject jRayTo )
 	{
-		if(pickConstraint == 0 || pickedBody == 0) return;
 		btDiscreteDynamicsWorld* dw = (btDiscreteDynamicsWorld*)btObjects::get(id);
-		dw->removeConstraint(pickConstraint);
-		delete pickConstraint;
-		pickConstraint = 0;
-		pickedBody->forceActivationState(ACTIVE_TAG);
-		pickedBody->setDeactivationTime( 0.f );
-		pickedBody = 0;
+		if(pickConstraint != 0)
+		{
+			dw->removeConstraint(pickConstraint);
+			delete pickConstraint;
+			pickConstraint = 0;
+		}
+		if(pickedBody != 0)
+		{
+			pickedBody->forceActivationState(ACTIVE_TAG);
+			pickedBody->setDeactivationTime( 0.f );
+			pickedBody = 0;
+		}
 	}
 
 	JNIEXPORT void Java_org_bulletSamples_physics_DynamicsWorld_NdragObject( JNIEnv* env, jobject self, jint id, jobject jRayFrom, jobject jRayTo )
 	{
-		if(pickConstraint == 0 || pickedBody == 0) return;
+		if(pickConstraint == 0) return;
 		btDiscreteDynamicsWorld* dw = (btDiscreteDynamicsWorld*)btObjects::get(id);
 		btVector3 rayFrom, rayTo;
 		jobjectToBtVector3(env, jRayFrom, rayFrom);
@@ -208,5 +226,17 @@ extern "C"
 				pickCon->setPivotB(newPivotB);
 			}
 		}
+	}
+
+	JNIEXPORT void Java_org_bulletSamples_physics_DynamicsWorld_NsetDebugDrawer( JNIEnv* env, jobject self )
+	{
+		DebugDrawer* dd = new DebugDrawer;
+		dd->setDebugMode(btIDebugDraw::DBG_DrawConstraints+btIDebugDraw::DBG_DrawConstraintLimits);
+		getObject<btDiscreteDynamicsWorld>(env, self)->setDebugDrawer(dd);
+	}
+
+	JNIEXPORT void Java_org_bulletSamples_physics_DynamicsWorld_NdrawDebug( JNIEnv* env, jobject self )
+	{
+		getObject<btDiscreteDynamicsWorld>(env, self)->debugDrawWorld();
 	}
 }

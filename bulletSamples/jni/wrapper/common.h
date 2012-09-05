@@ -9,6 +9,7 @@ extern "C"
 	void jobjectToBtVector3(JNIEnv* env, jobject& obj, btVector3& vec);
 	void btQuaternionToJobject(JNIEnv* env, btQuaternion& quat, jobject& obj);
 	void jobjectToBtQuaternion(JNIEnv* env, jobject& obj, btQuaternion& quat);
+	jobject jVector3(JNIEnv* env, const btVector3& vec);
 }
 
 template<class T>

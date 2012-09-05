@@ -75,4 +75,12 @@ public class Vector3 implements Cloneable {
 	{
 		return new Vector3(x,y,z);
 	}
+	
+	public boolean nanGuard()
+	{
+		if(Float.isNaN(x)) return true;
+		if(Float.isNaN(y)) return true;
+		if(Float.isNaN(z)) return true;
+		return false;
+	}
 }

@@ -18,6 +18,7 @@ public class NewtonPendulumScene extends BaseScene {
 	
 	public void create()
 	{
+		enableObjectDrag = true;
 		sphere = new Sphere(.5f);
 		boxes = new CollisionShape[] {
 			dw.createShape(sphere, new Vector3(0f,7,-20), 0),
@@ -30,7 +31,7 @@ public class NewtonPendulumScene extends BaseScene {
 			dw.createShape(sphere, new Vector3(2f,2f,-20), 10)
 		};
 		for(int i = 0; i < boxes.length; i++) boxes[i].setRestitution(.95f);
-		boxes[5].applyCentralForce(new Vector3(-2000,0,0));
+		//boxes[5].applyCentralForce(new Vector3(-2000,0,0));
 		constraints = new UniversalConstraint[boxes.length/2];
 		for(int i = 0; i < boxes.length-1; i+=2)
 		{

@@ -1,4 +1,6 @@
 package org.bulletSamples.physics;
+import javax.microedition.khronos.opengles.GL10;
+
 import org.bulletSamples.geometry.*;
 public class DynamicsWorld {
 	public int id;
@@ -16,6 +18,8 @@ public class DynamicsWorld {
 	native private void NpickObject(int id, Vector3 rayFrom, Vector3 rayTo);
 	native private void NdropObject(int id, Vector3 rayFrom, Vector3 rayTo);
 	native private void NdragObject(int id, Vector3 rayFrom, Vector3 rayTo);
+	native private void NsetDebugDrawer();
+	native private void NdrawDebug();
 	
 	native private int Bla0();
 	
@@ -78,5 +82,20 @@ public class DynamicsWorld {
 	public void dragObject(Vector3 rayFrom, Vector3 rayTo)
 	{
 		NdragObject(id, rayFrom, rayTo);
+	}
+	
+	public void setDebugDrawer()
+	{
+		DebugDrawer.renewEnv();
+		NsetDebugDrawer();
+	}
+	
+	public void drawDebug(GL10 gl)
+	{
+		DebugDrawer.gl = gl;
+		gl.glLoadIdentity();
+		Camera.applyTransform(gl);
+		DebugDrawer.renewEnv();
+		NdrawDebug();
 	}
 }

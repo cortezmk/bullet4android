@@ -144,9 +144,9 @@ LOCAL_SRC_FILES := wrapper/DynamicsWorld.cpp \
 wrapper/CollisionShape.cpp \
 wrapper/common.cpp \
 wrapper/btObjects.cpp \
-wrapper/bla.cpp \
 wrapper/Spring.cpp \
-wrapper/UniversalConstraint.cpp
+wrapper/UniversalConstraint.cpp \
+wrapper/DebugDrawer.cpp
 LOCAL_SHARED_LIBRARIES := BulletCollision \
 BulletDynamics \
 LinearMath
