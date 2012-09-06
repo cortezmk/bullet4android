@@ -12,7 +12,11 @@ extern "C"
 		jobjectToBtVector3(env, frameA, vA);
 		jobjectToBtVector3(env, frameB, vB);
 		btQuaternion q1, q2;
-		btGeneric6DofSpringConstraint* spring = new btGeneric6DofSpringConstraint(*rb1, *rb2, btTransform(q1, vA), btTransform(q2, vB), linear);
+		btTransform frameInA = btTransform::getIdentity();
+		frameInA.setOrigin(vA);
+		btTransform frameInB = btTransform::getIdentity();
+		frameInB.setOrigin(vB);
+		btGeneric6DofSpringConstraint* spring = new btGeneric6DofSpringConstraint(*rb1, *rb2, frameInA, frameInB, linear);
 		((btDiscreteDynamicsWorld*)btObjects::get(dynamicsWorld))->addConstraint(spring, true);
 		return btObjects::put(spring);
 	}

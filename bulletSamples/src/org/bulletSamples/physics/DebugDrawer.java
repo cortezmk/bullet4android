@@ -18,7 +18,7 @@ public class DebugDrawer {
     private static FloatBuffer colorBuffer = null;
     private static float[] colors, normals, vertices;
     private static short[] indices;
-    public static Vector3 dummy = Vector3.zero();
+    public static Vector3 dummy1 = Vector3.zero(), dummy2 = Vector3.zero(), dummy3 = Vector3.zero(), dummy4 = Vector3.zero();
 	
     protected static void setColors(float[] colors) {
     	DebugDrawer.colors = colors;
@@ -57,9 +57,28 @@ public class DebugDrawer {
 		verticesBuffer.position(0);
     }
     
-	public static void drawLine(Vector3 from, Vector3 to, Vector3 colorFrom, Vector3 colorTo)
+	/*public static void drawLine(Vector3 from, Vector3 to, Vector3 colorFrom, Vector3 colorTo)
 	{
 		System.out.println("drawLine");
+		if(from.nanGuard()) return;
+		if(to.nanGuard()) return;
+		if(colorFrom.nanGuard()) return;
+		if(colorTo.nanGuard()) return;
+		gl.glDisableClientState(GL10.GL_NORMAL_ARRAY);
+		setColors( new float[] { colorFrom.x, colorFrom.y, colorFrom.z, 1, colorTo.x, colorTo.y, colorTo.z, 1 });
+		setVertices( new float[] { from.x, from.y, from.z, to.x, to.y, to.z } );
+		setIndices( new short[] { 0, 1 } );
+		gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
+		gl.glEnableClientState(GL10.GL_COLOR_ARRAY);
+		gl.glVertexPointer(3, GL10.GL_FLOAT, 0, verticesBuffer);
+        gl.glColorPointer(4, GL10.GL_FLOAT, 0, colorBuffer);
+        gl.glDrawElements(GL10.GL_LINES, 2, GL10.GL_UNSIGNED_SHORT, indicesBuffer);
+	}*/
+    
+    public static void drawLine()
+	{
+    	Vector3 from = dummy1, to = dummy2, colorFrom = dummy3, colorTo = dummy4;
+		//System.out.println("drawLine");
 		if(from.nanGuard()) return;
 		if(to.nanGuard()) return;
 		if(colorFrom.nanGuard()) return;
@@ -123,15 +142,15 @@ public class DebugDrawer {
 	
 	public static void drawSphere(Vector3 p, float radius, Vector3 color)
 	{
-		Sphere sphere = new Sphere(radius);
+		/*Sphere sphere = new Sphere(radius);
 		sphere.setTransform(p);
 		sphere.setColor(color.x, color.y, color.z, 1);
-		sphere.render(gl);
+		sphere.render(gl);*/
 	}
 	
 	public static void drawTriangle(Vector3 a, Vector3 b, Vector3 c, Vector3 color, float alpha)
 	{
-		gl.glDisableClientState(GL10.GL_NORMAL_ARRAY);
+		/*gl.glDisableClientState(GL10.GL_NORMAL_ARRAY);
 		gl.glDisableClientState(GL10.GL_COLOR_ARRAY);
 		gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
 		Vector3 normal = b.subtract(a).cross(c.subtract(a)).normalize();
@@ -140,13 +159,13 @@ public class DebugDrawer {
 		setVertices( new float[] { a.x, a.y, a.z, b.x, b.y, b.z, c.x, c.y, c.z } );
 		setIndices( new short[] { 0, 1, 2 } );
 		gl.glVertexPointer(3, GL10.GL_FLOAT, 0, verticesBuffer);
-		gl.glDrawElements(GL10.GL_TRIANGLES, 3, GL10.GL_UNSIGNED_SHORT, indicesBuffer);
+		gl.glDrawElements(GL10.GL_TRIANGLES, 3, GL10.GL_UNSIGNED_SHORT, indicesBuffer);*/
 	}
 	
 	public static void drawContactPoint(Vector3 pointOnB, Vector3 normalOnB, float distance, int lifeTime, Vector3 color)
 	{
-		Vector3 to = pointOnB.add(normalOnB.multiply(distance));
-		Vector3 from = pointOnB.clone();
-		drawLine(from, to, color, color);
+		/*Vector3 to = pointOnB.add(normalOnB.multiply(distance));
+		Vector3 from = pointOnB.clone();*/
+		//drawLine(from, to, color, color);
 	}
 }

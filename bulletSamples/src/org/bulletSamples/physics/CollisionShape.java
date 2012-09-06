@@ -124,7 +124,7 @@ public class CollisionShape {
 	
 	protected void finalize() throws Throwable
 	{
-		destructor();
+		//destructor();
 		super.finalize();
 	}
 }

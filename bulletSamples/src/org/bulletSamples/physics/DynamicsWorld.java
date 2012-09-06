@@ -43,7 +43,7 @@ public class DynamicsWorld {
 	
 	protected void finalize() throws Throwable
 	{
-		destructor();
+		//destructor();
 		super.finalize();
 	}
 	

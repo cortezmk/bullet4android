@@ -69,7 +69,7 @@ public class Spring {
 	
 	protected void finalize() throws Throwable
 	{
-		destructor();
+		//destructor();
 		super.finalize();
 	}
 }

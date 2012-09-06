@@ -21,14 +21,14 @@ public class JellyScene extends BaseScene {
 		ball = new CollisionShape[]
 		{
 			dw.createShape(sphere, new Vector3(0,3,0), 0),
-			dw.createShape(sphere, new Vector3(10,3,0), 1)
+			dw.createShape(sphere, new Vector3(-2,3,0), 1)
 		};
-		spring = new Spring(dw, ball[0], ball[1], Vector3.zero(), Vector3.zero(), true);
+		spring = new Spring(dw, ball[0], ball[1], new Vector3(2,3,0), new Vector3(0,0,0), true);
 		spring.setLinerUpperLimit(new Vector3(5,0,0));
 		spring.setLinerLowerLimit(new Vector3(-5,0,0));
 		spring.setAnglarLowerLimit(new Vector3(0,0,-1.5f));
 		spring.setAnglarUpperLimit(new Vector3(0,0,1.5f));
-		spring.enable(Dof.translateX,true);
+		/*spring.enable(Dof.translateX,true);
 		spring.setStifness(Dof.translateX,  1.478f);
 		spring.setDamping(Dof.translateX, .1f);
 		spring.enable(Dof.translateY,true);
@@ -36,7 +36,7 @@ public class JellyScene extends BaseScene {
 		spring.setDamping(Dof.translateY, .1f);
 		spring.enable(Dof.translateZ,true);
 		spring.setStifness(Dof.translateZ,  1.478f);
-		spring.setDamping(Dof.translateZ, .1f);
+		spring.setDamping(Dof.translateZ, .1f);*/
 		/*spring.enable(Dof.rotateZ,false);
 		spring.setStifness(Dof.rotateZ,  39.478f);
 		spring.setDamping(Dof.rotateZ, .1f);*/

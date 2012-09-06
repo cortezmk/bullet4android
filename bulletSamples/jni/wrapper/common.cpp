@@ -8,7 +8,7 @@ extern "C"
 		return JNI_VERSION_1_2;
 	}
 	
-	void btVector3ToJobject(JNIEnv* env, btVector3& vec, jobject& obj)
+	void btVector3ToJobject(JNIEnv* env, const btVector3& vec, jobject& obj)
 	{
 		jclass vector3 = env->GetObjectClass(obj);
 		jfieldID xf = env->GetFieldID(vector3, "x", "F");

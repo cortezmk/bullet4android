@@ -33,7 +33,7 @@ public class UniversalConstraint {
 	
 	protected void finalize() throws Throwable
 	{
-		destructor();
+		//destructor();
 		super.finalize();
 	}
 }
