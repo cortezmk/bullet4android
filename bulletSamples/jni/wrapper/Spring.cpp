@@ -11,7 +11,6 @@ extern "C"
 		btVector3 vA, vB;
 		jobjectToBtVector3(env, frameA, vA);
 		jobjectToBtVector3(env, frameB, vB);
-		btQuaternion q1, q2;
 		btTransform frameInA = btTransform::getIdentity();
 		frameInA.setOrigin(vA);
 		btTransform frameInB = btTransform::getIdentity();
