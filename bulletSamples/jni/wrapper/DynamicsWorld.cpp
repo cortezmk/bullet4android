@@ -12,6 +12,13 @@ static int mouseOldX, mouseOldY;
 
 extern "C"
 {
+	JNIEXPORT void Java_org_bulletSamples_physics_DynamicsWorld_NsetDebugDrawer( JNIEnv* env, jobject self )
+	{
+		DebugDrawer* dd = new DebugDrawer;
+		dd->setDebugMode(btIDebugDraw::DBG_DrawConstraints+btIDebugDraw::DBG_DrawConstraintLimits);
+		getObject<btDiscreteDynamicsWorld>(env, self)->setDebugDrawer(dd);
+	}
+
 	JNIEXPORT jint Java_org_bulletSamples_physics_DynamicsWorld_constructor( JNIEnv* env, jobject self )
 	{
 		btBroadphaseInterface* broadphase = new btDbvtBroadphase();
@@ -34,6 +41,12 @@ extern "C"
         btRigidBody* groundRigidBody = new btRigidBody(groundRigidBodyCI);
         setNamedObject(env, self, "idGRbody", groundRigidBody);
         dynamicsWorld->addRigidBody(groundRigidBody);
+
+        //set debug drawer
+        DebugDrawer* dd = new DebugDrawer;
+        dd->setDebugMode(btIDebugDraw::DBG_DrawConstraints+btIDebugDraw::DBG_DrawConstraintLimits);
+        dynamicsWorld->setDebugDrawer(dd);
+
 		return btObjects::put(dynamicsWorld);
 	}
 	
@@ -226,13 +239,6 @@ extern "C"
 				pickCon->setPivotB(newPivotB);
 			}
 		}
-	}
-
-	JNIEXPORT void Java_org_bulletSamples_physics_DynamicsWorld_NsetDebugDrawer( JNIEnv* env, jobject self )
-	{
-		DebugDrawer* dd = new DebugDrawer;
-		dd->setDebugMode(btIDebugDraw::DBG_DrawConstraints+btIDebugDraw::DBG_DrawConstraintLimits);
-		getObject<btDiscreteDynamicsWorld>(env, self)->setDebugDrawer(dd);
 	}
 
 	JNIEXPORT void Java_org_bulletSamples_physics_DynamicsWorld_NdrawDebug( JNIEnv* env, jobject self )

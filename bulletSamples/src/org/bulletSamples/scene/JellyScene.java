@@ -14,7 +14,6 @@ public class JellyScene extends BaseScene {
 	protected Camera camera;
 	public void create()
 	{
-		//dw.setDebugDrawer();
 		enableObjectDrag = true;
 		camera = new Camera(new Vector3(0,0,30),0,0);
 		Camera.active = camera;
@@ -37,6 +36,6 @@ public class JellyScene extends BaseScene {
 	{
 		//dw.setGravity(Accelerometer.gravity);
 		for(int i = 0; i < ball.length; i++) ball[i].render(gl);
-		//dw.drawDebug(gl);
+		dw.drawDebug(gl);
 	}
 }

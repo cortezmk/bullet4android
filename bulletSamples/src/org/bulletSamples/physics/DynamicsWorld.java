@@ -84,6 +84,7 @@ public class DynamicsWorld {
 		NdragObject(id, rayFrom, rayTo);
 	}
 	
+	@Deprecated
 	public void setDebugDrawer()
 	{
 		DebugDrawer.renewEnv();
