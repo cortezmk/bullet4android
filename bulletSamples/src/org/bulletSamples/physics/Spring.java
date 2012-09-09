@@ -5,14 +5,14 @@ public class Spring {
 	public int id;
 	
 	private native int constructor(int dynamicsWorld, int rb1, int rb2, Vector3 frameA, Vector3 frameB, boolean linear);
-	private native void Nenable(int id, int index, boolean enable);
-	private native void NsetDamping(int id, int index, float damping);
-	private native void NsetStiffness(int id, int index, float stiffness);
 	private native void NsetEquilibriumPoint(int id);
 	private native void NsetLinearUpperLimit(int id, Vector3 vec);
 	private native void NsetLinearLowerLimit(int id, Vector3 vec);
 	private native void NsetAngularUpperLimit(int id, Vector3 vec);
 	private native void NsetAngularLowerLimit(int id, Vector3 vec);
+	private native void Nenable(int id, int index, boolean enable);
+	private native void NsetDamping(int id, int index, float damping);
+	private native void NsetStiffness(int id, int index, float stiffness);
 	private native void destructor();
 	
 	public Spring(DynamicsWorld dw, CollisionShape rb1, CollisionShape rb2, Vector3 frameA, Vector3 frameB, boolean linear)
@@ -24,7 +24,7 @@ public class Spring {
 	{
 		enable(index, true);
 		setDamping(index, damping);
-		setStifness(index, stiffness);
+		setStiffness(index, stiffness);
 	}
 	
 	public void enable(Dof index, boolean enable)
@@ -37,9 +37,9 @@ public class Spring {
 		NsetDamping(id, index.toInt(), damping);
 	}
 	
-	public void setStifness(Dof index, float stiffness)
+	public void setStiffness(Dof index, float stiffness)
 	{
-		NsetDamping(id, index.toInt(), stiffness);
+		NsetStiffness(id, index.toInt(), stiffness);
 	}
 	
 	public void setEquilibrumPoint()

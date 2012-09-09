@@ -17,6 +17,7 @@ extern "C"
 		frameInB.setOrigin(vB);
 		btGeneric6DofSpringConstraint* spring = new btGeneric6DofSpringConstraint(*rb1, *rb2, frameInA, frameInB, linear);
 		((btDiscreteDynamicsWorld*)btObjects::get(dynamicsWorld))->addConstraint(spring, true);
+		spring->setDbgDrawSize(btScalar(5.f));
 		return btObjects::put(spring);
 	}
 	
@@ -27,17 +28,17 @@ extern "C"
 
 	JNIEXPORT void Java_org_bulletSamples_physics_Spring_Nenable( JNIEnv* env, jobject self, jint id, jint index, jboolean enable)
 	{
-		((btGeneric6DofSpringConstraint*)btObjects::get(id))->enableSpring(index, enable);
+		((btGeneric6DofSpringConstraint*)btObjects::get(id))->enableSpring(1, enable);
 	}
 	
 	JNIEXPORT void Java_org_bulletSamples_physics_Spring_NsetDamping( JNIEnv* env, jobject self, jint id, jint index, float damping)
 	{
-		((btGeneric6DofSpringConstraint*)btObjects::get(id))->setDamping(index, damping);
+		((btGeneric6DofSpringConstraint*)btObjects::get(id))->setDamping(1, damping);
 	}
 	
 	JNIEXPORT void Java_org_bulletSamples_physics_Spring_NsetStiffness( JNIEnv* env, jobject self, jint id, jint index, float stiffness)
 	{
-		((btGeneric6DofSpringConstraint*)btObjects::get(id))->setStiffness(index, stiffness);
+		((btGeneric6DofSpringConstraint*)btObjects::get(id))->setStiffness(1, stiffness);
 	}
 	
 	JNIEXPORT void Java_org_bulletSamples_physics_Spring_NsetEquilibriumPoint( JNIEnv* env, jobject self, jint id)
