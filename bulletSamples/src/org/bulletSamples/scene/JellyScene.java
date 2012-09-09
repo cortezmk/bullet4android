@@ -10,32 +10,64 @@ public class JellyScene extends BaseScene {
 	public JellyScene(DynamicsWorld dw) { super(dw); }
 	protected Sphere sphere = new Sphere(.5f);
 	protected CollisionShape[] ball;
-	protected Spring spring;
+	protected Spring[] springs;
 	protected Camera camera;
 	public void create()
 	{
 		enableObjectDrag = true;
-		camera = new Camera(new Vector3(0,0,30),0,0);
+		camera = new Camera(new Vector3(0,10,30),0,0);
 		Camera.active = camera;
 		ball = new CollisionShape[]
 		{
 			dw.createShape(sphere, new Vector3(0,3,0), 0),
-			dw.createShape(sphere, new Vector3(0,7,0), 1)
+			dw.createShape(sphere, new Vector3(0,7,0), 1),
+			dw.createShape(sphere, new Vector3(0,11,0), 1),
+			dw.createShape(sphere, new Vector3(0,15,0), 1),
+			dw.createShape(sphere, new Vector3(2,3,0), 0),
+			dw.createShape(sphere, new Vector3(2,7,0), 1),
+			dw.createShape(sphere, new Vector3(2,11,0), 1),
+			dw.createShape(sphere, new Vector3(2,15,0), 1),
+			dw.createShape(sphere, new Vector3(-2,3,0), 0),
+			dw.createShape(sphere, new Vector3(-2,7,0), 1),
+			dw.createShape(sphere, new Vector3(-2,11,0), 1),
+			dw.createShape(sphere, new Vector3(-2,15,0), 1),
 		};
-		spring = new Spring(dw, ball[0], ball[1], new Vector3(0,0,0), new Vector3(0,0,0), true);
-		spring.setLinerUpperLimit(new Vector3(5,10,0));
-		spring.setLinerLowerLimit(new Vector3(-5,-10,0));
-		spring.setAnglarLowerLimit(new Vector3(0,0,-1.5f));
-		spring.setAnglarUpperLimit(new Vector3(0,0,1.5f));
-		spring.setupDof(Dof.translateX, 39.478f, .1f);
-		spring.setupDof(Dof.translateY, 39.478f, .1f);
-		spring.setEquilibrumPoint();
+		springs = new Spring[]
+		{
+			new Spring(dw, ball[4], ball[5], new Vector3(0,0,0), new Vector3(0,0,0), true),
+			new Spring(dw, ball[5], ball[6], new Vector3(0,0,0), new Vector3(0,0,0), true),
+			new Spring(dw, ball[6], ball[7], new Vector3(0,0,0), new Vector3(0,0,0), true),
+			new Spring(dw, ball[0], ball[1], new Vector3(0,0,0), new Vector3(0,0,0), true),
+			new Spring(dw, ball[1], ball[2], new Vector3(0,0,0), new Vector3(0,0,0), true),
+			new Spring(dw, ball[2], ball[3], new Vector3(0,0,0), new Vector3(0,0,0), true),
+			new Spring(dw, ball[8], ball[9], new Vector3(0,0,0), new Vector3(0,0,0), true),
+			new Spring(dw, ball[9], ball[10], new Vector3(0,0,0), new Vector3(0,0,0), true),
+			new Spring(dw, ball[10], ball[11], new Vector3(0,0,0), new Vector3(0,0,0), true),
+			new Spring(dw, ball[11], ball[3], new Vector3(0,0,0), new Vector3(0,0,0), true),
+			new Spring(dw, ball[3], ball[7], new Vector3(0,0,0), new Vector3(0,0,0), true),
+			new Spring(dw, ball[10], ball[2], new Vector3(0,0,0), new Vector3(0,0,0), true),
+			new Spring(dw, ball[2], ball[6], new Vector3(0,0,0), new Vector3(0,0,0), true),
+			new Spring(dw, ball[9], ball[1], new Vector3(0,0,0), new Vector3(0,0,0), true),
+			new Spring(dw, ball[1], ball[5], new Vector3(0,0,0), new Vector3(0,0,0), true)
+		};
+		for(int i = 0; i < springs.length; i++)
+		{
+			Spring spring = springs[i];
+			spring.setLinerUpperLimit(new Vector3(5,10,5));
+			spring.setLinerLowerLimit(new Vector3(-5,-10,-5));
+			spring.setAnglarLowerLimit(new Vector3(0,0,0));
+			spring.setAnglarUpperLimit(new Vector3(0,0,0));
+			spring.setupDof(Dof.translateX, 39.478f, .1f);
+			spring.setupDof(Dof.translateY, 39.478f, .1f);
+			spring.setupDof(Dof.translateZ, 39.478f, .1f);
+			spring.setEquilibrumPoint();
+		}
 	}
 	
 	public void render(GL10 gl)
 	{
 		//dw.setGravity(Accelerometer.gravity);
 		for(int i = 0; i < ball.length; i++) ball[i].render(gl);
-		dw.drawDebug(gl);
+		//dw.drawDebug(gl);
 	}
 }

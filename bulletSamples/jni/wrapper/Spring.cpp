@@ -28,17 +28,17 @@ extern "C"
 
 	JNIEXPORT void Java_org_bulletSamples_physics_Spring_Nenable( JNIEnv* env, jobject self, jint id, jint index, jboolean enable)
 	{
-		((btGeneric6DofSpringConstraint*)btObjects::get(id))->enableSpring(1, enable);
+		((btGeneric6DofSpringConstraint*)btObjects::get(id))->enableSpring(index, enable);
 	}
 	
 	JNIEXPORT void Java_org_bulletSamples_physics_Spring_NsetDamping( JNIEnv* env, jobject self, jint id, jint index, float damping)
 	{
-		((btGeneric6DofSpringConstraint*)btObjects::get(id))->setDamping(1, damping);
+		((btGeneric6DofSpringConstraint*)btObjects::get(id))->setDamping(index, damping);
 	}
 	
 	JNIEXPORT void Java_org_bulletSamples_physics_Spring_NsetStiffness( JNIEnv* env, jobject self, jint id, jint index, float stiffness)
 	{
-		((btGeneric6DofSpringConstraint*)btObjects::get(id))->setStiffness(1, stiffness);
+		((btGeneric6DofSpringConstraint*)btObjects::get(id))->setStiffness(index, stiffness);
 	}
 	
 	JNIEXPORT void Java_org_bulletSamples_physics_Spring_NsetEquilibriumPoint( JNIEnv* env, jobject self, jint id)
