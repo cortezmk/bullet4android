@@ -127,4 +127,9 @@ public class CollisionShape {
 		//destructor();
 		super.finalize();
 	}
+	
+	public float getKineticEnergy()
+	{
+		return mass * (float)Math.pow(getLinearVelocity().length(), 2) / 2.0f;
+	}
 }
