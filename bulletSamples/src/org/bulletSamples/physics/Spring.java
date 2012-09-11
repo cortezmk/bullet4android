@@ -18,6 +18,7 @@ public class Spring {
 	public Spring(DynamicsWorld dw, CollisionShape rb1, CollisionShape rb2, Vector3 frameA, Vector3 frameB, boolean linear)
 	{
 		id = constructor(dw.id, rb1.id, rb2.id, frameA, frameB, linear);
+		
 	}
 	
 	public void setupDof(Dof index, float stiffness, float damping)

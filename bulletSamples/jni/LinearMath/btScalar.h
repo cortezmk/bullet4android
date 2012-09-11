@@ -305,7 +305,7 @@ SIMD_FORCE_INLINE btScalar btFmod(btScalar x,btScalar y) { return fmodf(x,y); }
 #define SIMD_EPSILON      DBL_EPSILON
 #define SIMD_INFINITY     DBL_MAX
 #else
-#define SIMD_EPSILON      FLT_EPSILON
+#define SIMD_EPSILON      1.19209290E-07F
 #define SIMD_INFINITY     FLT_MAX
 #endif
 
