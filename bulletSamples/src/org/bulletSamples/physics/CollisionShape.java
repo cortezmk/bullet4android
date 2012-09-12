@@ -35,6 +35,7 @@ public class CollisionShape {
 	native void NsetAngularVelocity(int id, Vector3 value);
 	native void NgetLinearVelocity(int id, Vector3 value);
 	native void NgetAngularVelocity(int id, Vector3 value);
+	native float NgetMomentOfInertia(int id, Vector3 vec);
 	
 	public CollisionShape(Mesh mesh, float mass)
 	{
@@ -128,8 +129,26 @@ public class CollisionShape {
 		super.finalize();
 	}
 	
-	public float getKineticEnergy()
+	public float getLinearKineticEnergy()
 	{
 		return mass * (float)Math.pow(getLinearVelocity().length(), 2) / 2.0f;
+	}
+	
+	public float getMomentOfInertia(Vector3 axis)
+	{
+		return 1.0f / NgetMomentOfInertia(id, axis);
+	}
+	
+	public float getAngularKineticEnergy()
+	{
+		Vector3 vel = this.getAngularVelocity();
+		if(vel.length() == 0) return 0;
+		float inertia = getMomentOfInertia(this.getAngularVelocity().normalize());
+		return inertia;//return inertia * (float)Math.pow(getAngularVelocity().length(), 2) / 2.0f;
+	}
+	
+	public float getKineticEnergy()
+	{
+		return getAngularKineticEnergy() + getLinearKineticEnergy();
 	}
 }

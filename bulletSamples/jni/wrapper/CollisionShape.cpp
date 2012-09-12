@@ -156,4 +156,12 @@ extern "C"
 		btVector3 vec = ((btRigidBody*)btObjects::get(id))->getAngularVelocity();
 		btVector3ToJobject(env, vec, value);
 	}
+
+	JNIEXPORT float Java_org_bulletSamples_physics_CollisionShape_NgetMomentOfInertia( JNIEnv* env, jobject self, jint id, jobject vector )
+	{
+		btMatrix3x3 tensor = ((btRigidBody*)btObjects::get(id))->getInvInertiaTensorWorld();
+		btVector3 n;
+		jobjectToBtVector3(env, vector, n);
+		return (n * tensor).dot(n);
+	}
 }

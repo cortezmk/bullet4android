@@ -16,9 +16,10 @@ public class SimpleSnookerScene extends BaseScene {
 	private CollisionShape[] table;
 	private Camera camera;
 	private Sphere ballShape;
+	private Box box;
 	private CollisionShape ball;
 	private int frameCounter = 0;
-	private float restitution = 0.95f;
+	private float restitution = 0.97f;
 	
 	public void create()
 	{
@@ -46,7 +47,8 @@ public class SimpleSnookerScene extends BaseScene {
 		}
 		table[0].setRestitution(0f);
 		ballShape = new Sphere(.25f);
-		ball = dw.createShape(ballShape, new Vector3(0,1.75f,0), 1);
+		box = new Box(.25f, .25f, .25f);
+		ball = dw.createShape(box, new Vector3(0,1.75f,0), 1);
 		ball.setRestitution(restitution);
 		ball.setFriction(0);
 		ball.setLinearVelocity(new Vector3(0,0,-5));
@@ -54,7 +56,7 @@ public class SimpleSnookerScene extends BaseScene {
 	
 	public void render(GL10 gl)
 	{
-		if(frameCounter % 10 == 0) System.out.println(ball.getLinearVelocity().z);
+		if(frameCounter % 10 == 0) System.out.println(ball.getAngularKineticEnergy());
 		//Camera.active.position = Accelerometer.gravity.normalize().multiply(60);
 		for(int i = 0; i < table.length; i++) table[i].render(gl);
 		ball.render(gl);
