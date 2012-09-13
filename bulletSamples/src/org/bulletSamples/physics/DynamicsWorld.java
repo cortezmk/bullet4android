@@ -10,7 +10,7 @@ public class DynamicsWorld {
 	native private void destructor();
 	native private void NsetGravity(int id, float x, float y, float z);
 	native private void NaddBoxShape(int id, int idShape);
-	native private void NstepSimulation(int id, int timeStep);
+	native private void NstepSimulation(int id, int timeStep, int subSteps);
 	native private void NgetTransform(int id, Vector3 ret);
 	native private int BlaCreateRigidBody(int id, Vector3 pos);
 	native private void NCreateBox(CollisionShape cs, float mass, Vector3 pos, float width, float height, float depth);
@@ -21,7 +21,7 @@ public class DynamicsWorld {
 	native private void NsetDebugDrawer();
 	native private void NdrawDebug();
 	
-	native private int Bla0();
+	public int simulationSubSteps = 1;
 	
 	public DynamicsWorld()
 	{
@@ -59,7 +59,7 @@ public class DynamicsWorld {
 	
 	public void stepSimulation(int timeStep)
 	{
-		NstepSimulation(id, timeStep);
+		NstepSimulation(id, timeStep, simulationSubSteps);
 	}
 	
 	public Vector3 getTransform()

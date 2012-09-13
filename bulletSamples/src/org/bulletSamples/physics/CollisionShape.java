@@ -144,7 +144,7 @@ public class CollisionShape {
 		Vector3 vel = this.getAngularVelocity();
 		if(vel.length() == 0) return 0;
 		float inertia = getMomentOfInertia(this.getAngularVelocity().normalize());
-		return inertia;//return inertia * (float)Math.pow(getAngularVelocity().length(), 2) / 2.0f;
+		return inertia * (float)Math.pow(getAngularVelocity().length(), 2) / 2.0f;
 	}
 	
 	public float getKineticEnergy()

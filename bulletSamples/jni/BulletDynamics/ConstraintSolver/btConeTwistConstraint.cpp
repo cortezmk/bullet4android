@@ -826,7 +826,7 @@ void btConeTwistConstraint::computeConeLimitInfo(const btQuaternion& qCone,
 		if (fabs(vSwingAxis.x()) > SIMD_EPSILON)
 		{
 			// non-zero twist?! this should never happen.
-			int wtf = 0; wtf = wtf;
+			int wtf = 0;
 		}
 
 		// Compute limit for given swing. tricky:
@@ -872,7 +872,7 @@ void btConeTwistConstraint::computeConeLimitInfo(const btQuaternion& qCone,
 	else if (swingAngle < 0)
 	{
 		// this should never happen!
-		int wtf = 0; wtf = wtf;
+		int wtf = 0;
 	}
 }
 
@@ -924,7 +924,7 @@ void btConeTwistConstraint::computeTwistLimitInfo(const btQuaternion& qTwist,
 	if (twistAngle < 0)
 	{
 		// this should never happen
-		int wtf = 0; wtf = wtf;			
+		int wtf = 0;
 	}
 
 	vTwistAxis = btVector3(qMinTwist.x(), qMinTwist.y(), qMinTwist.z());

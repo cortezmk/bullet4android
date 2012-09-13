@@ -3,6 +3,7 @@ package org.bulletSamples.scene;
 import javax.microedition.khronos.opengles.GL10;
 import org.bulletSamples.geometry.Box;
 import org.bulletSamples.geometry.Camera;
+import org.bulletSamples.geometry.Quaternion;
 import org.bulletSamples.geometry.Sphere;
 import org.bulletSamples.geometry.Vector3;
 import org.bulletSamples.physics.CollisionShape;
@@ -19,7 +20,16 @@ public class SimpleSnookerScene extends BaseScene {
 	private Box box;
 	private CollisionShape ball;
 	private int frameCounter = 0;
-	private float restitution = 0.97f;
+	private float restitution = 0.92f;
+	
+	float deltaRest = .01f;
+	int numTests = 20;
+	int maxFrames = 2500;
+	int numFrames = 0;
+	int numTest = 0;
+	
+	double sumEK = 0;
+	float[] avgEK = new float[numTests];
 	
 	public void create()
 	{
@@ -52,11 +62,34 @@ public class SimpleSnookerScene extends BaseScene {
 		ball.setRestitution(restitution);
 		ball.setFriction(0);
 		ball.setLinearVelocity(new Vector3(0,0,-5));
+		resetSimulation(restitution);
+	}
+	
+	public void resetSimulation(float restitution)
+	{
+		ball.setTranslation(new Vector3(0, 1.75f, 0));
+		ball.setRotation(new Quaternion(Vector3.up(), 0));
+		ball.setLinearVelocity(new Vector3(0,0,-5));
+		ball.setRestitution(restitution);
+		for(int i = 1; i < table.length; i++) table[i].setRestitution(restitution);
 	}
 	
 	public void render(GL10 gl)
 	{
-		if(frameCounter % 10 == 0) System.out.println(ball.getAngularKineticEnergy());
+		if(frameCounter % 100 == 0 && numTest < numTests)
+		{
+			sumEK += ball.getKineticEnergy();
+			if(numFrames > maxFrames)
+			{
+				avgEK[numTest] = (float)(sumEK / (float)maxFrames);
+				System.out.println(restitution + (float)numTest*deltaRest + ":" + avgEK[numTest]);
+				sumEK = 0;
+				numFrames = 0;
+				numTest++;
+				resetSimulation(restitution + (float)numTest*deltaRest);
+			}
+			numFrames++;
+		}
 		//Camera.active.position = Accelerometer.gravity.normalize().multiply(60);
 		for(int i = 0; i < table.length; i++) table[i].render(gl);
 		ball.render(gl);
