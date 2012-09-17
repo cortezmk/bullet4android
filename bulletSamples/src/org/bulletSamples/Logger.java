@@ -7,7 +7,7 @@ public class Logger {
 	
 	public static void setLogFile(String filename)
 	{
-		File logFile = new File("sdcard/" + filename);
+		File logFile = new File("sdcard/bulletSamples/" + filename);
 		if (!logFile.exists())
 		{
 			try
@@ -34,6 +34,7 @@ public class Logger {
 	{
 		try {
 			writer.close();
+			writer = null;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

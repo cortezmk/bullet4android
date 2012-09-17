@@ -9,6 +9,7 @@ import org.bulletSamples.geometry.Vector3;
 import org.bulletSamples.physics.CollisionShape;
 import org.bulletSamples.physics.DynamicsWorld;
 import org.bulletSamples.Accelerometer;
+import org.bulletSamples.Logger;
 
 public class SimpleSnookerScene extends BaseScene {
 	public SimpleSnookerScene(DynamicsWorld dw) { super(dw); }
@@ -24,12 +25,18 @@ public class SimpleSnookerScene extends BaseScene {
 	
 	float deltaRest = .01f;
 	int numTests = 20;
-	int maxFrames = 2500;
-	int numFrames = 0;
+	int maxBounces = 20;
+	int numBounces = 0;
 	int numTest = 0;
+	private boolean negativeSign = false;
 	
 	double sumEK = 0;
 	float[] avgEK = new float[numTests];
+	
+	private boolean getSign(float val)
+	{
+		return val > 0 ? false : true;
+	}
 	
 	public void create()
 	{
@@ -63,6 +70,8 @@ public class SimpleSnookerScene extends BaseScene {
 		ball.setFriction(0);
 		ball.setLinearVelocity(new Vector3(0,0,-5));
 		resetSimulation(restitution);
+		negativeSign = getSign(ball.getLinearVelocity().z);
+		Logger.setLogFile(restitution + "");
 	}
 	
 	public void resetSimulation(float restitution)
@@ -76,19 +85,26 @@ public class SimpleSnookerScene extends BaseScene {
 	
 	public void render(GL10 gl)
 	{
-		if(frameCounter % 100 == 0 && numTest < numTests)
+		if(numTest < numTests)
 		{
-			sumEK += ball.getKineticEnergy();
-			if(numFrames > maxFrames)
+			if(negativeSign != getSign(ball.getLinearVelocity().z))
 			{
-				avgEK[numTest] = (float)(sumEK / (float)maxFrames);
-				System.out.println(restitution + (float)numTest*deltaRest + ":" + avgEK[numTest]);
+				sumEK += ball.getKineticEnergy();
+				negativeSign = !negativeSign;
+				numBounces++;
+				Logger.write(ball.getKineticEnergy() + "");
+			}
+			if(numBounces > maxBounces)
+			{
+				avgEK[numTest] = (float)(sumEK / (float)maxBounces);
+				//System.out.println(restitution + (float)numTest*deltaRest + ":" + avgEK[numTest]);
 				sumEK = 0;
-				numFrames = 0;
+				numBounces = 0;
 				numTest++;
 				resetSimulation(restitution + (float)numTest*deltaRest);
+				Logger.close();
+				Logger.setLogFile(restitution + (float)numTest*deltaRest + "");
 			}
-			numFrames++;
 		}
 		//Camera.active.position = Accelerometer.gravity.normalize().multiply(60);
 		for(int i = 0; i < table.length; i++) table[i].render(gl);
