@@ -18,7 +18,12 @@ public class Vector3 implements Cloneable {
 	}
 	
 	public static Vector3 up() { return new Vector3(0,1,0); };
+	public static Vector3 down() { return new Vector3(0,-1,0); };
 	public static Vector3 zero() { return new Vector3(0,0,0); }
+	public static Vector3 front() { return new Vector3(0,0,-1); }
+	public static Vector3 back() { return new Vector3(0,0,1); }
+	public static Vector3 left() { return new Vector3(-1,0,0); }
+	public static Vector3 right() { return new Vector3(1,0,0); }
 	
 	public Vector3 cross(Vector3 other)
 	{

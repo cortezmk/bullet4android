@@ -46,7 +46,6 @@ public class Logger {
 			writer.append(text);
 			writer.newLine();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

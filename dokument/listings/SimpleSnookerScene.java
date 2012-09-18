@@ -1,14 +1,8 @@
 package org.bulletSamples.scene;
 
 import javax.microedition.khronos.opengles.GL10;
-import org.bulletSamples.geometry.Box;
-import org.bulletSamples.geometry.Camera;
-import org.bulletSamples.geometry.Quaternion;
-import org.bulletSamples.geometry.Sphere;
-import org.bulletSamples.geometry.Vector3;
-import org.bulletSamples.physics.CollisionShape;
-import org.bulletSamples.physics.DynamicsWorld;
-import org.bulletSamples.Accelerometer;
+import org.bulletSamples.geometry.*;
+import org.bulletSamples.physics.*;
 import org.bulletSamples.Logger;
 
 public class SimpleSnookerScene extends BaseScene {
@@ -23,17 +17,14 @@ public class SimpleSnookerScene extends BaseScene {
 	private int frameCounter = 0;
 	private float restitution = 0.9f;
 	
-	float deltaRest = .01f;
-	int numTests = 20;
-	int maxBounces = 20;
-	int numBounces = 0;
-	int numTest = 0;
+	private float deltaRest = .01f;
+	private int numTests = 10;
+	private int maxBounces = 20;
+	private int numBounces = 0;
+	private int numTest = 0;
 	private boolean negativeSign = false;
-	int ticks = 0;
-	int maxTicks = 10000;
-	
-	double sumEK = 0;
-	float[] avgEK = new float[numTests];
+	private int ticks = 0;
+	private int maxTicks = 10000;
 	
 	private boolean getSign(float val)
 	{
@@ -43,7 +34,6 @@ public class SimpleSnookerScene extends BaseScene {
 	public void create()
 	{
 		camera = new Camera(new Vector3(0, 20, 0), 0, 270);
-		//camera.lookat = true;
 		Camera.active = camera;
 		tableBottom = new Box(3f, 1, 3f);
 		tableBottom.setColor(.3f, 1, .3f, 1);
@@ -66,8 +56,7 @@ public class SimpleSnookerScene extends BaseScene {
 		}
 		table[0].setRestitution(0f);
 		ballShape = new Sphere(.25f);
-		box = new Box(.25f, .25f, .25f);
-		ball = dw.createShape(box, new Vector3(0,1.75f,0), 1);
+		ball = dw.createShape(ballShape, new Vector3(0,1.75f,0), 1);
 		ball.setRestitution(restitution);
 		ball.setFriction(0);
 		ball.setLinearVelocity(new Vector3(0,0,-5));
@@ -91,7 +80,6 @@ public class SimpleSnookerScene extends BaseScene {
 		{
 			if(negativeSign != getSign(ball.getLinearVelocity().z))
 			{
-				sumEK += ball.getKineticEnergy();
 				negativeSign = !negativeSign;
 				numBounces++;
 				Logger.write(ball.getKineticEnergy() + "");
@@ -101,9 +89,6 @@ public class SimpleSnookerScene extends BaseScene {
 			{
 				if(ticks > maxTicks) Logger.write("Timeout...");
 				ticks = 0;
-				avgEK[numTest] = (float)(sumEK / (float)maxBounces);
-				//System.out.println(restitution + (float)numTest*deltaRest + ":" + avgEK[numTest]);
-				sumEK = 0;
 				numBounces = 0;
 				numTest++;
 				resetSimulation(restitution + (float)numTest*deltaRest);
@@ -112,7 +97,6 @@ public class SimpleSnookerScene extends BaseScene {
 			}
 			ticks++;
 		}
-		//Camera.active.position = Accelerometer.gravity.normalize().multiply(60);
 		for(int i = 0; i < table.length; i++) table[i].render(gl);
 		ball.render(gl);
 	}

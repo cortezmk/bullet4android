@@ -4,6 +4,13 @@
 \usepackage{amsmath}
 \usepackage{anysize}
 \usepackage{listings}
+\lstset
+{
+	tabsize=2,
+	breaklines=true,
+	numbers=left,
+	frame=single
+}
 \usepackage{graphicx}
 \usepackage{color}
 \title{Wykorzystanie silników fizycznych na platformach mobilnych}
@@ -32,17 +39,18 @@ TODO
   % [source]http://mhandroid.wordpress.com/2011/01/23/using-eclipse-for-android-cc-development/
   Aby utworzyć projekt Androida z możliwością edycji i kompilacji bibliotek
   natywnych należy: \\
-  1. Zainstalować środowisko Eclipse(i doinstalować do niego wtycczkę ADT).\\
+  1. Zainstalować środowisko Eclipse(i doinstalować do niego wtyczkę
+  \emph{ADT}).\\
   2. Pobrać kolejno Android SDK i NDK. Do edycji plików żródłowych jest
-  też konieczne pobranie wtyczki CDT(C++ Development Tools). Potrzebny będzie
-  rónież kod żródłowy biblioteki bullet. Dodatki w eclipse instaluje się przez
+  też konieczne pobranie wtyczki \emph{CDT}(C++ Development Tools). Potrzebny
+  będzie rónież kod żródłowy biblioteki bullet. Dodatki w eclipse instaluje się przez
   Help -> Install new software\ldots , wpisując adres http://download.eclipse.org/releases/galileo (lub zamisat
   galileo wpisać nazwę swojej wersji Eclipse).
   
   \includegraphics[width=\textwidth]{./img/CDT.png}
   3. Utworzyć nowy standardowy projekt aplikacji na system Android.\\
-  4. Do projektu dodać folder jni gdzie przechowywany będzie kod źródłowy w
-  języku C++. Skopiować do niego foldery z kodu źródłowego biblioteki
+  4. Do projektu dodać folder \emph{jni} gdzie przechowywany będzie kod źródłowy
+  w języku C++. Skopiować do niego foldery z kodu źródłowego biblioteki
   bullet(będą potrzebne biblioteki BulletCollision, BulletDynamics i
   LinearMath, a także pliki btBulletCollisionCommon.h,
   btBulletDynamicsCommon.h, Bullet-C-Api.h).
@@ -72,9 +80,7 @@ TODO
   W zakładce behavior należy odznaczyć checkboxa Clean i usunąć tekst z pola
   Build.\\
   8. W C++ General -> Paths And Symbols dodać ścieżkę dla nagłówków.
-  {NDKROOT}\backslash platforms\backslash
-  android-14\backslash arch-arm\backslash usr\backslash include
-  
+ 
   9. Ponieważ w projekcie będą wykorzystywane elementy biblioteki STL, konieczne
   jest dodanie odpowiedniej ścieżki.\\
   
@@ -84,28 +90,49 @@ TODO
   Application.mk(który również muisi być dodany do projektu).
   
   \lstinputlisting[language=make, caption=Zawartość pliku Application.mk,
-  label=andMake,
-  breaklines=true,numbers=left,frame=single]{./listings/Application.mk}
+  label=andMake]{./listings/Application.mk}
   
   Po tych czynnościach można edytować projekt ze składnią Javy jak i C++,
   korzystając z autouzupełniania i jednolitej kompilacji. Należy jednak
   pamiętać, że przy dodawaniu nowego pliku z kodem źródłowym w C++ do folderu
-  jni konieczne jest umieszczenie o nim informacji w Android.mk .
-  \subsection{Zbudowanie biblioteki Bullet na platformę ARM.}
-Budowę biblioteki Bullet na platformę Android rozpoczyna się od stworzenia odpowiednika pliku makefile - Android.mk. Należy skopiować źródła bibliotek LinearMath, BulletCollision oraz BulletDynamics do folderu jni w głównym folderze projketu. Następnie dodać do pliku Android.mk informacje o plikach z kodem tych bibliotek, jak to przedstawia listing \ref{andMake}.
+  \emph{jni} konieczne jest umieszczenie o nim informacji w Android.mk .
 
-Na końcu pliku umieszczamy również listę plików własnej biblioteki(wrappera). Niezbędnym jest również umieszczenie w pliku Application.mk informacji o tym, że przy kompilacji używany będzie pakiet STL.
+\subsection{Wywoływanie funkcji natywnych z poziomu Javy}
 
-Do kompilacji używamy aplikacji ndk-build.cmd znajdującej się w pakiecie Android NDK.
+\subsection{Konserwacja obiektów}
 
-\includegraphics[width=\textwidth]{./img/ndk-build.png}
+\subsection{Przekazywanie argumentów i zwracanych wartości}
 
-\subsection{Wywoływanie funkcji natywnych z poziomu Javy.}
+\section{Wykorzystanie silnika Bullet w doświadczeniach fizycznych}
 
-\subsection{Konserwacja obiektów.}
+\subsection{Gromadzenie pomiarów}
+W celu łatwego gromadzenia danych pomiarowych w trakcie trwania testu powstała
+klasa Logger przechowująca funkcje odpowiadające za przechowywanie danych w
+pamięci urządzenia.
+  \lstinputlisting[language=Java, caption=Klasa Logger,
+  label=lis:logger]{./listings/Logger.java}
+Należy również pamiętać o zezwoleniu aplikacji na manipulowanie pamięcią
+zewnętrzną. Konieczny jest wpis w manifeście aplikacji.
+\lstinputlisting[language=xml, caption=zawartość pliku AndroidManifest.xml,
+  label=lis:manifest,linerange={6-9}]{./listings/AndroidManifest.xml}
 
-\subsection{Przekazywanie argumentów i zwracanych wartości.}
+\subsection{Zasada zachowania energii}
 
+\subsubsection{Przypadek z jednym ciałem}
+Na początek zostanie rozważony najprostszy przypadek z jedną kulką odbijającą
+się kolejno od dwóch idealnie sprężystych ścianek. Do tego testu wykorzystana
+została scena prezentowana na listingu \ref{lis:SimpleSnookerScene}.
+ \lstinputlisting[language=Java,
+caption=scena testująca przypadek z jednym ciałem,
+label=lis:SimpleSnookerScene]{./listings/SimpleSnookerScene.java}
+Na niesprężystym podłożu(ln. 57) zostaje umieszczona kulka(ln. 59), która przez
+nadaną jej prędkość początkową(ln. 62) odbija się kolejno od ścianek(ln. 49,
+50). Sprężystość(\emph{restitution}) kulki jak i ścianek jest regulowana na
+początku każdego testu(ln. 73, 74), która dla pierszego wynosi 0.9(ln. 18) i
+jest liniowo zwiększana dla kolejnych dziesięciu testów(ln. 21, 24, 94) aż do
+osiągnięcia wartości 1(gdzie teoretycznie energia kulki powinna być stała).
+Dla każdej testowanej wartości przewidziano 20 odbić(ln. 22, 23, 81-97).
+  
 \end{document}
 %http://java.sun.com/docs/books/jni/html/refs.html
 
