@@ -21,16 +21,17 @@ public class SimpleSnookerScene extends BaseScene {
 	private Box box;
 	private CollisionShape ball;
 	private int frameCounter = 0;
-	private float restitution = 0.9f;
+	private float restitution = 0.95f;
 	
-	float deltaRest = .01f;
-	int numTests = 20;
+	float deltaRest = .001f;
+	int numTests = 10;
 	int maxBounces = 20;
 	int numBounces = 0;
 	int numTest = 0;
 	private boolean negativeSign = false;
 	int ticks = 0;
 	int maxTicks = 10000;
+	String format = "%.3f";
 	
 	double sumEK = 0;
 	float[] avgEK = new float[numTests];
@@ -73,7 +74,7 @@ public class SimpleSnookerScene extends BaseScene {
 		ball.setLinearVelocity(new Vector3(0,0,-5));
 		resetSimulation(restitution);
 		negativeSign = getSign(ball.getLinearVelocity().z);
-		Logger.setLogFile(String.format("%.2f", restitution));
+		Logger.setLogFile(String.format(format, restitution));
 	}
 	
 	public void resetSimulation(float restitution)
@@ -108,7 +109,7 @@ public class SimpleSnookerScene extends BaseScene {
 				numTest++;
 				resetSimulation(restitution + (float)numTest*deltaRest);
 				Logger.close();
-				Logger.setLogFile(String.format("%.2f", restitution + (float)numTest*deltaRest));
+				Logger.setLogFile(String.format(format, restitution + (float)numTest*deltaRest));
 			}
 			ticks++;
 		}
