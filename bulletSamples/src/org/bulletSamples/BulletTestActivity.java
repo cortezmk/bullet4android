@@ -1,6 +1,7 @@
 package org.bulletSamples;
 
 import android.app.Activity;
+import android.content.pm.ActivityInfo;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -24,6 +25,7 @@ public class BulletTestActivity extends Activity implements SensorEventListener 
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
+    	setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE); // (NEW)
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN); // (NEW)

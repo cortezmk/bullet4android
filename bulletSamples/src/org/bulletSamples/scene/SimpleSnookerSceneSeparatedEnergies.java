@@ -11,8 +11,8 @@ import org.bulletSamples.physics.DynamicsWorld;
 import org.bulletSamples.Accelerometer;
 import org.bulletSamples.Logger;
 
-public class SimpleSnookerScene extends BaseScene {
-	public SimpleSnookerScene(DynamicsWorld dw) { super(dw); }
+public class SimpleSnookerSceneSeparatedEnergies extends BaseScene {
+	public SimpleSnookerSceneSeparatedEnergies(DynamicsWorld dw) { super(dw); }
 	
 	private Box tableBottom, tableVerticalPart, tableHorizontalPart;
 	private CollisionShape[] table;
@@ -21,9 +21,9 @@ public class SimpleSnookerScene extends BaseScene {
 	private Box box;
 	public CollisionShape ball;
 	private int frameCounter = 0;
-	private float restitution = 1f;
+	private float restitution = 0.90f;
 	
-	float deltaRest = .001f;
+	float deltaRest = .01f;
 	int numTests = 10;
 	int maxBounces = 60;
 	int numBounces = 0;
@@ -31,7 +31,7 @@ public class SimpleSnookerScene extends BaseScene {
 	private boolean negativeSign = false;
 	int ticks = 0;
 	int maxTicks = 2000;
-	String format = "%.3f";
+	String format = "%.2f";
 	
 	double sumEK = 0;
 	float[] avgEK = new float[numTests];
@@ -43,8 +43,8 @@ public class SimpleSnookerScene extends BaseScene {
 	
 	public void create()
 	{
-   		dw.simulationSubSteps = 120;
-   		dw.fixedStep = (float)(1.0/240.0);
+   		//dw.simulationSubSteps = 120;
+   		//dw.fixedStep = (float)(1.0/240.0);
 		camera = new Camera(new Vector3(0, 20, 0), 0, 270);
 		//camera.lookat = true;
 		Camera.active = camera;
@@ -67,10 +67,10 @@ public class SimpleSnookerScene extends BaseScene {
 			table[i].setRestitution(restitution);
 			table[i].setFriction(0);
 		}
-		table[0].setRestitution(1f);
+		table[0].setRestitution(0f);
 		ballShape = new Sphere(.25f);
 		box = new Box(.25f, .25f, .25f);
-		ball = dw.createShape(ballShape, new Vector3(0,1.75f,0), 1);
+		ball = dw.createShape(box, new Vector3(0,1.75f,0), 1);
 		ball.setRestitution(restitution);
 		ball.setFriction(0);
 		ball.setLinearVelocity(new Vector3(0,0,-5));
@@ -85,7 +85,7 @@ public class SimpleSnookerScene extends BaseScene {
 		{
 			ball.setTranslation(new Vector3(-100,0,0));
 			//ball.remove();
-			ball = dw.createShape(ballShape, new Vector3(0,1.75f,0), 1);
+			ball = dw.createShape(box, new Vector3(0,1.75f,0), 1);
 		}
 		ball.setTranslation(new Vector3(0, 1.75f, 0));
 		//ball.setRotation(new Quaternion(Vector3.up(), 0));
@@ -103,7 +103,7 @@ public class SimpleSnookerScene extends BaseScene {
 				sumEK += ball.getKineticEnergy();
 				negativeSign = !negativeSign;
 				numBounces++;
-				Logger.write(ball.getKineticEnergy() + "");
+				Logger.write(ball.getLinearKineticEnergy() + " " + ball.getAngularKineticEnergy() + " ");
 				ticks = 0;
 			}
 			float z = ball.getTranslation().z;
@@ -111,12 +111,12 @@ public class SimpleSnookerScene extends BaseScene {
 			{
 				if(ball.getLinearVelocity().length() == 0)
 				{
-					for(int i = numBounces; i < maxBounces+1; i++) Logger.write("0.0");
-					numTest++;
+					for(int i = numBounces; i < maxBounces+1; i++) Logger.write("0.0 0.0");
+					//numTest++;
 				}
 				else if(numBounces > maxBounces)
 				{
-					numTest++;
+					//numTest++;
 				}
 				ticks = 0;
 				avgEK[numTest] = (float)(sumEK / (float)maxBounces);
@@ -126,6 +126,7 @@ public class SimpleSnookerScene extends BaseScene {
 				resetSimulation(restitution + (float)numTest*deltaRest, true);
 				Logger.close();
 				Logger.setLogFile(String.format(format, restitution + (float)numTest*deltaRest));
+				numTest++;
 			}
 			//if(ball.getLinearVelocity().length() == 0) ball.setLinearVelocity(new Vector3(0,0,-5));
 			ticks++;

@@ -10,7 +10,7 @@ public class DynamicsWorld {
 	native private void destructor();
 	native private void NsetGravity(int id, float x, float y, float z);
 	native private void NaddBoxShape(int id, int idShape);
-	native private void NstepSimulation(int id, int timeStep, int subSteps);
+	native private void NstepSimulation(int id, int timeStep, int subSteps, float fixedStep);
 	native private void NgetTransform(int id, Vector3 ret);
 	native private int BlaCreateRigidBody(int id, Vector3 pos);
 	native private void NCreateBox(CollisionShape cs, float mass, Vector3 pos, float width, float height, float depth);
@@ -22,6 +22,7 @@ public class DynamicsWorld {
 	native private void NdrawDebug();
 	
 	public int simulationSubSteps = 1;
+	public float fixedStep = (float)(1.0/60.0);
 	
 	public DynamicsWorld()
 	{
@@ -30,7 +31,7 @@ public class DynamicsWorld {
 	
 	public CollisionShape createShape(Mesh mesh, Vector3 pos, float mass)
 	{
-		CollisionShape cShape = new CollisionShape(mesh, mass);
+		CollisionShape cShape = new CollisionShape(mesh, mass, id);
 		if(mesh.getClass() == Sphere.class) NCreateSphere(cShape, mass, pos, ((Sphere)mesh).getRadius());
 		if(mesh.getClass() == Box.class)
 		{
@@ -59,7 +60,7 @@ public class DynamicsWorld {
 	
 	public void stepSimulation(int timeStep)
 	{
-		NstepSimulation(id, timeStep, simulationSubSteps);
+		NstepSimulation(id, timeStep, simulationSubSteps, fixedStep);
 	}
 	
 	public Vector3 getTransform()

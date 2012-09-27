@@ -107,9 +107,9 @@ extern "C"
 		((btDiscreteDynamicsWorld*)btObjects::get(id))->setGravity(btVector3(x,y,z));
 	}
 	
-	JNIEXPORT void Java_org_bulletSamples_physics_DynamicsWorld_NstepSimulation( JNIEnv* env, jobject self, jint idDynamicsWorld, jint timeElapsed, jint subSteps )
+	JNIEXPORT void Java_org_bulletSamples_physics_DynamicsWorld_NstepSimulation( JNIEnv* env, jobject self, jint idDynamicsWorld, jint timeElapsed, jint subSteps, jfloat fixedStep )
 	{
-		((btDiscreteDynamicsWorld*)btObjects::get(idDynamicsWorld))->stepSimulation((float)timeElapsed/1000.f,subSteps, (float)timeElapsed/1000.f/(float)subSteps);
+		((btDiscreteDynamicsWorld*)btObjects::get(idDynamicsWorld))->stepSimulation((float)timeElapsed/1000.f,subSteps, fixedStep);
 	}
 
 	JNIEXPORT void Java_org_bulletSamples_physics_DynamicsWorld_NpickObject( JNIEnv* env, jobject self, jint id, jobject jRayFrom, jobject jRayTo )

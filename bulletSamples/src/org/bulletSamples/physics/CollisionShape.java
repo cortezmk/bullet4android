@@ -20,7 +20,8 @@ public class CollisionShape {
 	public int id;
 	private int idShape;
 	private int idMState;
-	native private void destructor();
+	private int idWorld;
+	native private void destructor(int id, int idWorld);
 	native void NgetTranslation(int id, Vector3 vec);
 	native void NsetTranslation(int id, Vector3 vec);
 	native void NgetRotation(int id, Quaternion q);
@@ -37,7 +38,7 @@ public class CollisionShape {
 	native void NgetAngularVelocity(int id, Vector3 value);
 	native float NgetMomentOfInertia(int id, Vector3 vec);
 	
-	public CollisionShape(Mesh mesh, float mass)
+	public CollisionShape(Mesh mesh, float mass, int idworld)
 	{
 		this.mesh = mesh;
 		this.mass = mass;
@@ -125,8 +126,13 @@ public class CollisionShape {
 	
 	protected void finalize() throws Throwable
 	{
-		//destructor();
+		//destructor(id, idWorld);
 		super.finalize();
+	}
+	
+	public void remove()
+	{
+		destructor(id, idWorld);
 	}
 	
 	public float getLinearKineticEnergy()
