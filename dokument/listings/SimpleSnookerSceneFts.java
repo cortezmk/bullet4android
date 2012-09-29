@@ -1,29 +1,23 @@
 package org.bulletSamples.scene;
 
 import javax.microedition.khronos.opengles.GL10;
-import org.bulletSamples.geometry.Box;
-import org.bulletSamples.geometry.Camera;
-import org.bulletSamples.geometry.Quaternion;
-import org.bulletSamples.geometry.Sphere;
-import org.bulletSamples.geometry.Vector3;
-import org.bulletSamples.physics.CollisionShape;
-import org.bulletSamples.physics.DynamicsWorld;
-import org.bulletSamples.Accelerometer;
+import org.bulletSamples.geometry.*;
+import org.bulletSamples.physics.*;
 import org.bulletSamples.Logger;
 
-public class SimpleSnookerScene extends BaseScene {
-	public SimpleSnookerScene(DynamicsWorld dw) { super(dw); }
+public class SimpleSnookerSceneFts extends BaseScene {
+	public SimpleSnookerSceneFts(DynamicsWorld dw) { super(dw); }
 	
 	private Box tableBottom, tableVerticalPart, tableHorizontalPart;
 	private CollisionShape[] table;
 	private Camera camera;
 	private Sphere ballShape;
-	private Box box;
 	public CollisionShape ball;
 	private int frameCounter = 0;
-	private float restitution = .91f;
+	private float restitution = 1f;
 	
-	float deltaRest = .01f;
+	private float ftsFactor = 60;
+	private float deltaFts = 40;
 	int numTests = 10;
 	int maxBounces = 60;
 	int numBounces = 0;
@@ -31,10 +25,7 @@ public class SimpleSnookerScene extends BaseScene {
 	private boolean negativeSign = false;
 	int ticks = 0;
 	int maxTicks = 2000;
-	String format = "%.2f";
-	
-	double sumEK = 0;
-	float[] avgEK = new float[numTests];
+	String format = "%.1f";
 	
 	private boolean getSign(float val)
 	{
@@ -43,10 +34,9 @@ public class SimpleSnookerScene extends BaseScene {
 	
 	public void create()
 	{
-   		dw.simulationSubSteps = 120;
-   		dw.fixedStep = (float)(1.0/60.0);
+   		dw.simulationSubSteps = 300;
+   		dw.fixedStep = (float)(1.0/ftsFactor);
 		camera = new Camera(new Vector3(0, 20, 0), 0, 270);
-		//camera.lookat = true;
 		Camera.active = camera;
 		tableBottom = new Box(3f, 1, 3f);
 		tableBottom.setColor(.3f, 1, .3f, 1);
@@ -67,19 +57,18 @@ public class SimpleSnookerScene extends BaseScene {
 			table[i].setRestitution(restitution);
 			table[i].setFriction(0);
 		}
-		table[0].setRestitution(1f);
+		table[0].setRestitution(0f);
 		ballShape = new Sphere(.25f);
-		box = new Box(.25f, .25f, .25f);
 		ball = dw.createShape(ballShape, new Vector3(0,1.75f,0), 1);
 		ball.setRestitution(restitution);
 		ball.setFriction(0);
-		ball.setLinearVelocity(new Vector3(0,0,-5));
-		resetSimulation(restitution, false);
+		ball.setLinearVelocity(new Vector3(0,0,-10));
+		//resetSimulation(ftsFactor, false);
 		negativeSign = getSign(ball.getLinearVelocity().z);
-		Logger.setLogFile(String.format(format, restitution));
+		Logger.setLogFile(String.format(format, ftsFactor));
 	}
 	
-	public void resetSimulation(float restitution, boolean reload)
+	public void resetSimulation(float ftsFactor, boolean reload)
 	{
 		if(reload)
 		{
@@ -87,9 +76,9 @@ public class SimpleSnookerScene extends BaseScene {
 			ball = dw.createShape(ballShape, new Vector3(0,1.75f,0), 1);
 		}
 		ball.setTranslation(new Vector3(0, 1.75f, 0));
-		ball.setLinearVelocity(new Vector3(0,0,-5));
+		ball.setLinearVelocity(new Vector3(0,0,-10));
 		ball.setRestitution(restitution);
-		for(int i = 1; i < table.length; i++) table[i].setRestitution(restitution);
+		dw.fixedStep = 1.0f/ftsFactor;
 	}
 	
 	public void render(GL10 gl)
@@ -98,31 +87,24 @@ public class SimpleSnookerScene extends BaseScene {
 		{
 			if(negativeSign != getSign(ball.getLinearVelocity().z))
 			{
-				sumEK += ball.getKineticEnergy();
 				negativeSign = !negativeSign;
 				numBounces++;
-				Logger.write(ball.getKineticEnergy() + "");
+				Logger.write(ball.getKineticEnergy() + " ");
 				ticks = 0;
 			}
 			float z = ball.getTranslation().z;
 			if(numBounces > maxBounces || ticks > maxTicks || ball.getLinearVelocity().length() == 0 || z > 100 || z < -100)
 			{
+				numTest++;
 				if(ball.getLinearVelocity().length() == 0)
 				{
-					for(int i = numBounces; i < maxBounces+1; i++) Logger.write("0.0");
-					numTest++;
-				}
-				else if(numBounces > maxBounces)
-				{
-					numTest++;
+					for(int i = numBounces; i < maxBounces+1; i++) Logger.write("0.0 ");
 				}
 				ticks = 0;
-				avgEK[numTest] = (float)(sumEK / (float)maxBounces);
-				sumEK = 0;
 				numBounces = 0;
-				resetSimulation(restitution + (float)numTest*deltaRest, true);
+				resetSimulation(ftsFactor + (float)numTest*deltaFts, true);
 				Logger.close();
-				Logger.setLogFile(String.format(format, restitution + (float)numTest*deltaRest));
+				Logger.setLogFile(String.format(format, ftsFactor + (float)numTest*deltaFts));
 			}
 			ticks++;
 		}

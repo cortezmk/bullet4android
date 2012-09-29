@@ -1,24 +1,14 @@
-﻿\documentclass[12pt]{article}
-
-    \input{preambula_pakiety.tex}
-    \input{preambula_ustawienia.tex}
-
-    \title{Wykorzystanie silników fizycznych na platformach mobilnych}
-    \author{Mateusz Kortas}
-
-    %polecenia zdefiniowane w pakiecie strona_tytulowa.sty
-    \uczelnia{POLITECHNIKA GDAŃSKA}
+\documentclass[12pt]{article}
+\input{pakiety.tex}
+\input{preambula_ustawienia.tex}
+\title{Wykorzystanie silników fizycznych na platformach mobilnych}
+\author{Mateusz Kortas}
+\date{12.05.2012}
+\uczelnia{POLITECHNIKA GDAŃSKA}
     \instytut{Katedra Fizyki Teoretycznej i Informatyki Kwantowej}
     \promotor{dr. B. Reichel}
     \praca{PRACA MAGISTERSKA}
     \rok{2012}
-    %\draft  %comment out for draft
-    %koniec poleceń zdefiniowanych przez pakiet strona_tytulowa.sty
-
-    %skorowidz
-    %\makeindex
-    %koniec skorowidza
-
 \begin{document}
 	\sloppy %zakaz wydłużania lini (gdzy nie może złożyć)
 	\clubpenalty=10000 %to kara za sierotki
@@ -31,25 +21,6 @@
     \pagenumbering{arabic}              %numeracja stron: rzymska
     \thispagestyle{empty}               %na tej stronie: brak numeru
     \stronatytulowa                     %strona tytułowa tworzona przez pakiet strona_tytulowa.tex
-
-    %podziękowania
-    \newpage
-    ~   %potrzebne dla \vfill
-    \vfill
-    {\sffamily
-    
-    \begin{flushright}
-        \begin{tabular}{r}
-        Składam serdeczne podziękowania Panu dr Bartoszowi Reichelowi \\
-        za poświęcony czas i cenne wskazówki merytoryczne \\
-        udzielane na każdym etapie tworzenia pracy.
-        \end{tabular}
-    \end{flushright}
-    }
-    \vskip0.5in
-    \thispagestyle{empty}
-    \newpage
-    %koniec podziękowań
 
     %formatowanie spisu treści i~nagłówków
     \hypersetup{linkcolor=black}
@@ -94,14 +65,15 @@
     %koniec przeniesienia...
 
     %treść główna dokumentu
-    \input{tresc_dokumentu.tex}
+    \input{tresc.tex}
     \newpage
     %koniec treści głównej dokumentu
 
     %bibliografia
-    \bibliographystyle{plainnat}                    %styl bibliografii: w kolejności cytowania, zrozumiały dla pakietu hyperref.sty
-    \addcontentsline{toc}{section}{Literatura}      %musi być wyżej niż \bibliography{bibliografia}, żeby w~spisie treści był właściwy numer strony
-    \bibliography{bibliografia}
+    %\bibliographystyle{plainnat}                    %styl bibliografii: w
+    % kolejności cytowania, zrozumiały dla pakietu hyperref.sty \addcontentsline{toc}{section}{Literatura}      %musi być wyżej niż
+    % \bibliography{bibliografia}, żeby w~spisie treści był właściwy numer strony
+    %\bibliography{bibliografia}
     %koniec bibliografii
 
     %skorowidz
@@ -110,3 +82,11 @@
 %    \printindex
     %koniec skorowidza
 \end{document}
+%http://java.sun.com/docs/books/jni/html/refs.html
+
+%przelatywanie przez bandę - zabawa parametrami
+%zderzenie 2 kulek - zachowana energia?
+%zderzenie 3 kulek - czy jest rozpatrywane poprawnie
+%jelly i newtonPendulum - zachowalność energii
+%rotacja kulki - czy przy dużych obrotach będzie się cofać przy odbijaniu
+%edoświadczenia

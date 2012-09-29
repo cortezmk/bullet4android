@@ -3,6 +3,7 @@
 TODO
   \subsection{Cele projektu.}\label{subsec:celeProjektu}
 TODO
+  \newpage
   \section{Wykorzystane technologie.}
   \subsection{Android SDK}
 TODO
@@ -10,7 +11,10 @@ TODO
 TODO
   \subsection{Android NDK}
 TODO
-  \section{Wykorzystanie Bullet physics engine przez Android NDK}
+\subsection{OpenGL ES}
+TODO
+  \newpage
+  \section{Wykorzystanie Android NDK jako wrappera silnika Bullet}
   \subsection{Konfiguracja Android NDK w środowisku Eclipse}
   % [source]http://mhandroid.wordpress.com/2011/01/23/using-eclipse-for-android-cc-development/
   Aby utworzyć projekt Androida z możliwością edycji i kompilacji bibliotek
@@ -78,9 +82,37 @@ TODO
 
 \subsection{Przekazywanie argumentów i zwracanych wartości}
 
+\subsection{Struktura wrappera}
+
+\subsubsection{Typy podstawowe}
+
+\subsubsection{Typy geometryczne}
+
+\subsubsection{Typy fizyczne}
+
+\paragraph{CollisionShape}
+
+\paragraph{DynamicsWorld}
+
+\paragraph{Spring}
+
+\subsection{Rendering}
+
+\newpage
+\section{Implementacja i zastosowanie dodatkowych możliwośći silnika Bullet}
+
+\subsection{Akcelerometr}
+
+\subsection{Drag and Drop}
+
+\subsection{DebugDrawer}
+
+\subsection{Wykrywanie kolizji}
+
 \section{Wykorzystanie silnika Bullet w doświadczeniach fizycznych}
 
 \subsection{Gromadzenie pomiarów}
+
 W celu łatwego gromadzenia danych pomiarowych w trakcie trwania testu powstała
 klasa Logger przechowująca funkcje odpowiadające za przechowywanie danych w
 pamięci urządzenia.
@@ -93,6 +125,9 @@ zewnętrzną. Konieczny jest wpis w manifeście aplikacji.
 
 \subsection{Zasada zachowania energii}
 
+TODO: Czym jest energia kinetyczna liniowa i obrotowa. Jak jest zapisywana w tym
+systemie?
+
 \subsubsection{Przypadek z jednym ciałem}
 Na początek zostanie rozważony najprostszy przypadek z jedną kulką odbijającą
 się kolejno od dwóch idealnie sprężystych ścianek. Do tego testu wykorzystana
@@ -100,9 +135,9 @@ została scena prezentowana na listingu \ref{lis:SimpleSnookerScene}.
  \lstinputlisting[language=Java,
 caption=scena testująca przypadek z jednym ciałem,
 label=lis:SimpleSnookerScene]{./listings/SimpleSnookerScene.java}
-Na niesprężystym podłożu(ln. 57) zostaje umieszczona kulka(ln. 59), która przez
-nadaną jej prędkość początkową(ln. 62) odbija się kolejno od ścianek(ln. 49,
-50). Sprężystość(\emph{restitution}) kulki jak i ścianek jest regulowana na
+Na niesprężystym(ln. 57) i całkowicie śliskim(ln. 55) podłożu zostaje
+umieszczona kulka(ln. 59), która przez nadaną jej prędkość początkową(ln. 62)
+odbija się kolejno od ścianek(ln. 49, 50). Sprężystość(\emph{restitution}) kulki jak i ścianek jest regulowana na
 początku każdego testu(ln. 73, 74), która dla pierszego wynosi 0.9(ln. 18) i
 jest liniowo zwiększana dla kolejnych dziesięciu testów(ln. 21, 24, 94) aż do
 osiągnięcia wartości 1(gdzie teoretycznie energia kulki powinna być stała).
@@ -114,33 +149,166 @@ kinetyczna kulki jest zapisywana do pliku przy każdym odbiciu(ln. 81-87).
 Zależność energii kinetycznej kulki przy kolejnych jej odbiciach od wartości
 sprężystości jest przedstawiona na poniższym wykresie.
 
-\includegraphics[width=\textwidth]{./img/chart_1.png}
+\input{./diag/EKjednoCialo.tex}
 
 Jak widać w doświadczeniu nie osiągnięto spodziewanych rezultatów. Dla
 sprężystości o wartości 1 energia kinetyczna powinna być stała, natomiast tutaj
 gwałtownie wzrasta. Wydaje się, że dla utrzymania stałej energii kinetycznej
 konieczne jest użycie niższej wartości. Dla polepszenia widoczności poniższy
 wykres zawiera wartości energii kinetycznej dla wartości sprężystości od 0,94 do
-0,98.
+0,97.
 
-\includegraphics{./img/chart_2.png}
+\input{./diag/EKjednoCialo2.tex}
 
 Przy początkowej prędkości 5 m/s i masie 1 kg (linting
 \ref{lis:SimpleSnookerScene} ln. 72, 59) energia kinetyczna kulki powinna mieć
 stałą wartość energii kinetycznej 12,5.
 TODO równanie obliczenia EK.
 Z prezentowanego wykresu wynika, że najodpowiedniejsza wartość współczynnika
-sprężystości kulki i ścianek mieści się między 0,95 a 0,96.\\
+sprężystości kulki i ścianek mieści się między 0,945 a 0,955.\\
 Dla ustalenia bardziej szczegółowej wartości test został powtórzony dla
 następujących parametrów z listingu \ref{lis:SimpleSnookerScene}:
 
 \lstinputlisting[language=Java,
   label=lis:SimpleSnookerScene_additional]{./listings/SimpleSnookerScene_additional.java}
   
-\includegraphics[width=\textwidth]{./img/chart_3.png}
+Ilość odbić została zwiększona dwukrotnie, dzięki czemu możliwe jest sprawdzenie
+czy wyrównany poziom energii będzie się utrzymywać.
+  
+\input{./diag/EKjednoCialo3.tex}
 
-Jak widać w otrzymywanej energii kinetycznej występuje spory wkład losowości.
-Oceniając jednak wynik testu można stwierdzić, że najbardziej odpowiednią
-wartością dla współczynnika sprężystości jest 0,955 ponieważ wartość energii
-kinetycznej przy ostatnim zarejestrowanym odbiciu dla tego współczynnika(14,74)
-była najbliżasza wartości spodziewanej(12,5).
+Jak widać poziom energii nie utrzymuje się dla zwiększonej ilości odbić. W
+dodatku w losowych momentach (na prezentowanym wykresie dla wartości
+współczynnika sprężystości 0,945 dla 27. odbicia) można zaobserwować jego
+gwałtowne wzrosty. Dla złagodzenia efektów tych wzrostów na poniższym wykresie
+przedstawiono uśredniony wynik dziesięciu testów.
+
+\input{./diag/EKjednoCialo4.tex}
+
+Spadki wartości energii kinetycznych sugerują, że nawet przy początkowo dobrze
+dobranych współczynnikach sprężystości, przy większej ilości odbić energia nie
+utrzymuje stałej wartości. Przy wartości współczynnika równej jedności energia
+nie utrzymuje stałej wartości, a wzrasta. Co jest tego przyczyną? \\
+W poszukiwaniu odpowiedzi na to pytanie można spojrzeć na wyniki poprzednich
+testów rozpatrując osobno zapisy energii kinetycznej liniowej i obrotowej.
+Poniżej przedstawiono fragment zapisu dla testu przy watrości współczynnika
+sprężystości 0,98:
+
+\lstinputlisting[language=xml, caption=wartości energii kinetycznej,
+  label=lis:manifest,linerange={6-12}]{./listings/0,98.txt}
+  
+Można zaobserwować gwałtowne zmiany obu energii, jednak wzrost energii
+kinetycznej liniowej jest zawsze poprzedzony wzrostem energii kinetycznej
+obrotowej. Liniowa energia kinetyczna sama w sobie nie ulega gwałtownym
+wzrostom. Przyczyną tego jest wzrost energii całkowitej.\\
+Podczas analitycznego rozważania odbicia ciała możliwe jest dokładne ustalenie
+czasu i miejsca zderzenia poprzez rozwiązanie odpowiedniego równania ruchu. W
+przypadku symulacji zderzenia ciał przez silnik fizyczny, symulacja ta jest
+dzielona na kroki. Każdy krok odpowiada minięciu kwantu czasu o z góry ustalonej
+wartości i wszystkie ciała uczestniczące w symulacji poruszają się adekwatnie do
+swojej prędkości. Prawie niemożliwe jest więc uzyskanie sytuacji w której
+zderzenie powierzchni sferycznej z płaską będzie tylko jednym punktem.
+
+\begin{center}
+\includegraphics{./img/zderzenie1.png}
+\end{center}
+
+W przypadku zderzenia w symulacji zderzenie nie jest punktem a powierzchnią.
+Silnik bullet do obliczenia parametrów reakcji na zderzenie potrzebuje
+określenia obszaru zderzenia jako punktu (który jest wybrany z powierzchni
+obszaru zderzenia oznaczonego na poniższej ilustracji czerwoną linią). Niestety
+im większy jest obszar zderzenia tym większe jest prawdopodobieństwo błędu w
+wyborze odpowiedniego punktu. Przesunięcie tego punktu względem właściwego
+umiejscowienia pozycji zderzenia wynikające z niedokładności obliczeniowej
+decyduje o nadmiarze lub niedoborze obrotowej energii kinetycznej.
+
+\begin{center}
+\includegraphics{./img/zderzenie2.png}
+\end{center}
+
+Aby zminimalizować możliwą wielkość obszaru zderzenia można zmniejszyć kwant
+czasu, minimalizując odległości przebywane przez ciała w każdym kroku
+symulacji.\\
+Aby tego dokonać należy przyjrzeć się prototypowi funkcji \emph{stepSimulation}.
+
+\lstinputlisting[language=c++,
+label=lis:stepSimulation]{./listings/stepSimulation.cpp}
+
+Funkcja ta jest wywoływana w celu zaktualizowania symulacji o pewien
+czas(wywoływana jest dla każdej renderowanej klatki aplikacji). Według
+\emph{Bullet User Manual}(TODO:źródło z bibliografii) jej poszczególne parametry
+oznaczają:\\
+\\
+\textbf{timeStep}: całkowita ilość czasu jaka musi minąć w danym kroku. W
+symulacjach jest to najczęściej odstęp czasu pomiędzy wyświetleniem poprzedniej
+i następnej klatki.\\
+\textbf{fixedTimeStep}: silnik Bullet każdy krok symulacji dzieli na podkroki o
+długości okreslanej tym parametrem. To właśnie ten parametr decyduje o
+dokładności symulacji. Jeśli \emph{timeStep} jest mniejsze od
+\emph{fixedTimeStep} ruch ciał zostaje interpolowany. Domyślna wartość parametru
+to $ \frac{1}{60} $ sekundy.\\
+\textbf{maxSubSteps}: czasem z powodu spowolnień pracy silnika lub aplikacji
+wartość \emph{timeStep} może być bardzo duża. Aby zapobiec zbyt dużym przeskokom
+w animacji parametr ten określa maksymalną ilość podkroków jakie mogą być
+wykonane w jednym kroku symulacji. Innymi słowy relacja parametrów powinna
+wyglądać następująco:\\
+$ timeStep < fixedTimeStep * maxSubSteps $
+
+Domyślną wartością \emph{maxSubSteps} jest 1.
+
+Kolejnym testem jest zmodyfikowany test z listingu \ref{lis:SimpleSnookerScene}.
+Tym razem nie jest badana zależność energii kinetycznej od współczynnika
+sprężystości, a od parametru \emph{fixedTimeStep}. 
+
+\lstinputlisting[language=Java,
+  label=lis:SimpleSnookerSceneFts,caption=scena
+  testująca zależność energii
+  kinetycznej od fixedTimeStep]{./listings/SimpleSnookerSceneFts.java}
+
+Zależność energii kinetycznej od odbicia(poszczególne linie wykresu
+reprezentują wartości współczynnika ftsFactor). Dla czytelności wykresu $
+fixedTimeStep = \frac{1}{ftsFactor} $. Współczynnik sprężystości został
+ustawiony na 1. Prędkość ciała wynosi 5$\frac{m}{s}$.
+
+\input{./diag/EKjednoCialoFTS.tex}
+
+Dla lepszej czytelności wykresu poniżej znajdują się wartości energii dla
+pierwszych 15 odbić:
+
+\input{./diag/EKjednoCialoFTSz.tex}
+
+Z wyników można odczytać, że przy długości podkroku $ \frac{1}{260} $ sekundy
+zasada zachowanaia energii zostaje spełniona. Okazuje się również, że wartość
+tego parametru musi być odpowiednio dobrana(przy innych widoczne są
+niedobory/nadmiary energii). Aby sprawdzić czy jest ona uniwersalna, kolejny
+test zostanie przeprowadzony dla wartości prędkości 10$\frac{m}{s}$.
+
+\input{./diag/EKjednoCialoFTS10.tex}
+
+Jak widać odpowiednia wartość parametru \emph{fixedTimeStep} jest uzależniona od
+wartości prędkości.
+
+\subsubsection{Przypadek z wieloma ciałami}
+
+TODO: dodać fragment o komentarzach w kodzie Bullet o wartościach friction i
+restitution.
+
+\subsection{Rzut ukośny}
+
+\subsection{Równia pochyła}
+
+\subsection{Zderzenie dwóch ciał}
+
+\subsubsection{Zderzenie całkowicie sprężyste}
+
+\subsubsection{Zderzenie całkowicie niesprężyste}
+
+\subsection{Zderzenie trzech ciał}
+
+\subsection{Odbicie podkręconej piłki}
+
+\subsection{Kołyska Newtona}
+
+\subsection{Ciało na sprężynie}
+
+\subsection{Model ciała sprężystego}
