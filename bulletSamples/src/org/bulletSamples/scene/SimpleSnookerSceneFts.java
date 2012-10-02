@@ -17,7 +17,7 @@ public class SimpleSnookerSceneFts extends BaseScene {
 	private float restitution = 1f;
 	
 	private float ftsFactor = 60;
-	private float deltaFts = 40;
+	private float deltaFts = 60;
 	int numTests = 10;
 	int maxBounces = 60;
 	int numBounces = 0;
@@ -62,7 +62,7 @@ public class SimpleSnookerSceneFts extends BaseScene {
 		ball = dw.createShape(ballShape, new Vector3(0,1.75f,0), 1);
 		ball.setRestitution(restitution);
 		ball.setFriction(0);
-		ball.setLinearVelocity(new Vector3(0,0,-10));
+		ball.setLinearVelocity(new Vector3(0,0,-12));
 		negativeSign = getSign(ball.getLinearVelocity().z);
 		Logger.setLogFile(String.format(format, ftsFactor));
 	}
@@ -75,7 +75,7 @@ public class SimpleSnookerSceneFts extends BaseScene {
 			ball = dw.createShape(ballShape, new Vector3(0,1.75f,0), 1);
 		}
 		ball.setTranslation(new Vector3(0, 1.75f, 0));
-		ball.setLinearVelocity(new Vector3(0,0,-10));
+		ball.setLinearVelocity(new Vector3(0,0,-12));
 		ball.setRestitution(restitution);
 		dw.fixedStep = 1.0f/ftsFactor;
 	}

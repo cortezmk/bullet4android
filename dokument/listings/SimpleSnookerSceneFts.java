@@ -63,7 +63,6 @@ public class SimpleSnookerSceneFts extends BaseScene {
 		ball.setRestitution(restitution);
 		ball.setFriction(0);
 		ball.setLinearVelocity(new Vector3(0,0,-10));
-		//resetSimulation(ftsFactor, false);
 		negativeSign = getSign(ball.getLinearVelocity().z);
 		Logger.setLogFile(String.format(format, ftsFactor));
 	}

@@ -28,7 +28,6 @@ public class SimpleSnookerScene2 extends BaseScene {
    		dw.fixedStep = (float)(1.0/450.00000640);
    		
 		camera = new Camera(new Vector3(0, 20, 0), 0, 270);
-		//camera.lookat = true;
 		Camera.active = camera;
 		tableBottom = new Box(3f, 1, 3f);
 		tableBottom.setColor(.3f, 1, .3f, 1);
@@ -47,14 +46,13 @@ public class SimpleSnookerScene2 extends BaseScene {
 		for(int i = 0; i < table.length; i++)
 		{
 			table[i].setRestitution(restitution);
-			table[i].setFriction(.001f);
+			table[i].setFriction(.00f);
 		}
 		table[0].setRestitution(0f);
 		ballShape = new Sphere(.25f);
-		box = new Box(.25f, .25f, .25f);
 		ball = dw.createShape(ballShape, new Vector3(0,1.75f,0), 1);
 		ball.setRestitution(restitution);
-		ball.setFriction(.001f);
+		ball.setFriction(.00f);
 		ball.setLinearVelocity(new Vector3(0,0,-10f));
 	}
 	

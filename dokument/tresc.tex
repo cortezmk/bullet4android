@@ -1,10 +1,20 @@
   \section{Wstęp}\label{sec:wstep}
   \subsection{Czym jest silnik fizyczny?}\label{subsec:czymJestSilnik}
-TODO
+\emph{TODO: Czym są i do czego wykorzystywane są silniki fizyczne. Czym różni
+się silnik wysokoprecezyjny(High-precision) od silnika działającego w czasie
+rzeczywistym(realtime) i gdzie znajdują swoje nalepsze zastosowanie. Ich
+ograniczenia. Kilka najpopularniejszych silników. Trochę o PPU i GPGPU.}
   \subsection{Cele projektu.}\label{subsec:celeProjektu}
-TODO
+  \emph{TODO: Omówienie celów projektu:\\
+  -przystosowanie silnika Bullet do funkcjonowania na platformie
+  Andriod(wrapper dla języka java)\\
+  -ocena przydatności silnika Bullet pod kątem realizmu symulacji w
+  doświadczeniach fizycznych}
   \newpage
   \section{Wykorzystane technologie.}
+  \emph{TODO: Krótkie omówienie technologii. Przy silniku Bullet uzasadnienie
+  wyboru(open-source, realtime - przeznaczony do prezentowania symulacji na
+  żywo)}
   \subsection{Android SDK}
 TODO
   \subsection{Bullet physics engine}
@@ -15,58 +25,62 @@ TODO
 TODO
   \newpage
   \section{Wykorzystanie Android NDK jako wrappera silnika Bullet}
+  \emph{TODO:dlaczego wykorzystany zostaje wrapper? - szybkość tworzenia sceny,
+  łatwiejsze debugowanie, bezawaryjność}
   \subsection{Konfiguracja Android NDK w środowisku Eclipse}
   % [source]http://mhandroid.wordpress.com/2011/01/23/using-eclipse-for-android-cc-development/
   Aby utworzyć projekt Androida z możliwością edycji i kompilacji bibliotek
   natywnych należy: \\
   1. Zainstalować środowisko Eclipse(i doinstalować do niego wtyczkę
   \emph{ADT}).\\
-  2. Pobrać kolejno Android SDK i NDK. Do edycji plików żródłowych jest
-  też konieczne pobranie wtyczki \emph{CDT}(C++ Development Tools). Potrzebny
-  będzie rónież kod żródłowy biblioteki bullet. Dodatki w eclipse instaluje się przez
-  Help -> Install new software\ldots , wpisując adres http://download.eclipse.org/releases/galileo (lub zamisat
-  galileo wpisać nazwę swojej wersji Eclipse).
+  2. Pobrać kolejno \emph{Android SDK} i \emph{NDK}. Do edycji plików żródłowych
+  jest też konieczne pobranie wtyczki \emph{CDT}(C++ Development Tools). Potrzebny
+  będzie rónież kod żródłowy biblioteki Bullet. Dodatki w eclipse instaluje się
+  przez Help $ \rightarrow $ Install new software\ldots , wpisując adres
+  http://download.eclipse.org/releases/galileo (lub zamisat galileo wpisać nazwę swojej wersji Eclipse).
   
   \includegraphics[width=\textwidth]{./img/CDT.png}
   3. Utworzyć nowy standardowy projekt aplikacji na system Android.\\
   4. Do projektu dodać folder \emph{jni} gdzie przechowywany będzie kod źródłowy
   w języku C++. Skopiować do niego foldery z kodu źródłowego biblioteki
-  bullet(będą potrzebne biblioteki BulletCollision, BulletDynamics i
-  LinearMath, a także pliki btBulletCollisionCommon.h,
-  btBulletDynamicsCommon.h, Bullet-C-Api.h).
+  Bullet(będą potrzebne biblioteki \emph{BulletCollision}, \emph{BulletDynamics}
+  i \emph{LinearMath}, a także pliki \emph{btBulletCollisionCommon.h},
+  \emph{btBulletDynamicsCommon.h}, \emph{Bullet-C-Api.h}).
   
+  \begin{center}
   \includegraphics{./img/jni-folder.png}
   
   \includegraphics{./img/bulletFoldery.png}
+  \end{center}
   
-  5. Umieścić w folderze plik Android.mk . Zawiera on informacje jak powinien
-  być zbudowany projekt w kodzie natywnym. Do tego pliku należy
-  dodać informacje o plikach źródłowych biblioteki bullet.
+  5. Umieścić w folderze plik \emph{Android.mk} . Zawiera on informacje jak
+  powinien być zbudowany projekt w kodzie natywnym. Do tego pliku należy
+  dodać informacje o plikach źródłowych biblioteki Bullet.
   \lstinputlisting[language=make, caption=Zawartość pliku Android.mk,
   label=andMake, breaklines=true,numbers=left]{./listings/bulletMkfile.mk}
   
-  6. Przekonwertować projekt java na java/C++ , przez menu File -> New ->
-  Other\ldots
+  6. Przekonwertować projekt java na java/C++ , przez menu File $ \rightarrow $
+  New $ \rightarrow $ Other\ldots
   
   \includegraphics{./img/convert.png}
   
-  7. W Properties projektu ustawić budowanie kodu w C++ przez ndk-build.
-  Najlepiej miejsce rozpakowania Android NDK przypisać pod zmienną środowiskową
-  (np. NDKROOT), co ułatwi przenośność projektu.
+  7. W Properties projektu ustawić budowanie kodu w C++ przez \emph{ndk-build}.
+  Najlepiej miejsce rozpakowania \emph{Android NDK} przypisać pod zmienną
+  środowiskową (np. \$ \{NDKROOT\}), co ułatwi przenośność projektu.
   
   \includegraphics[width=\textwidth]{./img/properties.png}
   
-  W zakładce behavior należy odznaczyć checkboxa Clean i usunąć tekst z pola
-  Build.\\
-  8. W C++ General -> Paths And Symbols dodać ścieżkę dla nagłówków.
+  W zakładce behavior należy odznaczyć checkboxa \emph{Clean} i usunąć tekst z
+  pola \emph{Build}.\\
+  8. W C++ General $ \rightarrow $ Paths And Symbols dodać ścieżkę dla nagłówków.
  
-  9. Ponieważ w projekcie będą wykorzystywane elementy biblioteki STL, konieczne
-  jest dodanie odpowiedniej ścieżki.\\
+  9. Ponieważ w projekcie będą wykorzystywane elementy biblioteki STL,
+  konieczne jest dodanie odpowiedniej ścieżki.\\
   
   \includegraphics[width=\textwidth]{./img/ndkroot.png}
   
   Dodać również należy informację o wykorzystaniu STL w pliku
-  Application.mk(który również muisi być dodany do projektu).
+  \emph{Application.mk}(który również muisi być dodany do projektu).
   
   \lstinputlisting[language=make, caption=Zawartość pliku Application.mk,
   label=andMake]{./listings/Application.mk}
@@ -74,15 +88,20 @@ TODO
   Po tych czynnościach można edytować projekt ze składnią Javy jak i C++,
   korzystając z autouzupełniania i jednolitej kompilacji. Należy jednak
   pamiętać, że przy dodawaniu nowego pliku z kodem źródłowym w C++ do folderu
-  \emph{jni} konieczne jest umieszczenie o nim informacji w Android.mk .
+  \emph{jni} konieczne jest umieszczenie o nim informacji w \emph{Android.mk} .
 
 \subsection{Wywoływanie funkcji natywnych z poziomu Javy}
+\emph{TODO: w jaki sposób działa JNI?(przykładowy kod?)}
 
 \subsection{Konserwacja obiektów}
+\emph{TODO: w jaki sposób aplikacja kojarzy obiekty javy z obiektami natywnymi?}
 
 \subsection{Przekazywanie argumentów i zwracanych wartości}
+\emph{TODO: jak wygląda konwersja }
 
 \subsection{Struktura wrappera}
+\emph{TODO: Jak działąją sceny które są wykorzystywane w dalszych przykładach.
+Głównie opisy pól i metod w klasach wrappera.}
 
 \subsubsection{Typy podstawowe}
 
@@ -97,17 +116,32 @@ TODO
 \paragraph{Spring}
 
 \subsection{Rendering}
+\emph{TODO: również klasa Camera. Jakie tryby OpenGL ES zostały wykorzystane
+przy rysowaniu ramek.}
+
+\subsection{Sceny}
+\emph{TODO: bardzo krótki opis działania mechanizmu scen i gdzie dodawać ich
+wywołania}
 
 \newpage
 \section{Implementacja i zastosowanie dodatkowych możliwośći silnika Bullet}
+\emph{TODO: w jaki sposób zostały zaimplementowane pozostałe przydatne
+mechanizmy silnika i jak zostały wykorzystane możliwości smartphone'a do
+uatrakcyjnienia aplikacji:)}
 
 \subsection{Akcelerometr}
+\emph{TODO: omówienie przykładu ze sterowaniem grawitacją przy pomocy
+akcelerometru.}
 
 \subsection{Drag and Drop}
+\emph{TODO: na razie point single touch. Jeśli mi się uda - również multitouch
+z ``obszarowym'' dotykiem}
 
 \subsection{DebugDrawer}
+\emph{TODO: również opis problemu z przepełnieniem bufora JNI.}
 
 \subsection{Wykrywanie kolizji}
+\emph{TODO: o możliwości logowania kolizkji wybranych obiektów}
 
 \section{Wykorzystanie silnika Bullet w doświadczeniach fizycznych}
 
@@ -124,9 +158,8 @@ zewnętrzną. Konieczny jest wpis w manifeście aplikacji.
   label=lis:manifest,linerange={6-9}]{./listings/AndroidManifest.xml}
 
 \subsection{Zasada zachowania energii}
-
-TODO: Czym jest energia kinetyczna liniowa i obrotowa. Jak jest zapisywana w tym
-systemie?
+\emph{TODO: Czym jest energia kinetyczna liniowa i obrotowa. Jak jest zapisywana
+w tym systemie? o momencie bezwładności}
 
 \subsubsection{Przypadek z jednym ciałem}
 Na początek zostanie rozważony najprostszy przypadek z jedną kulką odbijającą
@@ -163,7 +196,10 @@ wykres zawiera wartości energii kinetycznej dla wartości sprężystości od 0,
 Przy początkowej prędkości 5 m/s i masie 1 kg (linting
 \ref{lis:SimpleSnookerScene} ln. 72, 59) energia kinetyczna kulki powinna mieć
 stałą wartość energii kinetycznej 12,5.
-TODO równanie obliczenia EK.
+\begin{center}
+\scalebox{1.5}{$ E_{K} = \frac{mv^{2}}{2} = \frac{1kg*(5\frac{m}{s})^{2}}{2} =
+12,5J $}\\
+\end{center}
 Z prezentowanego wykresu wynika, że najodpowiedniejsza wartość współczynnika
 sprężystości kulki i ścianek mieści się między 0,945 a 0,955.\\
 Dla ustalenia bardziej szczegółowej wartości test został powtórzony dla
@@ -286,29 +322,93 @@ test zostanie przeprowadzony dla wartości prędkości 10$\frac{m}{s}$.
 \input{./diag/EKjednoCialoFTS10.tex}
 
 Jak widać odpowiednia wartość parametru \emph{fixedTimeStep} jest uzależniona od
-wartości prędkości.
+wartości prędkości. Poprawne zasymulowanie doświadczenia w którym ważną rolę
+odgrywają odbicia sprężyste przy użyciu silnika Bullet jest więc bardzo trudne.
 
 \subsubsection{Przypadek z wieloma ciałami}
 
-TODO: dodać fragment o komentarzach w kodzie Bullet o wartościach friction i
-restitution.
+W poprzednim doświadczeniu został zbadany przypadek dla jednego ciała i dla
+wartości kroku $ \frac{1}{260} $s i prędkości 5$ \frac{m}{s} $ energia
+kinetyczna pozostaje stała. Jak wyglądać będzie zależność energii kinetycznej od
+czasu w tych samych warunkach jeśli w symulacji będzie uczestniczyć wiele ciał?
+Przy pomocy poniższej sceny sprawdzone zostanie jaki wpływ ma parametr
+\emph{fixedTimeStep} na łączną energię poruszających się ciał.
+
+\includegraphics[width=\textwidth]{./img/shot_2.png}
+
+\lstinputlisting[language=Java,
+  label=lis:ClosedSnookerScene,caption=scena
+  testująca przypadek z wieloma ciałami]{./listings/ClosedSnookerScene3.java}
+  
+Na obszarze otoczonym ściankami(ln. 44-50) zostaje umieszczonych dziewięć(ln.
+60-66) idealnie sprężystych(ln. 69) kulek. Kulki rozprzestrzeniają się w
+losowych kierunkach z prędkością 5$ \frac{m}{s} $(ln. 64). Wartość energii
+kinetycznej całego układu jest rejestrowana co 20 klatek(ln. 22, 105-111). Każdy
+test trwa 20*100 klatek(ln. 22, 24, 94), w każdym z nich wartość parametru
+\emph{ftsFactor} jest zwiększana(ln. 101).\\
+Poniżej przedstawiono wykres zależności całkowitej energii układu od
+czasu(klatek animacji) dla różnych wartości \emph{ftsFactor}, a tym samym
+długości podkroku symulacji. Dla większej dokładności wykonane zostało dziesięć
+takich testów i wyciągnięta zostałą z nich średnia wartość energii.
+
+\input{./diag/EKwieleCial.tex}
+
+Jak widać do pewnej wartości parametru \emph{ftsFactor}(dla prędkości 5$
+\frac{m}{s} $: od 360 do 420) wartość łącznej energii rośnie w czasie. Po
+przekroczeniu tej wartości energia zaczyna maleć. Dla wartości \emph{ftsFactor}
+równej 260 energia układu nie pozostaje stała w czasie, jak miało to miejsce w
+teście dla jednego ciała. Dzieje się tak ponieważ podczas symulacji ciała
+poprzez zderzenia mogą przekazywać sobie energię. Niemożliwe jest przez to
+utrzymanie stałej prędkości co powoduje, że dla każdego z ciał musi być
+ustawiona inna wartość parametru \emph{fixedTmeStep}. Stabilność układu zostaje
+więc naruszona.\\
+Oznacza to, że silnik Bullet nie nadaje się do symulacji w których wymagane jest
+badanie oddziaływań ciał sprężystych.\\
+Fakt, że symulacje nie są dokładne dla wysokiego współczynnika sprężystości i
+niskiego tarcia został nawet wspomniany w kodzie źródłowym biblioteki Bullet.
+
+\lstinputlisting[language=c++, caption=fragment kodu pliku btRigidBody.h z
+biblioteki Bullet,
+label=lis:RigidBody,linerange={126-129}]{./listings/btRigidBody.h}
 
 \subsection{Rzut ukośny}
 
 \subsection{Równia pochyła}
+\emph{TODO: porównanie czasów stoczenia się bez tarcia ciała kulistego i
+sześciennego - obrotowa energia kinetyczna powinna spowolnić ciało kuliste}
 
 \subsection{Zderzenie dwóch ciał}
+\emph{TODO: jak zachowany jest pęd a jak energia? Można też zbadać odbicia pod
+róznymi kątami}
 
 \subsubsection{Zderzenie całkowicie sprężyste}
 
 \subsubsection{Zderzenie całkowicie niesprężyste}
 
 \subsection{Zderzenie trzech ciał}
+\emph{TODO: czy rozpatrywane jest poprawnie?}
 
-\subsection{Odbicie podkręconej piłki}
+%\subsection{Odbicie podkręconej piłki}
 
 \subsection{Kołyska Newtona}
+\emph{TODO: jak zachowuje się energia?}
 
 \subsection{Ciało na sprężynie}
+\emph{TODO: j/w - przykład z pociskiem uderzającym w klocek na sprężynie?}
 
 \subsection{Model ciała sprężystego}
+\emph{TODO: jak zachowa się energia całego układu? - potrzebne źródło
+teoretyczne}
+
+\subsection{Gaz doskonały?}
+\emph{TODO: Może spróbowaćby zasymulować kilka zamkniętych kulek. Porównać
+wyniki pomiarów z wartościami teoretycznymi, wyznaczyć temperaturę, ciśnienie,
+energię wewnętrzną, stałą gazową, czy zachowane jest równanie Clapeyrona? czy
+słuszność ma równanie średniej drogi swobodnej?(można wykorzystać wykrywanie
+kolizji)}
+
+\newpage
+\section{Wnioski}
+\emph{Podsumowanie doświadczeń w pracy. Kiedy można wykorzystać silnik do
+symulacji fizycznych? Można też zwalić część winy złych wyników na spadek
+wydajności sprzętu przy dużym obciążeniu:).}
