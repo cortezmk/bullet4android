@@ -89,7 +89,8 @@ zwiększając precyzję obliczeń, jednak odbędzie się to kosztem mocy oblicze
 platformy.
 \subsection{Cele projektu.}\label{subsec:celeProjektu}
 Celami projektu są:\\
-\textbf{Uruchomienie silnika fizycznego na mobilnej platformie Android.}
+
+\textbf{Uruchomienie silnika fizycznego na mobilnej platformie Android.}\\
 Istnieje wiele silników fizycznych dedykowanych na platformy
 stacjonarne(głównie procesory firmy Intel). Silnik PhysX od wersji 3.0
 posiada wsparcie dla platformy Android jednak do dziś nie istnieje żadne
@@ -98,13 +99,15 @@ kod źródłowy silnika Bullet jest ogólnie dostępny, możliwa jest jego kompi
 na platformę ARM(najczęściej stosowane procesory w urządzeniach mobilnych).
 Celem tej częsci pracy będzie sprawdzenie jakie ewentualne trudności może nieść
 za sobą ta kompilacja. W celu ułatwienia tworzenia symulacji w silniku Bullet
-zostanie stworzony prosty wrapper dla języka Java.\\
+zostanie stworzone proste obudowanie(\emph{wrapper}) dla języka Java.\\
+
 \textbf{Wykorzystanie możliwości platformy mobilnej pod kątem symulacji
-fizycznych.} Smartfony i tablety posiadają kilka możliwości
+fizycznych.}\\ Smartfony i tablety posiadają kilka możliwości
 najczęściej niedostępnych dla platform stacjonarnych(np. akcelerometry czy
 ekrany dotykowe). Można je wykorzystać do uatrakcyjnienia symulacji, co
 będzie celem tej części pracy.\\
-\textbf{Ocena przydatności silnika w symulacjach fizycznych.} Badany
+
+\textbf{Ocena przydatności silnika w symulacjach fizycznych.}\\ Badany
 silnik uruchomiony zostanie na platformie mobilnej, których to moc obliczeniowa
 nie jest zwykle szczególnie wyskoa. Przez to wybrany silnik - Bullet nie jest
 wysokoprecyzyjnym silnikiem fizycznym i nie można się spodziewać wyników
@@ -142,9 +145,7 @@ mimo bycia sklasyfikowanym jako wysokowydajnościowy silnik, również w
 kinematografii(2012, Shrek, Sherlock Holmes). Bullet jest również domyślnie
 używanym silnikiem fizycznym ta takich projektach jak program graficzny
 Blender czy silnik gier 3d OGRE.
-\emph{TODO: Krótkie omówienie technologii. Przy silniku Bullet
-uzasadnienie wyboru(open-source, realtime - przeznaczony do prezentowania symulacji na
-  żywo), wspomie o blbliotekach BulletDynamics i Collision(paradygmaty)}
+
 \subsection{Android NDK}
 Biblioteki napisane w kodzie natywnym(C/C++) mogą być kompilowane na platformę
 ARM lub x86 i zainstalowane na urządzeniu używająć Android NDK(\emph{Native
@@ -153,24 +154,53 @@ wirtualną Dalvik używając metody \emph{System.LoadLibrary}. W przeciwieństwi
 Android SDK który bazuje na pluginach do Eclipsa, NDK jest zestawem narzędzi
 wywoływanych z wiersza polecenia. Każde zbudowanie projektu musi więc odbyć się
 ręcznie. Istnieją jednak wtyczki dla Eclipse od zewnętrznych producentów
-pozwalające na automatyczną kompilację kodu natywnego. W tym projekcie Android
-NDK będzie wykorzystane do kompilacji kodu biblioteki Bullet na platformę ARM,
-oraz wywoływanie jej funkcji przez integrację z kodem napisanym w języku Java.
+pozwalające na automatyczną kompilację kodu natywnego. Dostęp do natywnych
+funkcji z poziomu języka Java otrzymuje się poprzez JNI(\emph{Java Native
+Interface}). W tym projekcie Android NDK będzie wykorzystane do kompilacji kodu
+biblioteki Bullet na platformę ARM, oraz wywoływanie jej funkcji przez
+integrację z kodem napisanym w języku Java.
+
 \subsection{OpenGL ES}
 To podzbiór graficznego API - OpenGL. Zostało zaprojektowane specjalnie na
 potrzeby mobilnych urządzeń. Charakteryzuje się zbiorczym przetwarzaniem
 danych, czyli do urządzenia graficznego przekazywane są całe bloki pamięci w
 przeciwieństwie do charakterystycznych dla OpenGL pojedynczych wywołań. Jego
 najnowsza wersja 3.0 jest obsługiwana przez systemy Android od wersji 2.2.
- 
+
+\newpage
+\section{Podstawowe koncepcje silników fizycznych.}
+Ponieważ silniki fizyczne są jedynie symulacją, nie można za ich pomocą dokonać
+dokładnego odwzorowania rzeczistości. Dlatego w ich rozwiązaniach użyto
+rozmaitych uproszczeń. W tej sekcji zostaną wymienione niektóre z nich.
+
+\subsection{Detekcja kolizji}
+
+\subsubsection{Bounding box}
+
+\subsubsection{Otoczka wypłukła (convex hull)}
+
+\subsubsection{Metoda elementów skończonych}
+
+\subsection{Ruch Browna (Brownian motion)}
+
+\subsection{Oddziaływania dynamiczne (paradigms)}
+\emph{TODO: penalty methods, constraints(warunki), impulses}
+
   \newpage
-  \section{Wykorzystanie Android NDK jako wrappera silnika Bullet}
-  \emph{TODO:dlaczego wykorzystany zostaje wrapper? - szybkość tworzenia sceny,
-  łatwiejsze debugowanie, bezawaryjność}
+  \section{Wykorzystanie Android NDK jako obudowania dla silnika Bullet}
+Aby ułatwić tworzenie testowych scen zostało stworzone obudowanie obiektów
+pozwalające korzystać z możliwości sinika Bullet z poziomu języka Java. Dzięki
+temu proces tworzenia scen testowych zostaje skrócony oraz możliwe jest
+debugowanie kodu w Eclipse IDE.
   \subsection{Konfiguracja Android NDK w środowisku Eclipse}
   % [source]http://mhandroid.wordpress.com/2011/01/23/using-eclipse-for-android-cc-development/
-  Aby utworzyć projekt Androida z możliwością edycji i kompilacji bibliotek
-  natywnych należy: \\
+  Ponieważ w przeciwieństwie do Android SDK, dla NDK nie istnieje żadna
+  oficjalna wtyczka automatyzująca kompilację natywnych bibliotek konieczna jest
+  kompilacja ręczna z wiersza poleceń. Możliwe jest jednak skonfigurowanie
+  środowiska Eclipse w celu integracji z NDK.
+  
+  Aby utworzyć projekt Androida z
+  możliwością edycji i kompilacji bibliotek natywnych należy: \\
   1. Zainstalować środowisko Eclipse(i doinstalować do niego wtyczkę
   \emph{ADT}).\\
   2. Pobrać kolejno \emph{Android SDK} i \emph{NDK}. Do edycji plików żródłowych
@@ -231,39 +261,236 @@ najnowsza wersja 3.0 jest obsługiwana przez systemy Android od wersji 2.2.
   \emph{jni} konieczne jest umieszczenie o nim informacji w \emph{Android.mk} .
 
 \subsection{Wywoływanie funkcji natywnych z poziomu Javy}
-\emph{TODO: w jaki sposób działa JNI?(przykładowy kod?)}
+Do wywoływania funkcji natywnych z poziomu języka Java Android NDK wykorzystuje
+interfejs JNI. Aby dodać w kodzie C/C++ funkcję możliwą do wywałania z
+wirtualnej maszyny Dalvik, w kodzie w języku Java należy użyć słowa kluczowego
+\emph{native}.
 
-\subsection{Konserwacja obiektów}
-\emph{TODO: w jaki sposób aplikacja kojarzy obiekty javy z obiektami natywnymi?}
+\lstinputlisting[language=java, linerange={1-2, 9-9, 25-25}, caption=Użycie
+słowa kluczowego native w języku Java, label=lis:javaNative]{./listings/CollisionShape.java}
 
-\subsection{Przekazywanie argumentów i zwracanych wartości}
-\emph{TODO: jak wygląda konwersja }
+Następnie w kodzie natywnym zaimplementować zarejestrowaną metodę przy pomocy
+nazewnictwa Java\_<nazwa\_paczki>\_<nazwa\_obiektu>\_<nazwa\_metody>, oraz
+makra JNIEXPORT. Funkcja taka posiada dwa stałe argumenty. Pierwszym argumentem
+funkcji jest wskaźnik na zmienną typu \emph{JNIEnv}, która jest interfejsem
+środowiska uruchomieniowego Javy. Drugim jest zmienna typu \emph{jobject}
+zawierająca referencję do obiektu wywołującego daną metodę.
 
-\subsection{Struktura wrappera}
-\emph{TODO: Jak działąją sceny które są wykorzystywane w dalszych przykładach.
-Głównie opisy pól i metod w klasach wrappera.}
+\lstinputlisting[language=c++, linerange={3-4, 21-22}, caption=Implementacja
+natywnej metody w kodzie c++,
+label=lis:cppNative]{./listings/CollisionShape.cpp}
 
-\subsubsection{Typy podstawowe}
+W kodzie nie może również zabraknąć odniesienia do pliku \emph{jni.h}.
+
+\begin{lstlisting}[language=c++, caption=Użycie pliku nagłówkowego]
+#include <jni.h>
+\end{lstlisting}
+
+\subsection{Kontener obiektów}
+Ponieważ niemożliwy jest bezpośredni dostęp do obiektów po stronie natywnej,
+w tym projekcie zostają zastosowane obiekty obudowujące. Po stronie Javy każdy
+obiekt posiada unikalny identyfikator, który zostaje mu nadany przez
+konstruktor w momencie jego tworzenia.
+
+\lstinputlisting[language=java, linerange={5-6, 9-9, 26-31}, caption=Tworzenie
+nowego obiektu obudowującego,
+label=lis:javaGenId]{./listings/DynamicsWorld.java}
+
+W kodzie natywnym wszystkie identyfikatory są przechowywane w mapie
+\emph{pointer\_map} z biblioteki STL. Za jej pomocą kojarzone są identyfikatory
+obudowujących obiektów Javy z obiektami biblioteki Bullet.
+
+\lstinputlisting[language=c++, caption=Zawartość pliku btObjects.h\,
+zawierającego mapę, label=lis:btObjects_h]{./listings/btObjects.h}
+
+Funkcje \emph{put} i \emph{get} służą do umieszczania i pobierania obiektów
+biblioteki Bullet z mapy.
+
+\lstinputlisting[language=c++, caption=Zawartość pliku btObjects.cpp\,
+implementującego kontener identyfikatorów,
+label=lis:btObjects_h]{./listings/btObjects.cpp}
+
+Z każdym wywołaniem metody \emph{put} zostaje zwiększony licznik
+\emph{pointer\_map\_count}(ln. 10) dzięki czemu każy obiekt dodany do mapy
+posiada unikalny identyfikator.\\
+Następnie w implementacji metody \emph{constructor} przy
+pomocy funkcji \emph{put} zostaje nadany nowy identyfikator i
+przekazany(zwrócony) obiektowi obudowującemu z listingu \ref{lis:javaGenId}.
+
+\begin{lstlisting}[language=c++, caption=Użycie mapy pointer\_map w
+funkcji constructor.]
+extern "C"
+{
+	JNIEXPORT jint Java_org_bulletSamples_physics_DynamicsWorld_constructor( JNIEnv* env, jobject self )
+	{
+		//inicjalizacja skladowych obiektow btDiscreteDynamicsWorld
+		btDiscreteDynamicsWorld* dynamicsWorld = new
+		btDiscreteDynamicsWorld(dispatcher,broadphase,solver,collisionConfiguration);
+		return btObjects::put(dynamicsWorld);
+	}
+}
+\end{lstlisting}
+
+Aby uzyskać dostęp do przechowywanego przez mapę obiektu należy użyć metody
+\emph{get}, przekazując jej otrzymaną przez parametr wartość \emph{id}. Ponieważ
+mapa koajarzy identyfikatory ze wskaźnikami typu \emph{void\*}, pobrana wartość
+musi być przerzutowana na odpowiedni typ.
+
+\begin{lstlisting}[language=c++, caption=Pobranie przechowywanego obiektu z
+mapy] extern "C"
+{
+	JNIEXPORT void Java_org_bulletSamples_physics_DynamicsWorld_NCreateBox( JNIEnv* env, jobject self, jint id ...) 
+	 {
+	 	btDiscreteDynamicsWorld* dw = (btDiscreteDynamicsWorld*)btObjects::get(id);
+	 	//wykonywanie operacji na pobranym obiekcie
+	}
+}
+\end{lstlisting}
+
+Całą sekwencję tworzenia i wykonywania akcji na obiektach przedstawiono na
+poniższym diagramie.
+
+\begin{center}
+\includegraphics[width=\textwidth]{./img/sequenceDiagram.png}
+\end{center}
+
+\subsection{Struktura biblioteki obudowującej}
+W celu ułatwienia składania scen testowych część klas biblioteki Bullet została
+opakowana w klasach języka Java. Strukturę zawierającej je paczki przedstawia
+poniższy schemat.
+\begin{center}
+\includegraphics[scale=0.5]{./img/packageDiagram.png}
+\end{center}
 
 \subsubsection{Typy geometryczne}
+Poza klasami odpowiadającymi za podstawową geometrię jak wektor(\emph{Vector3})
+i kwaternion(\emph{Quaternion}), paczka \emph{org.bulletTest.geometry} zawiera
+również klasy deiniujące kształty - prostopadłościan(\emph{Box}) i
+kulę(\emph{Sphere}). Klasy \emph{Box} i \emph{Sphere} posiadają
+odpowiednie metody pozwalające na renderowanie określonych kształtów
+o podanych rozmiarach.
 
 \subsubsection{Typy fizyczne}
-
-\paragraph{CollisionShape}
+Dostępne metody obiektów opakowujących klasy silnika Bullet zostały
+przedstawione poniżej.
 
 \paragraph{DynamicsWorld}
+Klasa przedstawia środowisko fizyczne. Dodawane są do niego symulowane bryły
+sztywne i sprężyny.\\ \\
+\input{./tab/DynamicsWorld.tex}
+
+\paragraph{CollisionShape}
+Klasa przedstawia symulowane obiekty brył sztywnych.\\ \\
+\input{./tab/CollisionShape.tex}
 
 \paragraph{Spring}
+Klasa przedstawia symulowane obiekty ciał sprężystych.\\
+W parametrach funkcji można znaleźć typ enumeracyjny \emph{DoF} -
+stopnie swobody(\emph{degrees of freedom}). Określają one do jakiego stopnia
+swobody odnosi się dane wywołanie metody. Dostępne wartości to:\\
+\input{./tab/DoF.tex}
+\\ \\
+Do zaobrazowania znaczenia poszczególnych parametrów funkcji klasy Spring
+zostanie wykorzystana poniższa scena:\\
+
+\lstinputlisting[language=java, caption=Scena demonstrująca użycie klasy Spring,
+label=lis:spring_demo]{./listings/spring_demo.java}
+
+\begin{figure}
+\centering
+\includegraphics[scale = 0.6]{./img/Spring-render.png}
+\caption{Render sceny z listingu \ref{lis:spring_demo}.}
+\label{fig:spring_demo}
+\end{figure}
+
+Opisy metod w poniższej tabeli odnoszą się do oznaczeń na rysunku
+\ref{fig:spring_demo}. Wszystkie metody działąjące na stopień swobody sprężyny
+odnoszą się do ciała oznaczonego przez \textbf{B}.\\
+\input{./tab/Spring.tex}
+
+\subsection{Przekazywanie argumentów i zwracanych wartości}
+Podczas wymiany argumentów przez funkcje między wirtualną maszyną Javy a kodem
+natywnym podstawowe typy danych(jak \emph{int} czy \emph{float}) zostają
+przekonwertowane przez interfejs JNI na im odpowiadające dla danego środowiska.
+Natomiast gdy przekazywane są typy złożone(jak \emph{Vector3} i
+\emph{Quaternion} w bibliotece \emph{org.bulletTest.geometry}), wartości
+otrzymywane w parametrach to referencje na dany obiekt. W takich przypadkach
+konwersja musi być wykonana przez kod aplikacji poprzez pobranie i odpowiednie
+przypisanie pól z typami podstawowymi. Poniższy listing przedstawia metodę
+zamieniającą obiekt Javy \emph{Vector3} na natywny obiekt klasy \emph{btVector3}
+z biblioteki Bullet.
+
+\lstinputlisting[language=c++, caption=Konwersja klasy Vector3 z obiektu Javy
+do obiektu natywnego., label=lis:jnVector3Conv,
+linerange={39-50}]{./listings/common.cpp}
+
+Parametr \emph{env} to referencja do środowiska uruchomieniowego Javy,
+\emph{obj} jest referencją na obiekt Javy \emph{Vector3}, a \emph{vec} to
+zwrócony przekonwertowany obiekt \emph{btVector3}. Przy pomocy metody
+\emph{GetObjectlClass}(ln. 3) zostaje pobrana zmienna reprezentująca klasę
+obiektu \emph{obj}, która zostaje wykorzystana przez metody
+\emph{GetFieldId}(ln. 4-6) do pobrania reprezentacji pól obiektu. Następnie za
+ich pomocą wyciągnięte zostają same wartości pól - współrzędnych \emph{x},
+\emph{y} i \emph{z} wektora(ln. 8-10), które zostają wykorzystane do stworzenia
+nowego obiektu natywnego klasy \emph{btVector3}. Analogicznie realizowana jest
+konwersja obiektów natywnych na obiekty Javy.
 
 \subsection{Zwalnianie pamięci}
+Gdy dany opakowujący klasę biblioteki Bullet obiekt przestaje być potrzebny
+należy zwolnić zajmowaną przez niego pamięć. Niestety wbudowany w maszynę
+wirtualną Dalvik odśmiecacz pamięci(\emph{garbage collector}) nie może usunąć
+obiektu natywnego. Do tego celu wymagane jest zaimplementowanie destruktora dla
+klasy opakowującej. Pierwszym krokiem jest przeciążenie metody \emph{finalize}
+wywoływanej podczas usuwania obiektu Javy przez odśmiecacz.
 
-\subsection{Rendering}
-\emph{TODO: również klasa Camera. Jakie tryby OpenGL ES zostały wykorzystane
-przy rysowaniu ramek.}
+\begin{lstlisting}[language=Java, caption=Przeciążenie metody \emph{finalize}
+na przykładzie klasy \emph{DynamicsWorld}] public class DynamicsWorld
+{
+	...
+	native private void destructor(int id);
+	...
+	protected void finalize() throws Throwable
+	{
+		destructor(id);
+		super.finalize();
+	}
+	...
+}
+\end{lstlisting}
+
+Następnie należy zaimplementować funkcję destruktora w kodzie natywnym.
+
+\begin{lstlisting}[language=c++, caption=Implementacja funkcji
+\emph{destructor} na przykładzie klasy \emph{DynamicsWorld}]
+JNIEXPORT void Java_org_bulletSamples_physics_DynamicsWorld_destructor( JNIEnv* env, jobject self, jint id )
+{
+	delete (btDiscreteDynamicsWorld*)btObjects::get(id);
+	btObjects::remove(id);
+}
+\end{lstlisting}
+
+W linijce 3 pobierany jest wskaźnik na obiekt typu
+\emph{btDiscreteDynamicsWorld} a następnie wskazywany przez niego obiekt jest
+usuwany za pomocą polecenia \emph{delete}. W linijce 4 usuwany jest
+identyfikator wraz z wskaźnikiem na nieistniejący już obiekt z mapy
+\emph{btObjects}.
 
 \subsection{Sceny}
-\emph{TODO: bardzo krótki opis działania mechanizmu scen i gdzie dodawać ich
-wywołania}
+W celu ułatwienia dodawania kolejnych testów silnika powstał mechanizm scen,
+które można wymieniać przed kompilacją aplikacji. Każda scena zawiera właściwe
+dla siebie obiekty fizyczne i związane z nimi instrukcje. Klasa \emph{BaseScene}
+jest klasą bazową dla wszystkich scen w projekcie.
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.6]{./img/SceneClassDiagram.png}
+\caption{Diagram reprezentujący klasę SimpleScene.}
+\label{fig:sceneClassDiagram}
+\end{figure}
+
+Każda scena posiada własny egzemplarz klasy \emph{DynamicsWorld} nadawana jej
+przez konstruktor. Przeciążając metody \emph{create}, \emph{update} i
+\emph{render} można na scenie wykonać każdą akcję.
 
 \newpage
 \section{Implementacja i zastosowanie dodatkowych możliwośći silnika Bullet}
@@ -272,14 +499,15 @@ mechanizmy silnika i jak zostały wykorzystane możliwości smartphone'a do
 uatrakcyjnienia aplikacji:)}
 
 \subsection{Akcelerometr}
+%http://developer.android.com/guide/topics/sensors/sensors_overview.html
 \emph{TODO: omówienie przykładu ze sterowaniem grawitacją przy pomocy
 akcelerometru.}
 
-\subsection{Drag and Drop}
+\subsection{Przeciągnij i upuść}\label{sec:dragAndDrop}
 \emph{TODO: na razie point single touch. Jeśli mi się uda - również multitouch
 z ``obszarowym'' dotykiem}
 
-\subsection{DebugDrawer}
+\subsection{Klasa DebugDrawer}\label{sec:debugDrawer}
 \emph{TODO: również opis problemu z przepełnieniem bufora JNI.}
 
 \subsection{Wykrywanie kolizji}
@@ -355,8 +583,8 @@ momentów bezwładności wszystkich punktów.
 \begin{equation}
 I = \sum_{i=1}^{n} m_{i}r_{i}^{2}
 \end{equation}
-Dla zaimplementowanych kształtów w omawianym wrapperze wartości momentu
-bezwładności są następujące:\\
+Dla zaimplementowanych kształtów w omawianynej bibliotece obudowującej wartości
+momentu bezwładności są następujące:\\
 Dla kuli(\emph{sphere}):\\
 \begin{center}
 \includegraphics{./img/inertiaSphere.png}
@@ -435,7 +663,9 @@ teoretycznie energia kulki powinna być stała).
 Dla każdej testowanej wartości przewidziano 20 odbić(ln. 22, 23, 81-97). Energia
 kinetyczna kulki jest zapisywana do pliku przy każdym odbiciu(ln. 81-87).
 
-\includegraphics[width=\textwidth]{./img/SimpleSnookerScene.png}
+\begin{center}
+\includegraphics[scale = 0.5]{./img/SimpleSnookerScene.png}
+\end{center}
 
 Zależność energii kinetycznej kulki przy kolejnych jej odbiciach od wartości
 sprężystości jest przedstawiona na poniższym wykresie.
@@ -594,7 +824,9 @@ czasu w tych samych warunkach jeśli w symulacji będzie uczestniczyć wiele cia
 Przy pomocy poniższej sceny sprawdzone zostanie jaki wpływ ma parametr
 \emph{fixedTimeStep} na łączną energię poruszających się ciał.
 
-\includegraphics[width=\textwidth]{./img/shot_2.png}
+\begin{center}
+\includegraphics[scale = 0.5]{./img/shot_2.png}
+\end{center}
 
 \lstinputlisting[language=Java,
   label=lis:ClosedSnookerScene,caption=scena

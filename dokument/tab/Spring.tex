@@ -1,0 +1,45 @@
+\begin{tabular}{|p{\textwidth}|}
+\hline
+\textbf{Klasa: Spring}\\
+\hline
+\emph{Nazwa: } konstruktor(CollisionShape shapeA, CollsionShape shapeB, Vector3
+frameInA, Vector3 frameInB)\\
+\emph{Opis: } Tworzona sprężyna łączy ze sobą dwa obiekty \emph{shapeA} -
+oznaczone na rysunku przez ciało \textbf{A} i \emph{shapeB} - oznaczone przez
+ciało \textbf{B}. Parametr \emph{frameInA} określa wektor przesunięcia ramki
+ograniczającej swobodę zawieszonego ciała \textbf{B} oznaczony na rysunku przez
+wektor \textbf{C}. Parametr \emph{frameInB} odpowiada za wektor przesunięcia
+ciała \textbf{B} względem ograniczenia osi obrotu(oznaczonego przez łuk
+\textbf{F}).\\
+\hline
+\emph{Nazwa: } enable(Dof index, boolean enable) :void\\
+\emph{Opis: } Metoda odblokowuje dany stopień swobody.\\
+\hline
+\emph{Nazwa: } setDamping(Dof index, float damping): void\\
+\emph{Opis: } Metoda ustawia wartość współczynnika tłumienia dla danego
+stopnia swobody.\\
+\hline
+\emph{Nazwa: } setStiffness(Dof index, float stiffness) :void\\
+\emph{Opis: } Metoda ustawia wartość współczynnika sztywności dla danego
+stopnia swobody.\\
+\hline
+\emph{Nazwa: } setupDof(Dof index, float stiffness, float damping) :void\\
+\emph{Opis: } Metoda pozwalająca na równoczesne ustawienie współczynnika
+sztywności i tłumienia dla danego stopnia swobody.\\
+\hline
+\emph{Nazwa: } setLinerUpperLimit(Vector3 vec) :void i
+setLinerLowerLimit(Vector3 vec) :void\\
+\emph{Opis: } Wektory \emph{vec} określają kolejno dolne i górne wartości ramki
+ograniczającej swobodę ciała \textbf{B}. Środek ramki znajduje się w pozycji
+ciała \textbf{A} i jest przesunięty o wektor \emph{frameInA} podany w
+konstruktorze. Na rysunku pozycję ograniczenia ramki oznaczono przez punkty
+\textbf{D} i \textbf{E}.\\
+\hline
+\emph{Nazwa: } setAngularUpperLimit(Vector3 vec) :void i
+setAngularLowerLimit(Vector3 vec) :void\\
+\emph{Opis: } Metody określają odpowiednio górny i dolny limit rotacji ciała
+\textbf{B}. Na rysunku ograniczenie jest oznaczone przez łuk \textbf{F}. Ciało
+\textbf{B} może być przesunięte względem środka ograniczenia obrotu o wektor
+\emph{frameInB} podany w konstruktorze klasy Spring.\\
+\hline
+\end{tabular}

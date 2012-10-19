@@ -1,0 +1,33 @@
+\begin{tabular}{|p{\textwidth}|}
+\hline
+\textbf{Klasa: DynamicsWorld}\\ \hline
+\emph{Nazwa: } createShape(Mesh mesh, Vector3 position, float mass)
+:CollisionShape\\
+\emph{Opis: } Metoda tworzy nowy obiekt \emph{CollisionShape}(bryłę sztywną) i
+dodaje go do środowiska fizycznego. Kształt i rozmiary obiektu zależą od
+parametru \emph{mesh}.\\
+\hline
+\emph{Nazwa: } setGravity(Vector3 gravity) :void\\
+\emph{Opis: } Metoda ustawia wektor przyspieszenia grawitacyjnego dla wszystkich
+obiektów w środowisku.\\
+\hline
+\emph{Nazwa: } stepSimulation(int timeStep) :void\\
+\emph{Opis: } Metoda aktualizuje symulację o podany czas w milisekundach.\\
+\hline
+\emph{Nazwa: } pickObject(Vector3 rayFrom, Vector3 rayTo) :void\\
+\emph{Opis: } Metoda używana przez akcję ``przeciągnij i upuść" opisaną w
+sekcji \ref{sec:dragAndDrop}.\\
+\hline
+\emph{Nazwa: } dragObject(Vector3 rayFrom, Vector3 rayTo) :void\\
+\emph{Opis: } Metoda używana przez akcję ``przeciągnij i upuść" opisaną w
+sekcji \ref{sec:dragAndDrop}.\\
+\hline
+\emph{Nazwa: } dropObject(Vector3 rayFrom, Vector3 rayTo) :void\\
+\emph{Opis: } Metoda używana przez akcję ``przeciągnij i upuść" opisaną w
+sekcji \ref{sec:dragAndDrop}.\\
+\hline
+\emph{Nazwa: } drawDebug(GL10 gl) :void\\
+\emph{Opis: } Metoda używana podczas renderowania linii pomocniczych. Opisana
+jest w sekcji \ref{sec:debugDrawer}.\\
+\hline
+\end{tabular}

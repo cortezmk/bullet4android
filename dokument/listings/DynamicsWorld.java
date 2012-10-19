@@ -1,0 +1,103 @@
+package org.bulletSamples.physics;
+import javax.microedition.khronos.opengles.GL10;
+
+import org.bulletSamples.geometry.*;
+public class DynamicsWorld {
+	public int id;
+	private int idGRbody, idGMState, idGShape, idSolver, idDispatcher, idConfiguration, idBrodaphase;
+	
+	native private int constructor();
+	native private void destructor();
+	native private void NsetGravity(int id, float x, float y, float z);
+	native private void NaddBoxShape(int id, int idShape);
+	native private void NstepSimulation(int id, int timeStep, int subSteps, float fixedStep);
+	native private void NgetTransform(int id, Vector3 ret);
+	native private int BlaCreateRigidBody(int id, Vector3 pos);
+	native private void NCreateBox(CollisionShape cs, float mass, Vector3 pos, float width, float height, float depth);
+	native private void NCreateSphere(CollisionShape cs, float mass, Vector3 pos, float radius);
+	native private void NpickObject(int id, Vector3 rayFrom, Vector3 rayTo);
+	native private void NdropObject(int id, Vector3 rayFrom, Vector3 rayTo);
+	native private void NdragObject(int id, Vector3 rayFrom, Vector3 rayTo);
+	native private void NsetDebugDrawer();
+	native private void NdrawDebug();
+	
+	public int simulationSubSteps = 1;
+	public float fixedStep = (float)(1.0/60.0);
+	
+	public DynamicsWorld()
+	{
+		id = constructor();
+	}
+	
+	public CollisionShape createShape(Mesh mesh, Vector3 pos, float mass)
+	{
+		CollisionShape cShape = new CollisionShape(mesh, mass, id);
+		if(mesh.getClass() == Sphere.class) NCreateSphere(cShape, mass, pos, ((Sphere)mesh).getRadius());
+		if(mesh.getClass() == Box.class)
+		{
+			Box box = (Box)mesh;
+			NCreateBox(cShape, mass, pos, box.getWidth(), box.getHeight(), box.getDepth());
+		}
+		if(cShape.id == Integer.MAX_VALUE) throw new UnsupportedOperationException();
+		return cShape;
+	}
+	
+	protected void finalize() throws Throwable
+	{
+		//destructor();
+		super.finalize();
+	}
+	
+	public void setGravity(Vector3 gravity)
+	{
+		NsetGravity(id, gravity.x, gravity.y, gravity.z);
+	}
+	
+	public void addBoxShape(CollisionShape shape)
+	{
+		NaddBoxShape(id, shape.id);
+	}
+	
+	public void stepSimulation(int timeStep)
+	{
+		NstepSimulation(id, timeStep, simulationSubSteps, fixedStep);
+	}
+	
+	public Vector3 getTransform()
+	{
+		Vector3 ret = new Vector3(0, 0, 0);
+		NgetTransform(id, ret);
+		return ret;
+	}
+	
+	public void pickObject(Vector3 rayFrom, Vector3 rayTo)
+	{
+		NpickObject(id, rayFrom, rayTo);
+	}
+	
+	public void dropObject(Vector3 rayFrom, Vector3 rayTo)
+	{
+		NdropObject(id, rayFrom, rayTo);
+	}
+	
+	public void dragObject(Vector3 rayFrom, Vector3 rayTo)
+	{
+		NdragObject(id, rayFrom, rayTo);
+	}
+	
+	@Deprecated
+	public void setDebugDrawer()
+	{
+		DebugDrawer.renewEnv();
+		NsetDebugDrawer();
+	}
+	
+	public void drawDebug(GL10 gl)
+	{
+		DebugDrawer.gl = gl;
+		gl.glLoadIdentity();
+		Camera.applyTransform(gl);
+		DebugDrawer.renewEnv();
+		NdrawDebug();
+	}
+}
