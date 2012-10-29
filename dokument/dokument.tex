@@ -76,6 +76,17 @@
     %\bibliography{bibliografia}
     %koniec bibliografii
 
+    %załączniki
+    \newpage
+    \appendix
+    \renewcommand{\appendixtocname}{Załączniki}
+    \renewcommand{\appendixpagename}{~\vspace{8cm} \begin{center}Załączniki\end{center}\newpage}
+    \thispagestyle{empty}
+    \addappheadtotoc
+    \appendixpage
+    \input{zalacznik.tex}
+    %koniec załączników
+
     %skorowidz
 %    \index{Napis}
 %    \index{Napis!Podnapis}

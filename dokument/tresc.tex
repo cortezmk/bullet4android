@@ -2,7 +2,7 @@
 Od początku swojego istnienia komputery i ich moc obliczeniowa były
 używane do rozwiązywania problemów fizycznych. Podczas II Wojny Światowej, ENIAC
 - pierwszy elektroniczny komputer, był wykorzystywany przez armię Stanów Zjednoczonych do
-przewidywania torów lotu pocisków balistycznych(uwzględniając m in. ich masę,
+przewidywania torów lotu pocisków balistycznych (uwzględniając m in. ich masę,
 kąt wystrzelenia czy prędkość wiatru). W latach osiemdziesiątych superkomputery
 były używane do oblicznaia dynamiki płynów, gdzie poszczególne cząstki były
 reprezentowane przez wektory sił, które oddziaływując ze sobą symulowały
@@ -11,21 +11,21 @@ specjalne procesory wektorowe wykonujące operacje na wielu zmiennych
 równocześnie. Współcześnie komputerowe wspomaganie obliczeń fizycznych jest
 używane w wielu dziedzinach: m in. przez meteorologów do przewidywania zmian
 warunków pogodowych, przetwarzania danych tuneli aerodynamicznych w lotnictwie,
-czy doboru proporcji materiałów podczas projektowania produktów. Testowanie przy
-pomocy symulacji komputerowych jest o wiele tańsze i bezpieczniejsze. Rosnące
+czy doborze proporcji materiałów podczas projektowania produktów. Testowanie
+przy pomocy symulacji komputerowych jest o wiele tańsze i bezpieczniejsze. Rosnące
 zapotrzebowanie na wspomaganie obliczeń fizycznych spowodowało powstanie pojęcia
 silnika fizycznego.
   \subsection{Czym jest silnik fizyczny?}\label{subsec:czymJestSilnik}
 Silnik fizyczny to rodzaj oprogramowania komputerowego umożliwiającego
 przybliżoną symulację pewnych systemów fizycznych jak np. dynamika bryły
-sztywnej(w tym wykrywanie kolizji), ciał miękkich i płynów. Przeznaczony jest do
-użytku w takich dziedzinach jak: grafika komputerowa, przemysł gier wideo czy
+sztywnej (w tym wykrywanie kolizji), ciał miękkich i płynów. Przeznaczony jest
+do użytku w takich dziedzinach jak: grafika komputerowa, przemysł gier wideo czy
 kinematografia. Czasem mianem silnika fizycznego jest również bardziej ogólnie
-określane jakiekolwiek oprogramowanie symulujące zachowanie dowolnego
+określane jakiegokolwiek oprogramowania symulującego zachowanie dowolnego
 układu w sensie fizycznym.\\
 Silniki fizyczne generalnie dzieli się na dwie klasy:\\
-\textbf{Wysokoprecyzyjne}(\emph{high-precision}) - lub laboratoryjne.
-Pochłaniają one całą(lub większość) mocy obliczeniowej platformy na której
+\textbf{Wysokoprecyzyjne} (\emph{high-precision}) - lub laboratoryjne.
+Pochłaniają one całą (lub większość) mocy obliczeniowej platformy na której
 działają aby wyniki ich obliczeń były jak najbardziej zgodne z rzeczywistymi.
 Zwykle wykorzystywane są w przemyśle filmowym, prerenderowanych animacjach lub
 laboratoriach do celów naukowych czy analiz technicznych. Najpopularniejszymi
@@ -34,9 +34,9 @@ dostępnymi publicznie wysokoprecyzyjnymi silnikami są:\\
 diagramy blokowe\\
 - Working Model - komercyjny projekt wykorzystywany do wspomagania projektowania
 konstrukcji inżynierskich.\\
-\textbf{Wysokowydajnościowe}(\emph{high-performance})
-- zwane również silnikami działającymi w czasie rzeczywistym(\emph{real-time
-physics engines}), czy po prostu silnikami do gier wideo(\emph{video game
+\textbf{Wysokowydajnościowe} (\emph{high-performance})
+- zwane również silnikami działającymi w czasie rzeczywistym (\emph{real-time
+physics engines}), czy po prostu silnikami do gier wideo (\emph{video game
 physics engines}). Są stosowane w przypadkach gdy od dokładności symulacji
 ważniejszy jest krótki czas otrzymywania wyników, czyli w grach, czy
 prezentowanych na żywo symulacjach. Nie wykorzystują one zasobów platformy w
@@ -47,32 +47,32 @@ komercyjne:\\
 - Havok\\
 - PhysX\\
 - Vortex\\
-niekomercyjne(\emph{open-source}):\\
+niekomercyjne (\emph{open-source}):\\
 - Bullet\\
 - Box2D - silnik do symulacji dwuwymiarowych\\
 - Newton Game Dynamics\\
-- ODE(\emph{Open Dynamics Engine})\\
-- PAL(\emph{Physics Abstraction Layer}) - API uwspólniające obsługę kilku innych
-silników fizycznych\\
+- ODE (\emph{Open Dynamics Engine})\\
+- PAL (\emph{Physics Abstraction Layer}) - API uwspólniające obsługę kilku
+innych silników fizycznych\\
 
 Pojęcie silnika fizycznego nie musi oznaczać tylko oprogramowania. W celu
 zwiększenia wydajności symulacji fizycznych na osobistych platformach w 2006
 roku narodziła się koncepcja sprzętowego wspomagania obliczeń, tak jak miało to
 miejsce z renderingiem i kartami graficznymi. Firma Ageia opracowała PhysX -
-pierwszy procesor PPU(\emph{Physics Processing Unit}). PhysX PPU posiadało
+pierwszy procesor PPU (\emph{Physics Processing Unit}). PhysX PPU posiadało
 możliwość sprzętowego obliczania takich operacji jak dynamika bryły sztywnej, dynamika
 ciałą miękkiego, detekcja kolizji, dynamika płynów, symulacja zachowania
 elementów ubrań i włosów, analiza przy pomocy metody elementów skończonych.
 Podczas demonstracji specjalnie napisanego dema na targach Consumer Electronics
 Show 2006 komputer wyposażony w jednostkę PPU odtwarzał symulację z prędkością
-30 fps, zaś tak samo skonfigurowana platforma bez wspomagania odtwarzał to samo
+30 fps, zaś tak samo skonfigurowana platforma bez wspomagania odtwarzała to samo
 demo z prędkością 6 fps. Mimo wszystko koncepcja PPU nie osiągnęła sukcesu. Z
 karty PhysX korzysta jedynie kilka gier. W 2008 roku udziały w firmie Ageia
 zostały wykupione przez producenta kart graficznych GeForce - Nvidię. Firma
 Nvidia wypuściła sterowniki pozwalające obsłużyć API PhysX na kartach GeForce,
 tym samym PhysX już jako samo oprogramowanie stał się pierwszym silnikiem
 fizycznym korzystającym ze sprzętowego wspomagania. Dało to również początek
-koncepcji GPGPU(\emph{General Purpose processing on Graphics Processing Unit}),
+koncepcji GPGPU (\emph{General Purpose processing on Graphics Processing Unit}),
 czyli wykorzystywania mocy obliczeniowej kart graficznych do obliczeń związanych
 z symulacjami fizycznymi. Firma AMD - producent kart Radeon, również oferuje
 wsparcie dla tej technologii.
@@ -87,23 +87,24 @@ większej precyzji obliczeń niż silnik jest w stanie zaoferować. Zaobserwowa�
 można wtedy nienaturalne ``trzęsienie się'' ciała. Można ten błąd wyeliminować
 zwiększając precyzję obliczeń, jednak odbędzie się to kosztem mocy obliczeniowej
 platformy.
+
 \subsection{Cele projektu.}\label{subsec:celeProjektu}
 Celami projektu są:\\
 
 \textbf{Uruchomienie silnika fizycznego na mobilnej platformie Android.}\\
 Istnieje wiele silników fizycznych dedykowanych na platformy
-stacjonarne(głównie procesory firmy Intel). Silnik PhysX od wersji 3.0
+stacjonarne (głównie procesory firmy Intel). Silnik PhysX od wersji 3.0
 posiada wsparcie dla platformy Android jednak do dziś nie istnieje żadne
 oficjalne wsparcie open-source'owego silnika dla mobilnych platform. Ponieważ
 kod źródłowy silnika Bullet jest ogólnie dostępny, możliwa jest jego kompilacja
-na platformę ARM(najczęściej stosowane procesory w urządzeniach mobilnych).
+na platformę ARM (najczęściej stosowane procesory w urządzeniach mobilnych).
 Celem tej częsci pracy będzie sprawdzenie jakie ewentualne trudności może nieść
 za sobą ta kompilacja. W celu ułatwienia tworzenia symulacji w silniku Bullet
-zostanie stworzone proste obudowanie(\emph{wrapper}) dla języka Java.\\
+zostanie stworzone proste obudowanie (\emph{wrapper}) dla języka Java.\\
 
 \textbf{Wykorzystanie możliwości platformy mobilnej pod kątem symulacji
 fizycznych.}\\ Smartfony i tablety posiadają kilka możliwości
-najczęściej niedostępnych dla platform stacjonarnych(np. akcelerometry czy
+najczęściej niedostępnych dla platform stacjonarnych (np. akcelerometry czy
 ekrany dotykowe). Można je wykorzystać do uatrakcyjnienia symulacji, co
 będzie celem tej części pracy.\\
 
@@ -113,10 +114,12 @@ nie jest zwykle szczególnie wyskoa. Przez to wybrany silnik - Bullet nie jest
 wysokoprecyzyjnym silnikiem fizycznym i nie można się spodziewać wyników
 obliczeń bardzo zgodnych z rzeczywistością. Można jednak sprawdzić w jakich
 warunkach symulacje będą wykonywane najdokładniej.
-  \newpage
-  \section{Wykorzystane technologie.}
-  W projekcie zostały wykorzystana następujące technologie:
-  \subsection{Android OS}
+
+\newpage
+\section{Wykorzystane technologie.}
+W projekcie zostały wykorzystana następujące technologie:
+
+\subsection{Android OS}
 Bazujący na jądrze Linux system operacyjny zaprojektowany z myślą o
 urządzeniach mobilnych z ekranami dotykowymi, takimi jak smartfony i tablety.
 Początkowo tworzony przez Android Inc., później prawa do niego zostały wykupione
@@ -125,109 +128,200 @@ Obecnie jest to najpopularniejszy system operacyjny na urządzenia mobilne.
 Standardowo jest on instalowany na urządzeniach takich firm jak HTC, Motorola,
 Samsung czy Sony Ericsson. Za sprawą wsparcia community, powstaje coraz większa
 ilość aplikacji które są dystrybuowane za pośrednictwem uruchomionej przez
-Google usługi Google Play(odpowiednik App Marketu na urządzenia firmy Apple).
-  \subsection{Android SDK}
+Google usługi Google Play (odpowiednik App Marketu na urządzenia firmy Apple).
+
+\subsection{Android SDK}
 Android Software Development Kit to zestaw narzędzi deweloperskich służących do
 tworzenia Aplikacji na platformę Android. W jeg oskład wchodzą debugger,
 biblioteki, emulator oparty na QEMU, dokumentacja, przykłądowy kod oraz
 tutoriale. Obecnie wspierane platformy to Linux, Mac OS X 10.5.8 lub nowszy,
 Windows XP lub nowszy. Oficjalnym wspieranym środowiskiem programistycznym jest
-Eclipse za pośrednictwem wtyczki ADT(\emph{Android Developer Tolls}). Aplikacje
+Eclipse za pośrednictwem wtyczki ADT (\emph{Android Developer Tolls}). Aplikacje
 są zwykle pisane w języku Java, jednakże Android nie posiada oficjalnej
 implementacji JVM. Zamiast tego na potrzeby systemu powstała specjalna
 wirtualna maszayna - Dalvik, która została zprojektowana z myślą o większej
 oszczędności energii, czasu procesora i pamięci.
-  \subsection{Bullet physics engine}
+
+\subsection{Silnik fizyczny Bullet}
 Bullet Physics jest obecnie najpopularniejszym darmowym, wysokowydajnościowym
 silnikiem fizycznym z otwartym źródłem. Jest szeroko wykorzystywany w grach
-wideo(m in. Grand Theft Auto 4, Gravitronix, Red Dead Redemption) jak i
+wideo (m in. Grand Theft Auto 4, Gravitronix, Red Dead Redemption) jak i
 mimo bycia sklasyfikowanym jako wysokowydajnościowy silnik, również w
-kinematografii(2012, Shrek, Sherlock Holmes). Bullet jest również domyślnie
+kinematografii (2012, Shrek, Sherlock Holmes). Bullet jest również domyślnie
 używanym silnikiem fizycznym ta takich projektach jak program graficzny
 Blender czy silnik gier 3d OGRE.
 
 \subsection{Android NDK}
-Biblioteki napisane w kodzie natywnym(C/C++) mogą być kompilowane na platformę
-ARM lub x86 i zainstalowane na urządzeniu używająć Android NDK(\emph{Native
+Biblioteki napisane w kodzie natywnym (C/C++) mogą być kompilowane na platformę
+ARM lub x86 i zainstalowane na urządzeniu używająć Android NDK (\emph{Native
 Development Kit}). Natywne biblioteki mogą być uruchomione przez maszynę
 wirtualną Dalvik używając metody \emph{System.LoadLibrary}. W przeciwieństwie do
 Android SDK który bazuje na pluginach do Eclipsa, NDK jest zestawem narzędzi
 wywoływanych z wiersza polecenia. Każde zbudowanie projektu musi więc odbyć się
-ręcznie. Istnieją jednak wtyczki dla Eclipse od zewnętrznych producentów
-pozwalające na automatyczną kompilację kodu natywnego. Dostęp do natywnych
-funkcji z poziomu języka Java otrzymuje się poprzez JNI(\emph{Java Native
-Interface}). W tym projekcie Android NDK będzie wykorzystane do kompilacji kodu
-biblioteki Bullet na platformę ARM, oraz wywoływanie jej funkcji przez
-integrację z kodem napisanym w języku Java.
+ręcznie. Możliwe jest jednak skonfigurowanie środowiska Eclipse aby kod natywny
+był kompilowany automatycznie podczas kompilacji całego projektu (zostało to
+opisane w sekcji \ref{sec:autoNDK}). Dostęp do natywnych funkcji z poziomu
+języka Java otrzymuje się poprzez JNI (\emph{Java Native Interface}). W tym
+projekcie Android NDK będzie wykorzystane do kompilacji kodu biblioteki Bullet
+na platformę ARM, oraz wywoływanie jej funkcji przez integrację z kodem
+napisanym w języku Java.
 
 \subsection{OpenGL ES}
 To podzbiór graficznego API - OpenGL. Zostało zaprojektowane specjalnie na
 potrzeby mobilnych urządzeń. Charakteryzuje się zbiorczym przetwarzaniem
 danych, czyli do urządzenia graficznego przekazywane są całe bloki pamięci w
 przeciwieństwie do charakterystycznych dla OpenGL pojedynczych wywołań. Jego
-najnowsza wersja 3.0 jest obsługiwana przez systemy Android od wersji 2.2.
+wersja 3.0 jest obsługiwana przez systemy Android od wersji 2.2.
 
 \newpage
 \section{Podstawowe koncepcje silników fizycznych.}
 Ponieważ silniki fizyczne są jedynie symulacją, nie można za ich pomocą dokonać
-dokładnego odwzorowania rzeczistości. Dlatego w ich rozwiązaniach użyto
+dokładnego odwzorowania rzeczywistości. Dlatego w ich rozwiązaniach użyto
 rozmaitych uproszczeń. W tej sekcji zostaną wymienione niektóre z nich.
 
-\subsection{Detekcja kolizji}
+\subsection{Wykrywanie kolizji}
+Podstawowoym problemem każdego silnika fizycznego jest wykrywanie kolizji między
+dwoma obiektami. W zależności od tego czy celem jest uzyskanie wysokiej precyzji
+czy wydajności symulacji, do tego celu powstało kilka różnych technik.
 
-\subsubsection{Bounding box}
+\subsubsection{Kształty proste (bounding box)}
+Metoda polega na wpisaniu porównywanego obiektu najprostszą do sprawdzenia
+kolizji bryłę, jak kula czy prostopadłościan. Zbadanie wystąpienia kolizji
+między dwoma obiektami ogranicza się wtedy do sprawdzenia kilku prostych
+warunków (jak np. dla kul sprawdzenie czy odległość między środkami jest
+mniejsza od sumy ich promieni). Metoda ta choć szybka ma bardzo niską
+dokładność. Udoskonaleniem tej techniki może być użycie kilku prostych kształtów
+do opisania jednego obiektu.
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.5]{./img/boundingBox.jpg}
+\caption{Skomplikowana bryła wpisana w kształt prosty. Źródło:
+http://www.tcs.fudan.edu.cn}
+\label{fig:bbox}
+\end{figure}
 
 \subsubsection{Otoczka wypłukła (convex hull)}
+Większość wysokowydajnościowych silników fizycznych operuje na modelach
+złożonych z wielokątów (\emph{polygons}). Badając kolizje każdego z nich między
+dwoma obiektami w takim przypadku to najdokładniejsza technika, jednak również
+najbardziej czasochłonna. Opracowanie techniki zminiejszającej ilość wielokątów
+przy zachowaniu ogólnego kształtu bryły początkowej pozwoliłoby na znaczne
+przyspieszenie obliczeń. Do tego celu w silnikach fizycznych posłużono się
+pojęciem w matematyce zwanym otoczką wypłukłą. \\
+Otoczka wypłukła jest definiowana jako najmnieszy spójny zbiór punktów
+zawieracjący wszyskie punkty z danego zbioru P. Jednocześnie każdy odicnek
+poprowadzony między dwoma dowolnymi punktami ze zbioru P zawiera się również w
+otoczce wypłukłej (definicja wypłukłości). Stworzony przy pomocy tego działania
+model o zredukowanej ilości wielokątów jest używany do wykrycia kolizji
+poszczególnych wielokątów zamiast modelu używanego do wyświetlania. Użycie tej
+metody znacznie przyśpiesza obliczenia przy zachowaniu większej dokładności od
+metody kształtów prostych. Dokładnośc ta jest jednak wciąż ograniczona. Na
+przykład wystrzelony pocisk nie będzie mógł przelecieć przez ucho kubka,
+ponieważ dziura w kubku również wchodzi w skład bryły otoczki.
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.5]{./img/convexhull.png}
+\caption{Przykład wyodrębnienia otoczki wypłukłej dla dwuwymiarowego zbioru
+punktów. Źródło: http://www.evanjones.ca/convexhulls.html}
+\label{fig:convexhull}
+\end{figure}
 
 \subsubsection{Metoda elementów skończonych}
+Odmiennym podejściem do testowania kolizji poszczególnych wielokątów i
+stosowania otoczek wypłukłych stanowi użycie metody elementów skończonych.
+Metoda ta jest bardziej zaawanasowanym przypadkiem wariantu z użyciem kształtów
+prostych. Obiekt zostaje podzielony na wiele elementów o określonych wcześniej
+kształtach. Dzięki temu w odróżnieniu od omówionych wcześniej metod możliwe jest
+symulowanie oddziaływań również we wnętrzu rozpatrywanych obiektów, a nie tylko
+na ich powierzchni. Co więcej, elementy z których zbudowane jest rozpatrywane
+ciało mogą być również charakteryzowane szeregiem odrębnych właściwych dla
+siebie parametrów (jak temperatura). Elementy te mogą również się przemieszczać
+względem siebie zgodnie z zasadami odkształcenia, dzięki czemu symulowane ciała
+nie ograniczają się tylko brył sztywnych jak miało to miejsce w poprzednich
+metodach. Niestety, ze względu na znacznie większe zapotrzebowanie na moc
+obliczeniową, metoda ta jest wykorzystywana niemal wyłącznie w silnikach
+wysokoprecyzyjnych. Silniki wysokowydajnościowe jak Bullet i Havok wykorzystują
+również uproszczony wariant tej metody do symulacji zachowań ciał miękkich i płynów.
 
-\subsection{Ruch Browna (Brownian motion)}
+\begin{figure}
+\centering
+\includegraphics[scale=1]{./img/finiteElementApplication.jpg}
+\caption{Przykład zastosowania metody elementów skończonych dla symulacji
+rozbijającego się samochodu Źródło:
+http://en.wikipedia.org/wiki/Finite\_element}
+\label{fig:finiteElementApplication}
+\end{figure}
 
-\subsection{Oddziaływania dynamiczne (paradigms)}
-\emph{TODO: penalty methods, constraints(warunki), impulses}
+\subsubsection{Wykrywanie kolizji w silniku Bullet}
+W silniku Bullet wykrywanie kolizji odbywa się dwufazowo. Każde przetwarzanie
+ramki zaczyna się od ``fazy szerokiej'' (\emph{broadphase}), analizując po kolei
+wszystkie możliwe pary jakie mogą dokonać zderzenia metodą kształtów prostych.
+Następnie każda z par któta przeszła poprzedni test jest analizowana przez
+dyspozytor (\emph{dispatcher}) pod względem zderzenia odpowiednim algorytmem (w
+zależności od tego czy np. rozpatrywane jest zderzenie bryły zdefinowanej przez
+otoczkę wypłukłą czy kształt prosty). W omawianym projekcie zastosowane są
+tylko obiekty korzystające z kształtów prostych.
 
-  \newpage
-  \section{Wykorzystanie Android NDK jako obudowania dla silnika Bullet}
+\subsection{Progi ruchu}
+W prawdziwym świecie zasady fizyki są zawsze aktywne. Nawet w ciałach
+pozostających w spoczynku ich cząstki poruszają się na wskutek ruchów Browna.
+Dla wysokowydajnościowego silnika fizycznego taka ciągła bezwarunkowa analiza
+ruchu jest niepotrzebnym zużyciem mocy obliczeniowej procesora, co może
+doprowadzić do spadku płynności animacji. Dlatego silniki te mogą ``zamrozić''
+dane ciało (nie wykonywać obliczeń związanych z jego ruchem) jeśli wartość jego
+prędkości nie przekracza określonego progu - zwanego progiem
+ruchu (\emph{motion threshold}). Dane ciało może zostać ``odmrożone'' jeśli
+zostanie zmuszone do ruchu przez inne ciało lub siłę. W silniku fizycznym Bullet
+istnieje możliwość ustalenia wartości progu ruchu indywidualnie dla każdego
+ciała.
+
+%\subsection{Oddziaływania dynamiczne}
+%\emph{TODO: penalty methods, constraints(warunki), impulses}
+
+\newpage
+\section{Wykorzystanie Android NDK jako obudowania dla silnika Bullet}
 Aby ułatwić tworzenie testowych scen zostało stworzone obudowanie obiektów
 pozwalające korzystać z możliwości sinika Bullet z poziomu języka Java. Dzięki
 temu proces tworzenia scen testowych zostaje skrócony oraz możliwe jest
 debugowanie kodu w Eclipse IDE.
-  \subsection{Konfiguracja Android NDK w środowisku Eclipse}
-  % [source]http://mhandroid.wordpress.com/2011/01/23/using-eclipse-for-android-cc-development/
-  Ponieważ w przeciwieństwie do Android SDK, dla NDK nie istnieje żadna
-  oficjalna wtyczka automatyzująca kompilację natywnych bibliotek konieczna jest
-  kompilacja ręczna z wiersza poleceń. Możliwe jest jednak skonfigurowanie
-  środowiska Eclipse w celu integracji z NDK.
+
+\subsection{Konfiguracja Android NDK w środowisku Eclipse}\label{sec:autoNDK}
+% [source]http://mhandroid.wordpress.com/2011/01/23/using-eclipse-for-android-cc-development/
+Ponieważ w przeciwieństwie do Android SDK, dla NDK nie istnieje żadna
+oficjalna wtyczka automatyzująca kompilację natywnych bibliotek konieczna jest
+kompilacja ręczna z wiersza poleceń. Możliwe jest jednak skonfigurowanie
+środowiska Eclipse w celu integracji z NDK.
   
-  Aby utworzyć projekt Androida z
-  możliwością edycji i kompilacji bibliotek natywnych należy: \\
-  1. Zainstalować środowisko Eclipse(i doinstalować do niego wtyczkę
-  \emph{ADT}).\\
-  2. Pobrać kolejno \emph{Android SDK} i \emph{NDK}. Do edycji plików żródłowych
-  jest też konieczne pobranie wtyczki \emph{CDT}(C++ Development Tools). Potrzebny
-  będzie rónież kod żródłowy biblioteki Bullet. Dodatki w eclipse instaluje się
-  przez Help $ \rightarrow $ Install new software\ldots , wpisując adres
-  http://download.eclipse.org/releases/galileo (lub zamisat galileo wpisać nazwę swojej wersji Eclipse).
+Aby utworzyć projekt Androida z
+możliwością edycji i kompilacji bibliotek natywnych należy: \\
+1. Zainstalować środowisko Eclipse (i doinstalować do niego wtyczkę
+\emph{ADT}).\\
+2. Pobrać kolejno \emph{Android SDK} i \emph{NDK}. W celu ułatwienia edycji
+plików żródłowych w języku C++ warto również zainstalować wtyczkę 
+\emph{CDT}(C++ Development Tools). Potrzebny będzie rónież kod żródłowy
+biblioteki Bullet. Dodatki w eclipse instaluje się przez Help $ \rightarrow $
+Install  new software\ldots , wpisując adres
+http://download.eclipse.org/releases/galileo (lub zamisat galileo wpisać nazwę
+swojej wersji Eclipse).
   
-  \includegraphics[width=\textwidth]{./img/CDT.png}
-  3. Utworzyć nowy standardowy projekt aplikacji na system Android.\\
-  4. Do projektu dodać folder \emph{jni} gdzie przechowywany będzie kod źródłowy
-  w języku C++. Skopiować do niego foldery z kodu źródłowego biblioteki
-  Bullet(będą potrzebne biblioteki \emph{BulletCollision}, \emph{BulletDynamics}
-  i \emph{LinearMath}, a także pliki \emph{btBulletCollisionCommon.h},
-  \emph{btBulletDynamicsCommon.h}, \emph{Bullet-C-Api.h}).
+\includegraphics[width=\textwidth]{./img/CDT.png}
+3. Utworzyć nowy standardowy projekt aplikacji na system Android.\\
+4. Do projektu dodać folder \emph{jni} gdzie przechowywany będzie kod źródłowy
+w języku C++. Skopiować do niego foldery z kodu źródłowego biblioteki
+Bullet (będą potrzebne biblioteki \emph{BulletCollision},
+\emph{BulletDynamics} i \emph{LinearMath}, a także pliki \emph{btBulletCollisionCommon.h},
+\emph{btBulletDynamicsCommon.h}, \emph{Bullet-C-Api.h}).
   
-  \begin{center}
-  \includegraphics{./img/jni-folder.png}
+\begin{center}
+\includegraphics{./img/bulletFoldery.png}
+\end{center}
   
-  \includegraphics{./img/bulletFoldery.png}
-  \end{center}
-  
-  5. Umieścić w folderze plik \emph{Android.mk} . Zawiera on informacje jak
-  powinien być zbudowany projekt w kodzie natywnym. Do tego pliku należy
-  dodać informacje o plikach źródłowych biblioteki Bullet.
-  \lstinputlisting[language=make, caption=Zawartość pliku Android.mk,
-  label=andMake, breaklines=true,numbers=left]{./listings/bulletMkfile.mk}
+5. Umieścić w folderze plik \emph{Android.mk} . Zawiera on informacje jak
+powinien być zbudowany projekt w kodzie natywnym. Do tego pliku należy
+dodać informacje o plikach źródłowych biblioteki Bullet. Zawartość pliku
+\emph{Android.mk} znajduje się w załączniku \ref{att:Androidmk}.
   
   6. Przekonwertować projekt java na java/C++ , przez menu File $ \rightarrow $
   New $ \rightarrow $ Other\ldots
@@ -270,7 +364,8 @@ wirtualnej maszyny Dalvik, w kodzie w języku Java należy użyć słowa kluczow
 słowa kluczowego native w języku Java, label=lis:javaNative]{./listings/CollisionShape.java}
 
 Następnie w kodzie natywnym zaimplementować zarejestrowaną metodę przy pomocy
-nazewnictwa Java\_<nazwa\_paczki>\_<nazwa\_obiektu>\_<nazwa\_metody>, oraz
+nazewnictwa
+Java\_$<$nazwa\_paczki$>$\_$<$nazwa\_obiektu$>$\_$<$nazwa\_metody$>$, oraz
 makra JNIEXPORT. Funkcja taka posiada dwa stałe argumenty. Pierwszym argumentem
 funkcji jest wskaźnik na zmienną typu \emph{JNIEnv}, która jest interfejsem
 środowiska uruchomieniowego Javy. Drugim jest zmienna typu \emph{jobject}
@@ -315,7 +410,7 @@ Z każdym wywołaniem metody \emph{put} zostaje zwiększony licznik
 posiada unikalny identyfikator.\\
 Następnie w implementacji metody \emph{constructor} przy
 pomocy funkcji \emph{put} zostaje nadany nowy identyfikator i
-przekazany(zwrócony) obiektowi obudowującemu z listingu \ref{lis:javaGenId}.
+przekazany (zwrócony) obiektowi obudowującemu z listingu \ref{lis:javaGenId}.
 
 \begin{lstlisting}[language=c++, caption=Użycie mapy pointer\_map w
 funkcji constructor.]
@@ -333,7 +428,7 @@ extern "C"
 
 Aby uzyskać dostęp do przechowywanego przez mapę obiektu należy użyć metody
 \emph{get}, przekazując jej otrzymaną przez parametr wartość \emph{id}. Ponieważ
-mapa koajarzy identyfikatory ze wskaźnikami typu \emph{void\*}, pobrana wartość
+mapa kojarzy identyfikatory ze wskaźnikami typu \emph{void*}, pobrana wartość
 musi być przerzutowana na odpowiedni typ.
 
 \begin{lstlisting}[language=c++, caption=Pobranie przechowywanego obiektu z
@@ -363,9 +458,9 @@ poniższy schemat.
 \end{center}
 
 \subsubsection{Typy geometryczne}
-Poza klasami odpowiadającymi za podstawową geometrię jak wektor(\emph{Vector3})
-i kwaternion(\emph{Quaternion}), paczka \emph{org.bulletTest.geometry} zawiera
-również klasy deiniujące kształty - prostopadłościan(\emph{Box}) i
+Poza klasami odpowiadającymi za podstawową geometrię jak wektor (\emph{Vector3})
+i kwaternion (\emph{Quaternion}), paczka \emph{org.bulletTest.geometry} zawiera
+również klasy definiujące kształty - prostopadłościan (\emph{Box}) i
 kulę(\emph{Sphere}). Klasy \emph{Box} i \emph{Sphere} posiadają
 odpowiednie metody pozwalające na renderowanie określonych kształtów
 o podanych rozmiarach.
@@ -386,7 +481,7 @@ Klasa przedstawia symulowane obiekty brył sztywnych.\\ \\
 \paragraph{Spring}
 Klasa przedstawia symulowane obiekty ciał sprężystych.\\
 W parametrach funkcji można znaleźć typ enumeracyjny \emph{DoF} -
-stopnie swobody(\emph{degrees of freedom}). Określają one do jakiego stopnia
+stopnie swobody (\emph{degrees of freedom}). Określają one do jakiego stopnia
 swobody odnosi się dane wywołanie metody. Dostępne wartości to:\\
 \input{./tab/DoF.tex}
 \\ \\
@@ -410,9 +505,9 @@ odnoszą się do ciała oznaczonego przez \textbf{B}.\\
 
 \subsection{Przekazywanie argumentów i zwracanych wartości}
 Podczas wymiany argumentów przez funkcje między wirtualną maszyną Javy a kodem
-natywnym podstawowe typy danych(jak \emph{int} czy \emph{float}) zostają
+natywnym podstawowe typy danych (jak \emph{int} czy \emph{float}) zostają
 przekonwertowane przez interfejs JNI na im odpowiadające dla danego środowiska.
-Natomiast gdy przekazywane są typy złożone(jak \emph{Vector3} i
+Natomiast gdy przekazywane są typy złożone (jak \emph{Vector3} i
 \emph{Quaternion} w bibliotece \emph{org.bulletTest.geometry}), wartości
 otrzymywane w parametrach to referencje na dany obiekt. W takich przypadkach
 konwersja musi być wykonana przez kod aplikacji poprzez pobranie i odpowiednie
@@ -427,18 +522,18 @@ linerange={39-50}]{./listings/common.cpp}
 Parametr \emph{env} to referencja do środowiska uruchomieniowego Javy,
 \emph{obj} jest referencją na obiekt Javy \emph{Vector3}, a \emph{vec} to
 zwrócony przekonwertowany obiekt \emph{btVector3}. Przy pomocy metody
-\emph{GetObjectlClass}(ln. 3) zostaje pobrana zmienna reprezentująca klasę
+\emph{GetObjectlClass} (ln. 3) zostaje pobrana zmienna reprezentująca klasę
 obiektu \emph{obj}, która zostaje wykorzystana przez metody
-\emph{GetFieldId}(ln. 4-6) do pobrania reprezentacji pól obiektu. Następnie za
+\emph{GetFieldId} (ln. 4-6) do pobrania reprezentacji pól obiektu. Następnie za
 ich pomocą wyciągnięte zostają same wartości pól - współrzędnych \emph{x},
-\emph{y} i \emph{z} wektora(ln. 8-10), które zostają wykorzystane do stworzenia
+\emph{y} i \emph{z} wektora (ln. 8-10), które zostają wykorzystane do stworzenia
 nowego obiektu natywnego klasy \emph{btVector3}. Analogicznie realizowana jest
 konwersja obiektów natywnych na obiekty Javy.
 
 \subsection{Zwalnianie pamięci}
 Gdy dany opakowujący klasę biblioteki Bullet obiekt przestaje być potrzebny
 należy zwolnić zajmowaną przez niego pamięć. Niestety wbudowany w maszynę
-wirtualną Dalvik odśmiecacz pamięci(\emph{garbage collector}) nie może usunąć
+wirtualną Dalvik odśmiecacz pamięci (\emph{garbage collector}) nie może usunąć
 obiektu natywnego. Do tego celu wymagane jest zaimplementowanie destruktora dla
 klasy opakowującej. Pierwszym krokiem jest przeciążenie metody \emph{finalize}
 wywoływanej podczas usuwania obiektu Javy przez odśmiecacz.
@@ -484,24 +579,76 @@ jest klasą bazową dla wszystkich scen w projekcie.
 \begin{figure}
 \centering
 \includegraphics[scale=0.6]{./img/SceneClassDiagram.png}
-\caption{Diagram reprezentujący klasę SimpleScene.}
+\caption{Diagram reprezentujący klasę SomeScene.}
 \label{fig:sceneClassDiagram}
 \end{figure}
 
-Każda scena posiada własny egzemplarz klasy \emph{DynamicsWorld} nadawana jej
+Każda scena posiada własny egzemplarz klasy \emph{DynamicsWorld} nadawany jej
 przez konstruktor. Przeciążając metody \emph{create}, \emph{update} i
 \emph{render} można na scenie wykonać każdą akcję.
 
 \newpage
 \section{Implementacja i zastosowanie dodatkowych możliwośći silnika Bullet}
-\emph{TODO: w jaki sposób zostały zaimplementowane pozostałe przydatne
-mechanizmy silnika i jak zostały wykorzystane możliwości smartphone'a do
-uatrakcyjnienia aplikacji:)}
+W tej części pracy zostanie opisany przebieg implementacji dodatkowych funkcji
+wykorzystujących możliwości oferowane przez platformy mobilne i silnik Bullet.
+%\emph{TODO:
+%w jaki sposób zostały zaimplementowane pozostałe przydatne mechanizmy silnika i
+%jak zostały wykorzystane możliwości smartphone'a do uatrakcyjnienia
+% aplikacji:)}
 
 \subsection{Akcelerometr}
 %http://developer.android.com/guide/topics/sensors/sensors_overview.html
-\emph{TODO: omówienie przykładu ze sterowaniem grawitacją przy pomocy
-akcelerometru.}
+Większość smartfonów i tabletów obecnej generacji wyposażona jest w
+akcelerometr. Urządzenie to może być wykorzystane na przykład do sterowania
+kierunkiem przyspieszenia grawitacyjnego lub kątem ustawienia kamery w
+symulacji.
+
+Na początku należy stworzyć statyczną klasę przechowującą pobrany wektor
+przyspieszenia zakcelerometru.
+
+\begin{lstlisting}[language=java, caption=Klasa Accelerometer przechowująca
+dane pobrane z akcelerometru.]
+package org.bulletSamples;
+ 
+import org.bulletSamples.geometry.Vector3;
+ 
+public class Accelerometer
+{
+	public static Vector3 gravity = new Vector3();
+}
+\end{lstlisting}
+
+W systemie Android dostęp do akcelerometru uzyskuje się poprzez statyczną klasę
+\emph{SensorManager}.
+
+\begin{lstlisting}[language=java, caption=Pobranie wektora przyspieszenia z
+akcelerometru.] public class BulletTestActivity extends Activity implements SensorEventListener {
+
+	public void onCreate(Bundle savedInstanceState) {
+		...
+		mSensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
+		mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY);
+    }
+    
+	...
+    
+    public void onSensorChanged(SensorEvent event) {
+		Accelerometer.gravity.x = event.values[0];
+		Accelerometer.gravity.y = event.values[1];
+		Accelerometer.gravity.z = event.values[2];
+	}
+\end{lstlisting}
+
+Główne \emph{activity} aplikacji musi implementować interfejs
+\emph{SensorEventListener}. 
+
+\begin{figure}
+\centering
+\includegraphics[scale = 0.6]{./img/axis_device.png}
+\caption{Rozłożenie osi wektora przyspieszenia dla akcelerometru w urządzeniu
+z systemem Android.}
+\label{fig:axis_device}
+\end{figure}
 
 \subsection{Przeciągnij i upuść}\label{sec:dragAndDrop}
 \emph{TODO: na razie point single touch. Jeśli mi się uda - również multitouch
@@ -515,9 +662,9 @@ z ``obszarowym'' dotykiem}
 
 \newpage
 \section{Wykorzystanie silnika Bullet w doświadczeniach fizycznych}
+\emph{TODO: jakiś wstęp}
 
 \subsection{Gromadzenie pomiarów}
-
 W celu łatwego gromadzenia danych pomiarowych w trakcie trwania testu powstała
 klasa Logger przechowująca funkcje odpowiadające za przechowywanie danych w
 pamięci urządzenia.
@@ -534,9 +681,9 @@ Stwierdza ona, że w układzie izolowanym suma wszystkich rodzajów energii ukł
 jest stała (nie zmienia się w czasie). W konsekwencji, energia w układzie
 izolowanym nie może być ani utworzona, ani zniszczona, może jedynie zmienić się
 jej forma.\\
-Ponieważ w testach wykonywanych w tym podrozdziale nie są zakładane
+Ponieważ w testach wykonywanych w tej podsekcji nie są zakładane
 oddziaływania pomiędzy ciałami, zostaną rozważone jedynie zmiany energii
-kinetycznej. Badanymi ciałami są bryły sztywne(\emph{rigid bodies}), więc brane
+kinetycznej. Badanymi ciałami są bryły sztywne (\emph{rigid bodies}), więc brane
 pod uwagę będą dwa rodzaje tej energii: liniowa oraz obrotowa.\\
 \textbf{Liniowa energia kinetyczna}\\
 Jest to energia jaką posiada ciało za sprawą bycia w ruchu. Jest zdefinowana
@@ -561,9 +708,13 @@ ciała w ruch obrotowy z daną prędkością kątową. Wyrażana jest przez:
 E_{K} = \frac{I\omega^{2}}{2}
 \end{equation}
 Gdzie:\\
-$ \omega $ to wartość prędkości kątowej ciała względem jego środka masy\\
-\emph{I} to skalarna wartość momentu bezwładności ciała\\
-Moment bezwładności(\emph{moment of inertia}) to miara miara bezwładności ciała
+$ \omega $ to wartość prędkości kątowej ciała względem jego środka masy.\\
+\emph{I} to skalarna wartość momentu bezwładności ciała. Moment bezwładności
+jest wielkością tensorową. W przypadku obrotu wokół jednej osi układu
+współrzędnych jest jednak dopuszczalne, dla uproszczenia, użycie jego
+składowej wartości odpowiadającej osi obrotu jako wartości skalarnej.\\
+\\
+Moment bezwładności (\emph{moment of inertia}) to miara bezwładności ciała
 w ruchu obrotowym względem określonej, ustalonej osi obrotu. Odgrywa prawie taką samą
 rolę w dynamice ruchu obrotowego jak masa w dynamice ruchu postępowego, opisując
 relacje między momentem pędu, energią kinetyczną a prędkością kątową jak masa
@@ -585,14 +736,14 @@ I = \sum_{i=1}^{n} m_{i}r_{i}^{2}
 \end{equation}
 Dla zaimplementowanych kształtów w omawianynej bibliotece obudowującej wartości
 momentu bezwładności są następujące:\\
-Dla kuli(\emph{sphere}):\\
+Dla kuli (\emph{sphere}):\\
 \begin{center}
 \includegraphics{./img/inertiaSphere.png}
 \end{center}
 \begin{equation}
 I = \frac{2}{5}mr^{2}
 \end{equation}
-Dla prostopadłościanu(\emph{box}):\\
+Dla prostopadłościanu (\emph{box}):\\
 \begin{center}
 \includegraphics{./img/inertiaBox.png}
 \end{center}
@@ -600,13 +751,16 @@ Dla dowolnej osi obrotu $ \hat{n} $ przechodzącej przez środek masy sześcianu
 moment bezwładności jest określany przez następuące równanie:
 \begin{equation}
 I = m\hat{n}^{T}\hat{I}\hat{n} = m
-\begin{bmatrix}n_{1}&n_{2}&n_{3}\end{bmatrix}
+\begin{bmatrix}n_{x}&n_{y}&n_{z}\end{bmatrix}
 \begin{bmatrix}y^{2}+z^{2}&-xy&-xz\\-yx&x^{2}+z^{2}&-yz\\-zx&-zy&x^{2}+y^{2}\end{bmatrix}
-\begin{bmatrix}n_{1}\\n_{2}\\n_{3}\end{bmatrix}
+\begin{bmatrix}n_{x}\\n_{y}\\n_{z}\end{bmatrix}
 \label{eq:boxInertia}
 \end{equation}
+Gdzie:\\
+$\hat{I}$ jest wartością tensora momentu bezwładności ciała.\\
+Wartości $n_{x}$, $n_{y}$ i $n_{z}$ to składowe wektora $\hat{n}$.\\
 Wartości \emph{x}, \emph{y} i \emph{z}, to kolejno szerokość, wysokość i długość
-rozważanego prostopadłościanu.\\
+rozważanego prostopadłościanu.\\ \\
 Nie jest konieczne implementowanie momentu bezwładności osobno dla każdego typu
 bryły. Silnik bullet przechowuje wartość macierzy momentu bezwładności dla
 każdego obiektu klasy \emph{btRigidBody}.
@@ -623,8 +777,8 @@ CollisionShape.cpp,
 label=lis:CollisionShapecpp,linerange={162-168}]{./listings/CollisionShape.cpp}
 
 W 6. linijce listingu \ref{lis:CollisionShapecpp} realizowane jest mnożenie wektorów
-\emph{n} (transpozycja jest realizowana przez iloczyn skalarny(\emph{dot}) dwóch
-powstałych wektorów) z równaia \ref{eq:boxInertia}.
+\emph{n} (transpozycja jest realizowana przez iloczyn skalarny (\emph{dot})
+dwóch powstałych wektorów) z równaia \ref{eq:boxInertia}.
 
 \lstinputlisting[language=java, caption=fragment pliku
 CollisionShape.java,
@@ -633,9 +787,9 @@ label=lis:CollisionShapejava,linerange={38-38,142-145,
 
 Ponieważ wyciągana wartość w kodzie natywnym to odwrotna wartość momentu
 bezwładności, w linijce 4 zostaje ona sprowadzona do wartości prawidłowej. Jako
-oś obrotu zostaje obrany znormalizowany wektor prędkości kątowej(ln. 10).\\
+oś obrotu zostaje obrany znormalizowany wektor prędkości kątowej (ln. 10).\\
 \textbf{Całkowita energia kinetyczna}\\
-Podsumowując, dla testów w tym podrozdziale sprawdzone zostanie czy spełniony
+Podsumowując, dla testów w tej podsekcji sprawdzone zostanie czy spełniony
 jest następujący warunek dla \emph{n} ciał:
 \begin{equation}
 E_{K} = \sum_{i=1}^{n}\left(\frac{mv^{2}}{2} + \frac{I\omega^{2}}{2}\right) =
@@ -649,19 +803,23 @@ label=lis:CollisionShapejava2,linerange={155-158}]{./listings/CollisionShape.jav
 \subsubsection{Przypadek z jednym ciałem}
 Na początek zostanie rozważony najprostszy przypadek z jedną kulką odbijającą
 się kolejno od dwóch idealnie sprężystych ścianek. Do tego testu wykorzystana
-została scena prezentowana na listingu \ref{lis:SimpleSnookerScene}.
- \lstinputlisting[language=Java,
+została scena prezentowana na listingu \ref{lis:SimpleSnookerScene}. Test ma na
+celu zbadanie rzeczywistej zależności zmian energii kinetycznej ciała przy
+odbiciach od jego współczynnika sprężystośści.
+
+\lstinputlisting[language=Java,
 caption=scena testująca przypadek z jednym ciałem,
 label=lis:SimpleSnookerScene]{./listings/SimpleSnookerScene.java}
-Na niesprężystym(ln. 57) i całkowicie śliskim(ln. 55) podłożu zostaje
-umieszczona kulka(ln. 59), która przez nadaną jej prędkość początkową(ln. 62)
-odbija się kolejno od ścianek(ln. 49, 50). Sprężystość(\emph{restitution})
-kulki jak i ścianek jest regulowana na początku każdego testu(ln. 73, 74),
-która dla pierszego wynosi 0.9(ln. 18) i jest liniowo zwiększana dla kolejnych
-dziesięciu testów(ln. 21, 24, 94) aż do osiągnięcia wartości 1(gdzie
+Na niesprężystym (ln. 57) i całkowicie śliskim (ln. 55) podłożu zostaje
+umieszczona kulka (ln. 59), która przez nadaną jej prędkość początkową (ln. 62)
+odbija się kolejno od ścianek (ln. 49, 50). Sprężystość (\emph{restitution})
+kulki jak i ścianek jest regulowana na początku każdego testu (ln. 73, 74),
+która dla pierszego wynosi 0.9 (ln. 18) i jest liniowo zwiększana dla kolejnych
+dziesięciu testów (ln. 21, 24, 94) aż do osiągnięcia wartości 1 (gdzie
 teoretycznie energia kulki powinna być stała).
-Dla każdej testowanej wartości przewidziano 20 odbić(ln. 22, 23, 81-97). Energia
-kinetyczna kulki jest zapisywana do pliku przy każdym odbiciu(ln. 81-87).
+Dla każdej testowanej wartości przewidziano 20 odbić (ln. 22, 23, 81-97).
+Energia kinetyczna kulki jest zapisywana do pliku przy każdym odbiciu (ln.
+81-87).
 
 \begin{center}
 \includegraphics[scale = 0.5]{./img/SimpleSnookerScene.png}
@@ -681,15 +839,15 @@ wykres zawiera wartości energii kinetycznej dla wartości sprężystości od 0,
 
 \input{./diag/EKjednoCialo2.tex}
 
-Przy początkowej prędkości 5$\frac{m}{s}$ i masie 1 kg (linting
+Przy początkowej prędkości 5$\frac{m}{s}$ i masie 1 kg (listing
 \ref{lis:SimpleSnookerScene} ln. 72, 59) energia kinetyczna kulki powinna mieć
 stałą wartość energii kinetycznej 12,5.
 \begin{equation}
 E_{K} = \frac{mv^{2}}{2} = \frac{1kg*(5\frac{m}{s})^{2}}{2} =
 12,5J
 \end{equation}
-Z prezentowanego wykresu wynika, że najodpowiedniejsza wartość współczynnika
-sprężystości kulki i ścianek mieści się między 0,945 a 0,955.\\
+Z prezentowanego wykresu wynika, że najbardziej odpowiednia wartość
+współczynnika sprężystości kulki i ścianek mieści się między 0,945 a 0,955.\\
 Dla ustalenia bardziej szczegółowej wartości test został powtórzony dla
 następujących parametrów z listingu \ref{lis:SimpleSnookerScene}:
 
@@ -716,15 +874,20 @@ nie utrzymuje stałej wartości, a wzrasta. Co jest tego przyczyną? \\
 W poszukiwaniu odpowiedzi na to pytanie można spojrzeć na wyniki poprzednich
 testów rozpatrując osobno zapisy energii kinetycznej liniowej i obrotowej.
 Poniżej przedstawiono fragment zapisu dla testu przy watrości współczynnika
-sprężystości 0,98:
+sprężystości 0,98 (wartości energi liniowej energii kinetycznej znajdują się
+po lewej stronie, a obrotowej po lewej):
 
 \lstinputlisting[language=xml, caption=wartości energii kinetycznej,
-  label=lis:manifest,linerange={6-12}]{./listings/0,98.txt}
-  
-Można zaobserwować gwałtowne zmiany obu energii, jednak wzrost energii
-kinetycznej liniowej jest zawsze poprzedzony wzrostem energii kinetycznej
-obrotowej. Liniowa energia kinetyczna sama w sobie nie ulega gwałtownym
-wzrostom. Przyczyną tego jest wzrost energii całkowitej.\\
+  label=lis:linearAngle,linerange={6-12}]{./listings/0,98.txt}
+
+Okazuje się, że nawet na całkowicie śliskim podłożu ciało uzyskuje obrotową
+energię kinetyczną, co nie powinno mieć miejsca. Występowanie obrotu nie jest
+jednak spowodowane tarciem ciała o podłoże, a wynikiem błędów zaokrągleń
+kalkulacji silnika przy zderzeniach kulki ze ściankami.\\
+Na listingu \ref{lis:linearAngle} można zaobserwować gwałtowne zmiany obu
+energii, jednak wzrost energii kinetycznej liniowej jest zawsze poprzedzony
+wzrostem energii kinetycznej obrotowej. Liniowa energia kinetyczna sama w sobie
+nie ulega gwałtownym wzrostom. Przyczyną tego jest wzrost energii całkowitej.\\
 Podczas analitycznego rozważania odbicia ciała możliwe jest dokładne ustalenie
 czasu i miejsca zderzenia poprzez rozwiązanie odpowiedniego równania ruchu. W
 przypadku symulacji zderzenia ciał przez silnik fizyczny, symulacja ta jest
@@ -759,9 +922,9 @@ Aby tego dokonać należy przyjrzeć się prototypowi funkcji \emph{stepSimulati
 label=lis:stepSimulation]{./listings/stepSimulation.cpp}
 
 Funkcja ta jest wywoływana w celu zaktualizowania symulacji o pewien
-czas(wywoływana jest dla każdej renderowanej klatki aplikacji). Według
-\emph{Bullet User Manual}(TODO:źródło z bibliografii) jej poszczególne parametry
-oznaczają:\\
+czas (wywoływana jest dla każdej renderowanej klatki aplikacji). Według
+\emph{Bullet User Manual} (TODO:źródło z bibliografii) jej poszczególne
+parametry oznaczają:\\
 \\
 \textbf{timeStep}: całkowita ilość czasu jaka musi minąć w danym kroku. W
 symulacjach jest to najczęściej odstęp czasu pomiędzy wyświetleniem poprzedniej
@@ -791,7 +954,7 @@ sprężystości, a od parametru \emph{fixedTimeStep}.
   testująca zależność energii
   kinetycznej od fixedTimeStep]{./listings/SimpleSnookerSceneFts.java}
 
-Zależność energii kinetycznej od odbicia(poszczególne linie wykresu
+Zależność energii kinetycznej od odbicia (poszczególne linie wykresu
 reprezentują wartości współczynnika ftsFactor). Dla czytelności wykresu $
 fixedTimeStep = \frac{1}{ftsFactor} $. Współczynnik sprężystości został
 ustawiony na 1. Prędkość ciała wynosi 5$\frac{m}{s}$.
@@ -805,7 +968,7 @@ pierwszych 15 odbić:
 
 Z wyników można odczytać, że przy długości podkroku $ \frac{1}{260} $ sekundy
 zasada zachowanaia energii zostaje spełniona. Okazuje się również, że wartość
-tego parametru musi być odpowiednio dobrana(przy innych widoczne są
+tego parametru musi być odpowiednio dobrana (przy innych widoczne są
 niedobory/nadmiary energii). Aby sprawdzić czy jest ona uniwersalna, kolejny
 test zostanie przeprowadzony dla wartości prędkości 10$\frac{m}{s}$.
 
@@ -832,14 +995,14 @@ Przy pomocy poniższej sceny sprawdzone zostanie jaki wpływ ma parametr
   label=lis:ClosedSnookerScene,caption=scena
   testująca przypadek z wieloma ciałami]{./listings/ClosedSnookerScene3.java}
   
-Na obszarze otoczonym ściankami(ln. 44-50) zostaje umieszczonych dziewięć(ln.
-60-66) idealnie sprężystych(ln. 69) kulek. Kulki rozprzestrzeniają się w
-losowych kierunkach z prędkością 5$ \frac{m}{s} $(ln. 64). Wartość energii
-kinetycznej całego układu jest rejestrowana co 20 klatek(ln. 22, 105-111). Każdy
-test trwa 20*100 klatek(ln. 22, 24, 94), w każdym z nich wartość parametru
-\emph{ftsFactor} jest zwiększana(ln. 101).\\
+Na obszarze otoczonym ściankami (ln. 44-50) zostaje umieszczonych dziewięć (ln.
+60-66) idealnie sprężystych (ln. 69) kulek. Kulki rozprzestrzeniają się w
+losowych kierunkach z prędkością 5$ \frac{m}{s} $ (ln. 64). Wartość energii
+kinetycznej całego układu jest rejestrowana co 20 klatek (ln. 22, 105-111).
+Każdy test trwa 20*100 klatek (ln. 22, 24, 94), w każdym z nich wartość
+parametru \emph{ftsFactor} jest zwiększana (ln. 101).\\
 Poniżej przedstawiono wykres zależności całkowitej energii układu od
-czasu(klatek animacji) dla różnych wartości \emph{ftsFactor}, a tym samym
+czasu (klatek animacji) dla różnych wartości \emph{ftsFactor}, a tym samym
 długości podkroku symulacji. Dla większej dokładności wykonane zostało dziesięć
 takich testów i wyciągnięta zostałą z nich średnia wartość energii.
 
