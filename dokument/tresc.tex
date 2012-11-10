@@ -604,7 +604,7 @@ kierunkiem przyspieszenia grawitacyjnego lub kątem ustawienia kamery w
 symulacji.
 
 Na początku należy stworzyć statyczną klasę przechowującą pobrany wektor
-przyspieszenia zakcelerometru.
+przyspieszenia z akcelerometru.
 
 \begin{lstlisting}[language=java, caption=Klasa Accelerometer przechowująca
 dane pobrane z akcelerometru.]
@@ -637,10 +637,15 @@ akcelerometru.] public class BulletTestActivity extends Activity implements Sens
 		Accelerometer.gravity.y = event.values[1];
 		Accelerometer.gravity.z = event.values[2];
 	}
+}
 \end{lstlisting}
 
 Główne \emph{activity} aplikacji musi implementować interfejs
 \emph{SensorEventListener}. 
+
+Każda oś wektora \emph{Accelerometer}.\emph{gravity} odpowiada osi nachylania
+urządrzenia na którym uruchomiona jest aplikacja. Rozkład tych osi
+zaprezentowano na rysunku \ref{fig:axis_device}.
 
 \begin{figure}
 \centering
@@ -650,12 +655,303 @@ z systemem Android.}
 \label{fig:axis_device}
 \end{figure}
 
+Tak pobrane wartości wektora akcelerometru można wykorzystać do sterowania
+przyspieszeniem grawitacji aplikacji. W tym celu we fragmencie odpowiedzialnym
+za rendering sceny można umieścić odpowiedni kod.
+
+\begin{lstlisting}[language=java, caption=Sterowanie wektorem przyspieszenia
+ziemskiego przy pomocy akcelerometru]import org.bulletSamples.Accelerometer;
+import org.bulletSamples.geometry.*;
+import org.bulletSamples.physics.*;
+
+public class SomeScene extends BaseScene {
+	...
+	
+	public void render(GL10 gl)
+	{
+		dw.setGravity(Accelerometer.gravity);
+		//kod odpowiedzialny za rendering obiektow na scenie
+	}
+}
+\end{lstlisting}
+
+Akcelerometr można również zastosować do sterowania innymi parametrami jak na
+przykład kątem nachylenia kamery.
+
+\begin{lstlisting}[language=java, caption=Sterowanie kątem nachylenia kamery
+przy pomocy akcelerometru, label=lis:accCamera]import org.bulletSamples.Accelerometer;
+import org.bulletSamples.geometry.*;
+import org.bulletSamples.physics.*;
+
+public class SomeScene extends BaseScene {
+	...
+	
+	public void render(GL10 gl)
+	{
+		Camera.active.position = Accelerometer.gravity.normalize().multiply(60);
+		//kod odpowiedzialny za rendering obiektow na scenie
+	}
+}
+\end{lstlisting}
+
+Na listingu \ref{lis:accCamera} w linijce 21 zastosowano wektor pobrany z
+akcelerometru i pomnożony przez skalar 60 jako wektor pozycji dla kamery na
+scenie.
+
 \subsection{Przeciągnij i upuść}\label{sec:dragAndDrop}
-\emph{TODO: na razie point single touch. Jeśli mi się uda - również multitouch
-z ``obszarowym'' dotykiem}
+Inną możliwością wprowadzenia interakcji w aplikacji jest wykorzystanie ekranu
+dotykowego dostępnego w większości produkowanych dziś urządzeń mobilnych.
+Możliwe jest dzięki temu wprowadzenie funkcji ``przeciągnij i upuść''
+(\emph{drag and drop}), dzięki czemu możliwe będzie złapanie dowolnego obiektu
+fizycznego i przeniesienie go w inne miejsce palcem po ekranie.
+
+Pierwszym krokiem jest zamiana współrzędnych ekranu (miejsca w którym ekran
+został dotkniętuy palcem) na współrzędne świata silnika fizycznego. Proces ten
+został przedstawiony na rysunku \ref{fig:raycast}.
+
+\begin{figure}
+\centering
+\includegraphics[scale = 0.8]{./img/Rzutowanie.png}
+\caption{Rzutowanie współrzędnych ekranu na współrzędne świata silnika}
+\label{fig:raycast}
+\end{figure}
+
+Następnie zostaje poprowadzona linia (\emph{raycast}) od ``oka'' do
+przerzutowanego punktu we spółrzędnych silnika (na rysunku
+oznaczonego przez \textbf{p}). ``Podniesiony'' zostaje obiekt przecinający się z
+poprowadzoną linią (obiekt \textbf{O}).
+
+Zamianę współrzędnych należy zacząć od zmiany układu współrzędnych. W
+urządzeniach z systemem Android przebieg osi oznaczono na rysunku
+\ref{fig:raycast} czerwonymi strzałkami. W silniku fizycznym osie oznaczono
+żółtą i zieloną linią. Odpowiednie przekształcenie dokonywane jest przez macierz
+ze wzoru \ref{eq:srodek}.
+
+\begin{equation}p_{t} = 
+p_{e}
+\begin{bmatrix}1&0&0&0\\0&-1&0&0\\0&0&1&0\\-w_{e}&h_{e}&0&1\end{bmatrix}
+\label{eq:srodek}
+\end{equation}
+
+Gdzie:\\
+$ p_{t} = \begin{bmatrix}x_{t}&y_{t}&0&1\end{bmatrix} $ to przetransportowany
+wektor punktu\\
+$ p_{e} = \begin{bmatrix}x_{e}&y_{e}&0&1\end{bmatrix} $ to wektor pobranych
+współrzędnych ekranowych\\
+$ w_{e} $ i $ h_{e} $ to kolejno połowa szerokości i wysokości ekranu urządzenia
+w pikselach
+\\ \\
+Następnie należy dokonać przeskalowania pobranych współrzędnych aby były one
+zgodne ze skalą płaszczyzny rzutowania (płaszczyzny na której znajduje się
+punkt \textbf{p} z rysunku \ref{fig:raycast}). Przekształcenie to jest
+dokonywane przez następującą zależność:
+
+\begin{equation}
+\frac{y_{t}}{h_{e}}=\frac{y_{p}}{h_{p}}
+\label{eq:przeksz}
+\end{equation}
+
+Gdzie:\\
+$ y_{p} $ to przetransformowana współrzędna na płaszczyźnie rzutowania\\
+$ h_{p} $ to wysokość płaszczyzny rzutowania oznaczona na rysunku
+\ref{fig:raycast} przez \textbf{h}\\
+Wysokość płaszczyzny rzutowania jest zależna od \emph{FoV} (\emph{field of
+view}) - kąta pola widzenia i może być obliczona w następujący sposób:
+
+\begin{equation}
+h_{p} = f \tg \alpha
+\label{eq:alpha}
+\end{equation}
+\emph{f} to odległość ``oka'' od płaszczyzny rzutowania (na rysunku oznaczona
+niebieską linią)\\
+$ \alpha $ to połowa kąta \emph{FoV}. Ponieważ obliczaną wysokością jest połowa
+wysokości płaszczyzny rzutowania, w tym miejscu zostaje zastosowana połowa
+kąta.\\
+\\
+Korzystając ze wzorów \ref{eq:przeksz} i \ref{eq:alpha} otrzymuje się zależność:
+
+\begin{equation}
+y_{p} = \frac{fy_{t} \tg \alpha}{h_{e}}
+\end{equation}
+
+W celu zachowania proporcji generowanego obrazu współrzędna o mniejszej
+maksymalnej wartości przekształcona zostaje jak współrzędna o większej
+maksymalnej wartości. Na potrzeby tych obliczeń przyjęte zostaje, że $ w_{e} <
+h_{e} $, czyli wartość \emph{x} zostaje obliczana jak wartość \emph{y}.
+Omawiane przeskalowanie zostaje wykonane przez poniższą macierz:
+
+\begin{equation}
+\begin{bmatrix}\frac{f \tg \alpha}{h_{e}}&0&0&0\\0&\frac{f \tg \alpha}{h_{e}}&0&0\\0&0&1&0\\0&0&p&1\end{bmatrix}
+\label{eq:scale}
+\end{equation}
+
+Mnożąc macierze \ref{eq:srodek} i \ref{eq:scale} otrzymana zostaje macierz
+rzutowania punktu z współrzędnych ekranowych na współrzędne silnika fizycznego:
+
+\begin{equation}
+S = 
+\begin{bmatrix}1&0&0&0\\0&-1&0&0\\0&0&1&0\\-w_{e}&h_{e}&0&1\end{bmatrix}
+\begin{bmatrix}\frac{f \tg \alpha}{h_{e}}&0&0&0\\0&\frac{f \tg
+\alpha}{h_{e}}&0&0\\0&0&1&0\\0&0&p&1\end{bmatrix} =
+\begin{bmatrix}\frac{f \tg \alpha}{h_{e}}&0&0&0\\0&-\frac{f \tg
+\alpha}{h_{e}}&0&0\\0&0&1&0\\-\frac{w_{e}f \tg \alpha}{h_{e}}&f \tg \alpha&p&1\end{bmatrix}
+\end{equation}
+
+Korzystając z powyższej macierzy można otrzymać współrzędne punktu do którego
+zostaje poprowadzona linia ($ p_{p} $) wybierająca chwytany obiekt.
+
+\begin{equation}
+p_{p} = p_{e} S W
+\label{eq:transform}
+\end{equation}
+Gdzie:\\
+$ p_{p} $ i $ p_{e} $ to wektory postaci:\\
+$ p_{p} = \begin{bmatrix}x_{p}&y_{p}&z_{e}&1\end{bmatrix} $ \\
+$ p_{e} = \begin{bmatrix}x_{e}&y_{e}&0&1\end{bmatrix} $ \\
+\emph{W} to macierz świata wyświetlanej sceny (iloczyn odwrotnej macierzy
+translacji kamery i odwrotnego obrotu kamery).\\
+\\ \\
+Aby funkcja ``przeciągnij i upuść'' działała, konieczne jest przechwycenie przez
+aplikację zdarzenia dotknięcia ekranu dotykowego urządzenia, co prezentuje
+listing \ref{lis:onTouch}.
+
+\begin{lstlisting}[language=java, caption=Przechwycenie zdarzenia
+dotknięcia ekranu.,label=lis:onTouch]public void onTouch(MotionEvent e)
+{
+	int x = (int)e.getX();
+	int y = (int)e.getY();
+	int eventaction = e.getAction();
+	Vector3 rayFrom;
+	if(Camera.active != null) rayFrom = Camera.active.getPosition();
+	else rayFrom = Vector3.zero();
+    switch (eventaction ) { 
+    	case MotionEvent.ACTION_DOWN:
+    		dw.pickObject(rayFrom, getRayTo(x, y));
+    		break;
+    	case MotionEvent.ACTION_MOVE:
+    		dw.dragObject(rayFrom, getRayTo(x, y));
+    		break;
+    	case MotionEvent.ACTION_UP:
+    		dw.dropObject(rayFrom, getRayTo(x, y));
+    		break;
+    }
+}
+\end{lstlisting}
+
+Obiket \emph{dw} jest obiektem klasy \emph{DynamicsWorld}. Funkcja
+\emph{getRayTo} wykonuje operację ze wzoru \ref{eq:transform}.\\
+
+Implementacja metody \emph{pickObject}, wywoływanej po naciśnięciu obiektu na
+ekranie, wygląda następująco:
+
+\begin{lstlisting}[language=c++, caption=Implementacja
+metody pickObject,label=lis:pickObject]
+JNIEXPORT void Java_org_bulletSamples_physics_DynamicsWorld_NpickObject( JNIEnv* env, jobject self, jint id, jobject jRayFrom, jobject jRayTo )
+{
+	btDiscreteDynamicsWorld* dw = (btDiscreteDynamicsWorld*)btObjects::get(id);
+	btVector3 rayFrom, rayTo;
+	jobjectToBtVector3(env, jRayFrom, rayFrom);
+	jobjectToBtVector3(env, jRayTo, rayTo);
+	btCollisionWorld::ClosestRayResultCallback rayCallback(rayFrom,rayTo);
+	dw->rayTest(rayFrom,rayTo,rayCallback);
+	if (rayCallback.hasHit())
+	{
+		btRigidBody* body = btRigidBody::upcast(rayCallback.m_collisionObject);
+		if (body)
+		{
+			if (!(body->isStaticObject() || body->isKinematicObject()))
+			{
+				pickedBody = body;
+				pickedBody->setActivationState(DISABLE_DEACTIVATION);
+				btVector3 pickPos = rayCallback.m_hitPointWorld;
+				btVector3 localPivot = body->getCenterOfMassTransform().inverse() * pickPos;
+				btTransform tr;
+				tr.setIdentity();
+				tr.setOrigin(localPivot);
+				btGeneric6DofConstraint* dof6 = new btGeneric6DofConstraint(*body, tr,false);
+				dof6->setLinearLowerLimit(btVector3(0,0,0));
+				dof6->setLinearUpperLimit(btVector3(0,0,0));
+				dof6->setAngularLowerLimit(btVector3(0,0,0));
+				dof6->setAngularUpperLimit(btVector3(0,0,0));
+				dw->addConstraint(dof6);
+				pickConstraint = dof6;
+				oldPickingPos = rayTo;
+				hitPos = pickPos;
+				oldPickingDist  = (pickPos-rayFrom).length();
+			}
+		}
+	}
+}
+\end{lstlisting}
+
+Na początku zostaje wykonany \emph{raytest} - sprawdzenie czy obiekt nie
+znajduje się na linii od \emph{rayFrom} do \emph{rayTo} (ln. 8-16). Następnie
+wygenerowane zostaje ciało sprężyste (ln.23-27) łączące napotkane ciało z
+punktem aktualnego zderzenia. Wiekszość wartości zostaje zapisana w wartościach
+globalnych, ponieważ są potrzebne do działania pozostałych funkcji (ln.
+16,29-32).
+
+Metoda \emph{dragObject} jest wywoływana podczas przesuwania obiektu po
+ekranie.
+
+\begin{lstlisting}[language=c++, caption=Implementacja
+metody dragObject,label=lis:dragObject]
+JNIEXPORT void Java_org_bulletSamples_physics_DynamicsWorld_NdragObject( JNIEnv* env, jobject self, jint id, jobject jRayFrom, jobject jRayTo )
+{
+	if(pickConstraint == 0) return;
+	btDiscreteDynamicsWorld* dw = (btDiscreteDynamicsWorld*)btObjects::get(id);
+	btVector3 rayFrom, rayTo;
+	jobjectToBtVector3(env, jRayFrom, rayFrom);
+	jobjectToBtVector3(env, jRayTo, rayTo);
+	btGeneric6DofConstraint* pickCon = static_cast<btGeneric6DofConstraint*>(pickConstraint);
+	btVector3 newRayTo = rayTo;
+	btVector3 oldPivotInB = pickCon->getFrameOffsetA().getOrigin();
+	btVector3 newPivotB;
+	btVector3 dir = newRayTo-rayFrom;
+	dir.normalize();
+	dir *= oldPickingDist;
+	newPivotB = rayFrom + dir;
+	pickCon->getFrameOffsetA().setOrigin(newPivotB);
+}
+\end{lstlisting}
+
+Przechowywana sprężyna w zmiennej \emph{pickConstraint} otrzymuje nowe
+współrzędne ramek w których trzymany jest obiekt. Sa one obliczone na podstawie
+wczęniej przechowanyvh wartości.
+
+Ostatnia metoda \emph{dropObject} jest wywoływana po oderwaniu palca od
+powierzchni ekranu.
+
+\begin{lstlisting}[language=c++, caption=Implementacja
+metody dropObject,label=lis:dropObject]
+JNIEXPORT void Java_org_bulletSamples_physics_DynamicsWorld_NdropObject( JNIEnv* env, jobject self, jint id, jobject jRayFrom, jobject jRayTo )
+{
+	btDiscreteDynamicsWorld* dw = (btDiscreteDynamicsWorld*)btObjects::get(id);
+	dw->removeConstraint(pickConstraint);
+	delete pickConstraint;
+	pickConstraint = 0;
+	pickedBody->forceActivationState(ACTIVE_TAG);
+	pickedBody->setDeactivationTime( 0.f );
+	pickedBody = 0;
+}
+\end{lstlisting}
+
+Po zaimplementowaniu powyższych funkcji w aplikacji możliwe jest przenoszenie
+widocznych na ekranie obiektów.
 
 \subsection{Klasa DebugDrawer}\label{sec:debugDrawer}
-\emph{TODO: również opis problemu z przepełnieniem bufora JNI.}
+W celu ułatwienia projektowania symulacji mozna wykorzystać
+wbudowaną w silniku bullet możliwość rysowania linii pomocniczych (\emph{debug
+draw}). Linie te zaznaczają miedzy innymi limity obrotów i wielkość ramki ciała
+zawieszonego na sprężynie. Rysowane linie pomocnicze można zauważyć na rysunku
+\ref{fig:spring_demo}.\\
+Aby możliwe było korzystanie z możliwości rysowania linii pomocniczych, należy
+zaimplementować interfejs silnika bullet \emph{btIDebugDraw}. Interfejs ten
+posiada metody odpowiadające za rysowanie prostych kształtów (np. \emph{drawLine}).
+Implementacja poszczególych metod pozwala na niezależne od silnika renderującego
+wyświetlanie pomocniczych kształtów.
+
+
 
 \subsection{Wykrywanie kolizji}
 \emph{TODO: o możliwości logowania kolizkji wybranych obiektów}

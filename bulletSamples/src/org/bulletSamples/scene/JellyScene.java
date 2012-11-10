@@ -14,6 +14,7 @@ public class JellyScene extends BaseScene {
 	protected Camera camera;
 	public void create()
 	{
+		sphere.setColor(1, 0, 0, 1);
 		enableObjectDrag = true;
 		camera = new Camera(new Vector3(0,10,30),0,0);
 		Camera.active = camera;

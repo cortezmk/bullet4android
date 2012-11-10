@@ -47,7 +47,7 @@ public class BaseScene {
 		float top = 1.f;
 		float bottom = -1.f;
 		float nearPlane = 1.f;
-		float tanFov = (top-bottom)*0.5f / nearPlane;
+		//float tanFov = (top-bottom)*0.5f / nearPlane;
 		float fov = (float)(Math.PI/4.0);//2.0f * (float)Math.atan(tanFov);
 		Vector3 rayFrom = Vector3.zero();
 		Vector3 rayForward = new Vector3(0,0,-1);
