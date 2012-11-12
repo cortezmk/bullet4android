@@ -939,7 +939,7 @@ JNIEXPORT void Java_org_bulletSamples_physics_DynamicsWorld_NdropObject( JNIEnv*
 Po zaimplementowaniu powyższych funkcji w aplikacji możliwe jest przenoszenie
 widocznych na ekranie obiektów.
 
-\subsection{Klasa DebugDrawer}\label{sec:debugDrawer}
+\subsection{Linie pomocnicze}\label{sec:debugDrawer}
 W celu ułatwienia projektowania symulacji mozna wykorzystać
 wbudowaną w silniku bullet możliwość rysowania linii pomocniczych (\emph{debug
 draw}). Linie te zaznaczają miedzy innymi limity obrotów i wielkość ramki ciała
@@ -951,14 +951,151 @@ posiada metody odpowiadające za rysowanie prostych kształtów (np. \emph{drawL
 Implementacja poszczególych metod pozwala na niezależne od silnika renderującego
 wyświetlanie pomocniczych kształtów.
 
+W tym przykładzie zostanie zaimplementowana metoda \emph{drawLine}.
+Implementacja interfejsu w kodzie natywnym wygląda następująco:
 
+\begin{lstlisting}[language=c++, caption=Deklaracja klasy
+DebugDrawer,label=lis:debugDrawer_cpp]
+class DebugDrawer : public btIDebugDraw
+{
+public:
+	DebugDrawer();
+	virtual void drawLine(const btVector3& from,const btVector3& to,const btVector3& color); 
+	...
+};
 
-\subsection{Wykrywanie kolizji}
-\emph{TODO: o możliwości logowania kolizkji wybranych obiektów}
+void DebugDrawer::drawLine(const btVector3& from,const btVector3& to,const btVector3& fromColor, const btVector3& toColor)
+{
+	jclass claz = globalEnv->FindClass("org/bulletSamples/physics/DebugDrawer");
+	jmethodID mid = globalEnv->GetStaticMethodID(claz, "drawLine", "(Lorg/bulletSamples/geometry/Vector3;Lorg/bulletSamples/geometry/Vector3;Lorg/bulletSamples/geometry/Vector3;Lorg/bulletSamples/geometry/Vector3;)V");
+	globalEnv->CallStaticVoidMethod(claz, mid, jVector3(globalEnv, from), jVector3(globalEnv, to), jVector3(globalEnv, fromColor), jVector3(globalEnv, toColor));
+}
+\end{lstlisting}
+
+Metoda \emph{DebugDrawer::drawLine} odnosi sie do statycznej metody
+\emph{drawLine} klasy \emph{DebugDrawer} zaimplementowanej w Javie. W linijce
+11 pobrany zostaje identyfikator metody, który zostaje wykorzystany do jej
+wywołania w linijce 12 , przekazując jej swoje parametry wywołania. Zmienna
+\emph{globalEnv}, jest przechowywaną globalnie zmienną zawierającą wskażnik na
+środowisko uruchomieniowe Javy. Jest ona odświeżana przy każdej rysowanej
+ramce. Ponieważ metoda \emph{drawLine} nie jest bezpośrednio wywoływana przez
+metodę w środowisku Javy, a przez obiekt klasy \emph{DynamicsWorld}, nie ma ona
+dostępu do obiektu \emph{env} przez parametr. W kodzie natywnym pobranie
+zmiennej \emph{globalEnv} wygląda nstępująco:
+
+\begin{lstlisting}[language=c++, caption=Deklaracja
+funkcji renewEnv w kodzie natywnym,label=lis:renewEnvNat]
+JNIEnv* globalEnv = 0;
+
+extern "C"
+{
+	JNIEXPORT void Java_org_bulletSamples_physics_DebugDrawer_renewEnv(JNIEnv* env, jclass claz)
+	{
+		globalEnv = env;
+	}
+}
+\end{lstlisting}
+
+Natomiast w kodzie Javy:
+
+\begin{lstlisting}[language=c++, caption=Deklaracja
+i wykorzystanie metody renewEnv w kodzie Javy,label=lis:renewEnvJav]
+public class DebugDrawer {
+	public static native void renewEnv();
+	...
+}
+
+public class DynamicsWorld {
+	...
+	public void drawDebug(GL10 gl)
+	{
+		DebugDrawer.gl = gl;
+		gl.glLoadIdentity();
+		Camera.applyTransform(gl);
+		DebugDrawer.renewEnv();
+		NdrawDebug();
+	}
+}
+\end{lstlisting}
+
+Pobieranie globalnego obiektu \emph{env} odbywa się przy każdym odrysowywaniu
+linii pomocniczych (w metodzie \emph{drawDebug} ln. 13).\\
+Posiadając klasę implementującą metodę \emph{drawLine} możliwe jest przypisanie
+obiektu tej klasy do obiektu klasy \emph{DebugDrawer}. Przypisanie to następuje
+w konstruktorze klasy \emph{DebugDrawer}.
+
+\begin{lstlisting}[language=c++, caption=Przypisanie
+obiektu DebugDrawer obiektowi DynamicsWorld,label=lis:DynamicsWorldConstructor]
+JNIEXPORT jint Java_org_bulletSamples_physics_DynamicsWorld_constructor( JNIEnv* env, jobject self )
+{
+	...
+    DebugDrawer* dd = new DebugDrawer;
+    dd->setDebugMode(btIDebugDraw::DBG_DrawConstraints+btIDebugDraw::DBG_DrawConstraintLimits);
+    dynamicsWorld->setDebugDrawer(dd);
+
+	return btObjects::put(dynamicsWorld);
+}
+\end{lstlisting}
+
+Po wprowadzeniu powyższych funkcji i zastosowaniu metody
+\emph{DebugDrawer.drawDebug} w funkcji renderującej, wyświetlane są linie
+pomocnicze. Jednak po kilku klatkach aplikacja przestaje działać. W rejestrze
+błędów można zobaczyć:
+
+\begin{figure}
+\centering
+\includegraphics[scale = 0.6]{./img/logCat.PNG}
+\caption{Błędy widoczne po próbie zastosowania klasy DebugDrawer.}
+\label{fig:logCat}
+\end{figure}
+
+Widoczny błąd spowodowany jest przepełnieniem lokalnego bufora JNI. Podczas
+przekazywania parametrów przez funkcję \emph{drawLine} z listingu
+\ref{lis:debugDrawer_cpp} obiekty przekazywane przez parametry przechowywane są
+w lokalnym buforze JNI, który ma ograniczoną pojemność. Problem ten można ominąć
+przez użycie tymczasowych, statycznych zmiennych przechowujących przekazywane
+parametry metodzie \emph{drawLine} po stronie Javy.
+
+\begin{lstlisting}[language=Java,
+caption=Tymczasowe zmienne przechowujące
+parametry wywołania metody drawLine,label=lis:dummyVals] public
+class DebugDrawer
+{
+	...
+	public static Vector3 dummy1 = Vector3.zero(), dummy2 = Vector3.zero(), dummy3 = Vector3.zero(), dummy4 = Vector3.zero(); 
+	...
+}
+\end{lstlisting}
+
+Kod funkcji \emph{DebugDrawer::drawLine} z listingu \ref{lis:debugDrawer_cpp}
+powinien wtedy wyglądać:
+
+\begin{lstlisting}[language=C++,
+caption=Implementacja metody drawLine
+korzystającej z tymczasowych zmiennych,label=lis:drawLineDummyVals]
+void DebugDrawer::drawLine(const btVector3& from,const btVector3& to,const btVector3& color)
+{
+	jclass claz = globalEnv->FindClass("org/bulletSamples/physics/DebugDrawer");
+	jmethodID mid = globalEnv->GetStaticMethodID(claz, "drawLine", "()V");
+	setNamedVector3(globalEnv, claz, "dummy1", from); setNamedVector3(globalEnv, claz, "dummy2", to); 
+	setNamedVector3(globalEnv, claz, "dummy3", color);
+	setNamedVector3(globalEnv, claz, "dummy4", color);
+	globalEnv->CallStaticVoidMethod(claz, mid);
+}
+\end{lstlisting}
+
+Po tym zabiegu możliwe jest bezbłędne renderowanie linii pomocniczych na scenie.
+
+%\subsection{Wykrywanie kolizji}
+%\emph{TODO: o możliwości logowania kolizkji wybranych obiektów}
 
 \newpage
 \section{Wykorzystanie silnika Bullet w doświadczeniach fizycznych}
-\emph{TODO: jakiś wstęp}
+Do tej pory rozważane była jedynie kwestia samego działania silnika na
+platformie Android. Jakie jednak niesie on możliwości pod kątem symulacji
+fizycznych? Jako wysokowydajnościowy silnik Bullet nie ma wysokiej precyzji
+pomiarów, ale możliwe jest sprawdzenie w jakich warunkach wyniki symulacji są
+zblizone do rzeczywistych.
 
 \subsection{Gromadzenie pomiarów}
 W celu łatwego gromadzenia danych pomiarowych w trakcie trwania testu powstała
@@ -977,10 +1114,13 @@ Stwierdza ona, że w układzie izolowanym suma wszystkich rodzajów energii ukł
 jest stała (nie zmienia się w czasie). W konsekwencji, energia w układzie
 izolowanym nie może być ani utworzona, ani zniszczona, może jedynie zmienić się
 jej forma.\\
-Ponieważ w testach wykonywanych w tej podsekcji nie są zakładane
-oddziaływania pomiędzy ciałami, zostaną rozważone jedynie zmiany energii
-kinetycznej. Badanymi ciałami są bryły sztywne (\emph{rigid bodies}), więc brane
-pod uwagę będą dwa rodzaje tej energii: liniowa oraz obrotowa.\\
+
+\subsubsection{Rodzaje badanych energii}
+
+\textbf{Energia kinetyczna}\\
+Badanymi ciałami są bryły sztywne (\emph{rigid bodies}), więc brane
+pod uwagę będą dwa rodzaje energii kinetycznej: liniowa oraz obrotowa.\\
+
 \textbf{Liniowa energia kinetyczna}\\
 Jest to energia jaką posiada ciało za sprawą bycia w ruchu. Jest zdefinowana
 jako wartość pracy jaka jest wymagana do wprowadzenia będącego w stanie
@@ -994,6 +1134,7 @@ W klasie \emph{CollisionShape} jest wyrażana przez:
 \lstinputlisting[language=java, caption=fragment pliku
 CollisionShape.java,
 label=lis:LinearEK,linerange={137-140}]{./listings/CollisionShape.java}
+
 
 \textbf{Obrotowa energia kinetyczna}\\
 Jest to rodzaj energii właściwy dla ciał nie będących pojedynczymi punktami a
@@ -1084,6 +1225,8 @@ label=lis:CollisionShapejava,linerange={38-38,142-145,
 Ponieważ wyciągana wartość w kodzie natywnym to odwrotna wartość momentu
 bezwładności, w linijce 4 zostaje ona sprowadzona do wartości prawidłowej. Jako
 oś obrotu zostaje obrany znormalizowany wektor prędkości kątowej (ln. 10).\\
+
+
 \textbf{Całkowita energia kinetyczna}\\
 Podsumowując, dla testów w tej podsekcji sprawdzone zostanie czy spełniony
 jest następujący warunek dla \emph{n} ciał:
@@ -1096,12 +1239,65 @@ Warunek jest sprawdzany przez metodę:
 pliku CollisionShape.java,
 label=lis:CollisionShapejava2,linerange={155-158}]{./listings/CollisionShape.java}
 
-\subsubsection{Przypadek z jednym ciałem}
-Na początek zostanie rozważony najprostszy przypadek z jedną kulką odbijającą
-się kolejno od dwóch idealnie sprężystych ścianek. Do tego testu wykorzystana
-została scena prezentowana na listingu \ref{lis:SimpleSnookerScene}. Test ma na
-celu zbadanie rzeczywistej zależności zmian energii kinetycznej ciała przy
-odbiciach od jego współczynnika sprężystośści.
+
+\textbf{Energia potencjalna}\\
+Drugim rodzajem energii występującym w fizyce klasycznej jest energia
+potencjalna. Jest to energia jaką posiada ciało za sprawą swojej pozycji i
+pozycji innych ciał względem jego. Podobnie jak w przypadku energii
+kinetycznej, rozważane będą dwa rodzaje energii potencjalnej: grawitacji i
+sprężystości.\\
+
+\textbf{Energia potencjalna grawitacji}\\
+Energia ta jest wynikiem znajdowania się ciała w polu grawitacynym innych ciał.
+Ogólnym wzorem na wyznaczenie jej wartości dla ciała o masie \emph{m}, przy
+założeniu, że ciała mają kształt kuli to:
+
+\begin{equation}
+E_{P} = mG\sum_{i=1}^{n}\frac{m_{i}}{r_{i}}
+\label{eq:epgravity}
+\end{equation}
+Gdzie:\\
+\emph{G} to stała grawitacji.\\
+$ m_{i} $ jest masą \emph{i}-tego ciała tworzącego pole grawitacyjne.\\
+$ r_{i} $ to odległość badanego ciała od \emph{i}-tego ciała.\\
+
+Zakładając że ciałem wytwarzającym pole grawitacyjne jest kula ziemska i że
+przyspieszenie ziemskie \emph{g} wynosi $ GM_{Z} $ wzór
+\ref{eq:epgravity} przyjmuje po uproszczeniu postać:
+
+\begin{equation}
+E_{P} = mgr_{Z}
+\end{equation}
+Gdzie $ r_{Z} $ to odległość środka ciała od środka Ziemi. Ponieważ podczas
+testów istotne będą jedynie zmiany wartości energii potencjalnej:
+
+\begin{equation}
+\Delta E_{P} = mg\Delta h
+\end{equation}
+
+\begin{lstlisting}[language=Java,
+caption=fragment pliku CollisionShape.java,label=lis:epgravity]
+float getGravitationalPotentialEnergy()
+{
+	return mass*9.81*getTranslation().z;
+}
+\end{lstlisting}
+
+\textbf{Energia potencjalna sprężystości}\\
+Ten rodzaj energii jest właściwy dla ciał posiadających sprężystość. Pojawia się
+gdy ciało zostaje odkształcone, a jej wartość jest proporcjonalna do siły
+wymuszającej powrót do jego stabilnego stanu.
+
+
+\subsubsection{Odbicie sprężyste jednego ciała}
+Na początek zostanie rozważony najprostszy przypadek z jedną kulką
+odbijającą się kolejno od dwóch idealnie sprężystych ścianek. Ponieważ w
+testach wykonywanych w tej podsekcji nie są zakładane oddziaływania pomiędzy
+ciałami, zostaną rozważone jedynie zmiany energii kinetycznej. Do tego testu
+wykorzystana została scena prezentowana na listingu
+\ref{lis:SimpleSnookerScene}. Test ma na celu zbadanie rzeczywistej zależności
+zmian energii kinetycznej ciała przy odbiciach od jego współczynnika
+sprężystośści.
 
 \lstinputlisting[language=Java,
 caption=scena testująca przypadek z jednym ciałem,
@@ -1274,7 +1470,7 @@ Jak widać odpowiednia wartość parametru \emph{fixedTimeStep} jest uzależnion
 wartości prędkości. Poprawne zasymulowanie doświadczenia w którym ważną rolę
 odgrywają odbicia sprężyste przy użyciu silnika Bullet jest więc bardzo trudne.
 
-\subsubsection{Przypadek z wieloma ciałami}
+\subsubsection{Odbicie sprężyste wielu ciał}
 
 W poprzednim doświadczeniu został zbadany przypadek dla jednego ciała i dla
 wartości kroku $ \frac{1}{260} $s i prędkości 5$ \frac{m}{s} $ energia
@@ -1322,41 +1518,40 @@ niskiego tarcia został nawet wspomniany w kodzie źródłowym biblioteki Bullet
 biblioteki Bullet,
 label=lis:RigidBody,linerange={126-129}]{./listings/btRigidBody.h}
 
-\subsection{Rzut ukośny}
+%\subsection{Rzut ukośny}
 
-\subsection{Równia pochyła}
+\subsubsection{Równia pochyła}
 \emph{TODO: porównanie czasów stoczenia się bez tarcia ciała kulistego i
-sześciennego - obrotowa energia kinetyczna powinna spowolnić ciało kuliste}
+sześciennego - obrotowa energia kinetyczna powinna spowolnić ciało kuliste}\\
+\textbf{Energia potencjalna}\\
 
-\subsection{Zderzenie dwóch ciał}
-\emph{TODO: jak zachowany jest pęd a jak energia? Można też zbadać odbicia pod
-róznymi kątami}
-
-\subsubsection{Zderzenie całkowicie sprężyste}
-
-\subsubsection{Zderzenie całkowicie niesprężyste}
-
-\subsection{Zderzenie trzech ciał}
-\emph{TODO: czy rozpatrywane jest poprawnie?}
-
-%\subsection{Odbicie podkręconej piłki}
-
-\subsection{Kołyska Newtona}
+\subsubsection{Kołyska Newtona}
 \emph{TODO: jak zachowuje się energia?}
 
-\subsection{Ciało na sprężynie}
+\subsubsection{Ciało na sprężynie}
 \emph{TODO: j/w - przykład z pociskiem uderzającym w klocek na sprężynie?}
 
-\subsection{Model ciała sprężystego}
+\subsubsection{Model ciała sprężystego}
 \emph{TODO: jak zachowa się energia całego układu? - potrzebne źródło
 teoretyczne}
 
-\subsection{Gaz doskonały?}
+\subsubsection{Gaz doskonały?}
 \emph{TODO: Może spróbowaćby zasymulować kilka zamkniętych kulek. Porównać
 wyniki pomiarów z wartościami teoretycznymi, wyznaczyć temperaturę, ciśnienie,
 energię wewnętrzną, stałą gazową, czy zachowane jest równanie Clapeyrona? czy
 słuszność ma równanie średniej drogi swobodnej?(można wykorzystać wykrywanie
 kolizji)}
+
+\subsection{Zasada zachowania pędu}
+
+\subsubsection{Zderzenie dwóch ciał}
+\emph{TODO: jak zachowany jest pęd a jak energia? Można też zbadać odbicia pod
+róznymi kątami}
+
+\subsubsection{Zderzenie trzech ciał}
+\emph{TODO: czy rozpatrywane jest poprawnie?}
+
+%\subsection{Odbicie podkręconej piłki}
 
 \newpage
 \section{Wnioski}
