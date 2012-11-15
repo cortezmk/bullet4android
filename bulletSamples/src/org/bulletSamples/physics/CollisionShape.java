@@ -157,4 +157,9 @@ public class CollisionShape {
 	{
 		return getAngularKineticEnergy() + getLinearKineticEnergy();
 	}
+	
+	float getGravitationalPotentialEnergy()
+	{
+		return mass*9.81f*getTranslation().z;
+	}
 }

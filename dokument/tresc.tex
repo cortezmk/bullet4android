@@ -478,7 +478,7 @@ sztywne i sprężyny.\\ \\
 Klasa przedstawia symulowane obiekty brył sztywnych.\\ \\
 \input{./tab/CollisionShape.tex}
 
-\paragraph{Spring}
+\paragraph{Spring}\label{sec:spring}
 Klasa przedstawia symulowane obiekty ciał sprężystych.\\
 W parametrach funkcji można znaleźć typ enumeracyjny \emph{DoF} -
 stopnie swobody (\emph{degrees of freedom}). Określają one do jakiego stopnia
@@ -1275,19 +1275,80 @@ testów istotne będą jedynie zmiany wartości energii potencjalnej:
 \Delta E_{P} = mg\Delta h
 \end{equation}
 
+Do obliczenia wartości zostanie wykorzystana metoda klasy \emph{CollisionShape}.
+Obraną ustaloną wysokością będzie współrzędna \emph{y} ciała.
+
 \begin{lstlisting}[language=Java,
 caption=fragment pliku CollisionShape.java,label=lis:epgravity]
 float getGravitationalPotentialEnergy()
 {
-	return mass*9.81*getTranslation().z;
+	return mass*9.81f*getTranslation().y;
 }
 \end{lstlisting}
 
 \textbf{Energia potencjalna sprężystości}\\
 Ten rodzaj energii jest właściwy dla ciał posiadających sprężystość. Pojawia się
 gdy ciało zostaje odkształcone, a jej wartość jest proporcjonalna do siły
-wymuszającej powrót do jego stabilnego stanu.
+wymuszającej powrót do jego stabilnego stanu. Ogólnym wzorem wyznacząjącym
+wartość tej energii dla sprężyny jest:
 
+\begin{equation}
+\Delta E_{P} = \frac{kx^{2}}{2}
+\end{equation}
+Gdzie:\\
+\emph{k} to współczynnik sprężystości ciała.\\
+\emph{x} jest odległością na jaką została odkształcona spręzyna.\\
+ \\
+Energia potencjalna spręzystości jest właściwa tylko dla ciał sprężystych,
+dlatego zostaje zaimplementowana jedynie w klasie \emph{Spring}.
+
+\begin{lstlisting}[language=Java,
+caption=Obliczanie energii potencjalnej spręzystości,label=lis:epelastic]
+public class Spring
+{
+	...
+	
+	private CollisionShape rb1, rb2;
+	private Vector3 relation;
+	private float stiffness;
+	
+	public Spring(DynamicsWorld dw, CollisionShape rb1, CollisionShape rb2, Vector3 frameA, Vector3 frameB, boolean linear)
+	{
+		id = constructor(dw.id, rb1.id, rb2.id, frameA, frameB, linear);
+		this.rb1 = rb1;
+		this.rb2 = rb2;
+		relation = rb2.getTranslation().subtract(rb1.getTranslation());
+	}
+	
+	public void setupDof(Dof index, float stiffness, float damping)
+	{
+		enable(index, true);
+		setDamping(index, damping);
+		setStiffness(index, stiffness);
+		this.stiffness = stiffness;
+	}
+	
+	public float getElasticPotentialEnergy()
+	{
+		Vector3 stablePos = relation.clone().rotate(rb1.getRotation()).add(rb1.getTranslation());
+		float x = stablePos.subtract(rb2.getTranslation()).length();
+		return (float)Math.pow(x, 2)*stiffness/2.0f;
+	}
+	
+	...
+}
+\end{lstlisting}
+Dane o ciałach \textbf{A} i \textbf{B} (o których była mowa w paragrafie
+\ref{sec:spring}), przechowane są w momencie tworzenia obiektu przez konstruktor
+(jako \emph{rb1} i \emph{rb2} ln. 12-13). Zachowany jest również wektor relacji
+pozycji ciała \textbf{A} do ciała \textbf{B} (ln. 14), w celu określenia
+stabilnej pozycji ciała \textbf{B}. Współczynnik sprężystości (w tym miejscu
+oznaczony jako \emph{stiffness}) także jest zachowywany do póżniejszych obliczeń
+(ln. 22). Wartość energii potencjalnej sprężystości jest zwracana przez metodę
+\emph{getElasticPotentialEnergy}. Wektor \emph{stablePos} (ln. 27) jest stabilną
+pozycją ciała \textbf{B} względem środka świata symulacji. Odległość między
+\emph{stablePos} a pozycją ciała \textbf{B} stanowi miarę odkształcenia
+\emph{x} (ln. 28).
 
 \subsubsection{Odbicie sprężyste jednego ciała}
 Na początek zostanie rozważony najprostszy przypadek z jedną kulką
@@ -1523,7 +1584,6 @@ label=lis:RigidBody,linerange={126-129}]{./listings/btRigidBody.h}
 \subsubsection{Równia pochyła}
 \emph{TODO: porównanie czasów stoczenia się bez tarcia ciała kulistego i
 sześciennego - obrotowa energia kinetyczna powinna spowolnić ciało kuliste}\\
-\textbf{Energia potencjalna}\\
 
 \subsubsection{Kołyska Newtona}
 \emph{TODO: jak zachowuje się energia?}

@@ -102,6 +102,23 @@ extern "C"
         putObject(env, collisionShape, fallRigidBody);
 	}
 	
+	JNIEXPORT void Java_org_bulletSamples_physics_DynamicsWorld_NCreateCylinder( JNIEnv* env, jobject self, jobject collisionShape, jfloat mass, jobject position, jfloat radius, jfloat height )
+	{
+		btDiscreteDynamicsWorld* dynamicsWorld = getObject<btDiscreteDynamicsWorld>(env, self);
+		btCollisionShape* fallShape = new btCylinderShape(btVector3(radius, height/2.0f, radius));
+		setNamedObject(env, collisionShape, "idShape", fallShape);
+		btVector3 btPosition;
+		jobjectToBtVector3(env, position, btPosition);
+		btDefaultMotionState* fallMotionState = new btDefaultMotionState(btTransform(btQuaternion(0,0,0,1),btPosition));
+		setNamedObject(env, collisionShape, "idMState", fallMotionState);
+        btVector3 fallInertia(0,0,0);
+        fallShape->calculateLocalInertia(mass,fallInertia);
+        btRigidBody::btRigidBodyConstructionInfo fallRigidBodyCI(mass,fallMotionState,fallShape,fallInertia);
+        btRigidBody* fallRigidBody = new btRigidBody(fallRigidBodyCI);
+        dynamicsWorld->addRigidBody(fallRigidBody);
+        putObject(env, collisionShape, fallRigidBody);
+	}
+
 	JNIEXPORT void Java_org_bulletSamples_physics_DynamicsWorld_NsetGravity( JNIEnv* env, jobject self, jint id, jfloat x, jfloat y, jfloat z )
 	{
 		((btDiscreteDynamicsWorld*)btObjects::get(id))->setGravity(btVector3(x,y,z));

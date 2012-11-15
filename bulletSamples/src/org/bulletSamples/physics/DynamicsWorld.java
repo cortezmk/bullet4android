@@ -15,6 +15,7 @@ public class DynamicsWorld {
 	native private int BlaCreateRigidBody(int id, Vector3 pos);
 	native private void NCreateBox(CollisionShape cs, float mass, Vector3 pos, float width, float height, float depth);
 	native private void NCreateSphere(CollisionShape cs, float mass, Vector3 pos, float radius);
+	native private void NCreateCylinder(CollisionShape cs, float mass, Vector3 pos, float radius, float height);
 	native private void NpickObject(int id, Vector3 rayFrom, Vector3 rayTo);
 	native private void NdropObject(int id, Vector3 rayFrom, Vector3 rayTo);
 	native private void NdragObject(int id, Vector3 rayFrom, Vector3 rayTo);
@@ -38,6 +39,7 @@ public class DynamicsWorld {
 			Box box = (Box)mesh;
 			NCreateBox(cShape, mass, pos, box.getWidth(), box.getHeight(), box.getDepth());
 		}
+		if(mesh.getClass() == Cylinder.class) NCreateCylinder(cShape, mass, pos, ((Cylinder)mesh).getRadius(), ((Cylinder)mesh).getHeight());
 		if(cShape.id == Integer.MAX_VALUE) throw new UnsupportedOperationException();
 		return cShape;
 	}
