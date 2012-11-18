@@ -97,6 +97,14 @@ extern "C"
 		((btRigidBody*)btObjects::get(id))->getMotionState()->setWorldTransform(trans);
 	}
 	
+	JNIEXPORT void Java_org_bulletSamples_physics_CollisionShape_NsetEulerRotation( JNIEnv* env, jobject self, jint id, jfloat x, jfloat y, jfloat z)
+	{
+		btTransform trans;
+		((btRigidBody*)btObjects::get(id))->getMotionState()->getWorldTransform(trans);
+		trans.getBasis().setEulerZYX(z,y,x);
+		((btRigidBody*)btObjects::get(id))->getMotionState()->setWorldTransform(trans);
+	}
+
 	JNIEXPORT void Java_org_bulletSamples_physics_CollisionShape_NapplyCentralForce( JNIEnv* env, jobject self, jint id, jobject vec)
 	{
 		jclass vector3 = env->GetObjectClass(vec);

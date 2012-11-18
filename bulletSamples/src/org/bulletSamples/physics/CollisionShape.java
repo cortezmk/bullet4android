@@ -37,6 +37,7 @@ public class CollisionShape {
 	native void NgetLinearVelocity(int id, Vector3 value);
 	native void NgetAngularVelocity(int id, Vector3 value);
 	native float NgetMomentOfInertia(int id, Vector3 vec);
+	native void NsetEulerRotation(int id, float x, float y, float z);
 	
 	public CollisionShape(Mesh mesh, float mass, int idworld)
 	{
@@ -158,8 +159,13 @@ public class CollisionShape {
 		return getAngularKineticEnergy() + getLinearKineticEnergy();
 	}
 	
-	float getGravitationalPotentialEnergy()
+	public float getGravitationalPotentialEnergy()
 	{
-		return mass*9.81f*getTranslation().z;
+		return mass*9.81f*getTranslation().y;
+	}
+	
+	public void setEulerRotation(float x, float y, float z)
+	{
+		NsetEulerRotation(id, x, y, z);
 	}
 }

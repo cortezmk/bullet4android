@@ -5,6 +5,7 @@ import java.io.*;
 public class Logger {
 	private static BufferedWriter writer = null;
 	
+	
 	public static void setLogFile(String filename)
 	{
 		File logFile = new File("sdcard/bulletSamples/" + filename + ".txt");
@@ -32,11 +33,14 @@ public class Logger {
 	
 	public static void close()
 	{
-		try {
-			writer.close();
-			writer = null;
-		} catch (IOException e) {
-			e.printStackTrace();
+		if(writer != null)
+		{
+			try {
+				writer.close();
+				writer = null;
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	

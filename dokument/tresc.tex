@@ -1350,7 +1350,7 @@ pozycją ciała \textbf{B} względem środka świata symulacji. Odległość mi�
 \emph{stablePos} a pozycją ciała \textbf{B} stanowi miarę odkształcenia
 \emph{x} (ln. 28).
 
-\subsubsection{Odbicie sprężyste jednego ciała}
+\subsubsection{Odbicie sprężyste jednego ciała}\label{sec:odbicie1ciala}
 Na początek zostanie rozważony najprostszy przypadek z jedną kulką
 odbijającą się kolejno od dwóch idealnie sprężystych ścianek. Ponieważ w
 testach wykonywanych w tej podsekcji nie są zakładane oddziaływania pomiędzy
@@ -1531,7 +1531,7 @@ Jak widać odpowiednia wartość parametru \emph{fixedTimeStep} jest uzależnion
 wartości prędkości. Poprawne zasymulowanie doświadczenia w którym ważną rolę
 odgrywają odbicia sprężyste przy użyciu silnika Bullet jest więc bardzo trudne.
 
-\subsubsection{Odbicie sprężyste wielu ciał}
+\subsubsection{Odbicie sprężyste wielu ciał}\label{sec:odbicieWieluCial}
 
 W poprzednim doświadczeniu został zbadany przypadek dla jednego ciała i dla
 wartości kroku $ \frac{1}{260} $s i prędkości 5$ \frac{m}{s} $ energia
@@ -1582,25 +1582,203 @@ label=lis:RigidBody,linerange={126-129}]{./listings/btRigidBody.h}
 %\subsection{Rzut ukośny}
 
 \subsubsection{Równia pochyła}
-\emph{TODO: porównanie czasów stoczenia się bez tarcia ciała kulistego i
-sześciennego - obrotowa energia kinetyczna powinna spowolnić ciało kuliste}\\
+Ten test ma na celu sprawdzenie czy zachowywana jest energia kinetyczna i
+potencjalna dla ciała staczającego się po równi pochyłej z tarciem.
+Przetestowane zostaną dwa kształty staczających się brył: sześcian oraz kula.
+Wartości doświadczalnej prędkości ciał w konkretnych punktach zostaną porównane
+ze spodziewanymi wartościami teoretycznymi.\\
+W przypadku sześćianu wartość teoretyczna prędkości zostaje obliczona z zasady
+zachowania energii korzystając z energii kinetycznej, potencjalnej i spadku
+wartości energii spowodowanego siłą tarcia. Rozkład sił na równi pochyłej
+przedstawiono na rysunku \ref{fig:rownia}.
+
+\begin{figure}
+\centering
+\includegraphics[scale = 0.6]{./img/rownia.PNG}
+\caption{Rozkład sił na równi pochyłej.}
+\label{fig:rownia}
+\end{figure}
+
+Korzystając z tych danych wartość prędkości można obliczyć:
+
+\begin{equation}
+E_{P} = E_{K} + E_{T}
+\end{equation}
+Gdzie:\\
+$ E_{P} $ jest wartością energii potencjalnej ciała równej \emph{mgh}.\\
+$ E_{K} $ to wartość energii kinetycznej równej $ \frac{mv^{2}}{2} $.\\
+$ E_{T} $ jest wartoscią spadku energii spowodowanej tarciem równym $ fmgh \cos
+\alpha $.\\
+Czyli:\\
+\begin{equation}
+mgh = \frac{mv^{2}}{2} + fmgh \cos \alpha
+\end{equation}
+\begin{equation}
+\label{eq:boxVelocity}
+v(h) = \sqrt{2gh(1-f \cos \alpha)}
+\end{equation}
+Gdzie \emph{f} jest wspólczynnikiem tarcia ciała o powierzchnię.\\
+Dla ciała o kształcie kuli staczjącej się bryle towarzyszy również poślizg, a
+siła tarcia nie powoduje opóźnienia staczania się a wprawia ciało w obrót. Aby
+ciało poruszało się bez poślizgu przyspieszenie kątowe ($ \varepsilon $) musi
+być odpowiednia dla przyspieszenia liniowego staczania (\emph{a}).
+\begin{equation}
+a = \varepsilon r
+\end{equation}
+Gdzie \emph{r} jest promeniem kuli. Korzystając z poniższych zależności:
+\begin{equation}
+a = \frac{F_{1}}{m}
+\end{equation}
+\begin{equation}
+F_{1} = mg \sin \alpha
+\end{equation}
+Momenty sił ciałą również muszą być zgodne:
+\begin{equation}
+Tr = I \varepsilon
+\end{equation}
+Gdzie:\\
+\emph{I} to wartość momentu bezwładności kuli równego $ \frac{2}{5}mr^{2} $.\\
+\emph{T} jest wartością siły tarcia z rysunku \ref{fig:rownia} równej $ fF_{2}
+= fmg \cos \alpha $.
+Z tych zależności otrzymać można:
+\begin{equation}
+f = \frac{2}{5} \tg \alpha
+\end{equation}
+Przy założeniu że kąt nachylenia równi $ \alpha = 45^{\circ} $ można przyjąć
+że:
+\begin{equation}
+f = \frac{2}{5}
+\label{eq:friction}
+\end{equation}
+
+W przypadku obliczeń prędkości dla ciała kulistego, przy założeniu że
+współczynnik tarcia jest taki jak we wzorze \ref{eq:friction}, energia
+potencjalna musi być równa sumie energii kinetycznej liniowej i obrotowej.
+\begin{equation}
+E_{P} = E_{KL} + E_{KR}
+\end{equation}
+\begin{equation}
+mgh = \frac{mv^{2}}{2} + \frac{I\omega^{2}}{2}
+\end{equation}
+\begin{equation}
+v(h) = \sqrt{\frac{10}{7}gh}
+\label{eq:ballVelocity}
+\end{equation}
+Natomiast uwzględniając wartość współczynnika tarcia z równania
+\ref{eq:friction} we wzorze na prędkość zsuwającego się sześcianu -
+\ref{eq:boxVelocity}:
+\begin{equation}
+v(h) = \sqrt{2gh\frac{5-\sqrt{2}}{5}}
+\label{eq:ballVelocity2}
+\end{equation}
+
+Do przetestowania wartości prędkości ciał na równi pochyłej wykorzystana
+zostanie następująca scena:
+
+\lstinputlisting[language=Java, caption=Kod sceny użytaj do testowania prędkości
+ciał na równi pochyłej,
+label=lis:InclinedPlaneScene]{./listings/InclinedPlaneScene.java}
+
+Z podstawy o długości 30 metrów (ln. 23, 25), staczają się dwa ciała (ln. 26, 
+27). Podstawa jest nachylona pod kątem $ 45^{\circ} $ (ln. 30). Współczynnik
+tarcia jest zgodny z tym z równania \ref{eq:friction} (ln. 37, 42). Pomiary
+wysokości i prędkości ciał są zapisywane w pliku CSV (ln. 42, 50).
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.5]{./img/rowniaScreen.PNG}
+\caption{Widok staczających się ciał po równi pochyłej.}
+\label{fig:rowniaScreen}
+\end{figure}
+
+\begin{figure}
+\centering
+\input{diag/rowniaBox.tex}
+\caption{Wykres zależności prędkości od wysokości dla ciała o kształcie
+sześcianu.}
+\label{fig:boxDiagram}
+\end{figure}
+
+\begin{figure}
+\centering
+\input{diag/rowniaBall.tex}
+\caption{Wykres zależności prędkości od wysokości dla ciała o kształcie
+kuli.}
+\label{fig:ballDiagram}
+\end{figure}
+
+Zestawienie doświadczalnych pomiarów prędkości i teoretycznych wyników
+obliczonych ze wzorów \ref{eq:boxVelocity} dla sześcianu i
+\ref{eq:ballVelocity2} dla kuli przedstawiają wykresy na rysunkach
+\ref{fig:boxDiagram} i \ref{fig:ballDiagram}. Różnica wyników na wykresie jest
+niewielka, co potwierdza stwierdzenie z końca testu z sekcji
+\ref{sec:odbicieWieluCial}: przy obecnym tarciu i braku sprężystości wynik
+symulacji ma niski odstęp od teoretycznego.
 
 \subsubsection{Kołyska Newtona}
-\emph{TODO: jak zachowuje się energia?}
+W tym teście, tak jak w poprzednim, sprawdzona zostanie zasada zachowania
+energii zarówno przy braniu pod uwagę energii kinetycznej jak i potencjalnej.
+Z tą różnicą, że brana pod uwagę będzie również sprężystość ciał tak jak w
+sekcjach \ref{sec:odbicie1ciala} i \ref{sec:odbicieWieluCial}. W celu
+przeprowadzenia tego testu zostanie użyta poniższa scena:
 
-\subsubsection{Ciało na sprężynie}
-\emph{TODO: j/w - przykład z pociskiem uderzającym w klocek na sprężynie?}
+\lstinputlisting[language=Java, caption=Kod sceny użytaj do testowania
+zachowania energii dla kołyski Newtona,
+label=lis:NewtonPendulumScene]{./listings/NewtonPendulumLogScene.java}
+
+Scena składa się z czterech kulek (ln. 24-33) zawieszonych na nierozciągliwych
+niciach (ln. 37-42). Kulka położona najbardziej z lewej strony posiada prędkość
+początkową (ln. 35), która wprawia w ruch wahadło. Podobnie jak w przypadku
+testu z sekcji \ref{sec:odbicie1ciala} przeprowadzone zostało 10 testów dla
+różnych wartości współczynnika spręzystości zmienijącego się od 0,99 do 0,91
+(ln.
+73-81). Wynik testu przedstawiono na rysunku \ref{fig:wahadloNewtona1}.
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.5]{img/newtonPendulum.png}
+\caption{Wizulalizacja symulacji wahadła Newtona.}
+\label{fig:newtonPendulum}
+\end{figure}
+
+\begin{figure}
+\centering
+\input{diag/newton.tex}
+\caption{Wykres zależności energii od czasu dla wahadła Newtona.}
+\label{fig:wahadloNewtona1}
+\end{figure}
+
+Z wykresu wynika, że wartość współczynnika sprężystości przy którym całkowita
+energia się nie zmienia jest niższa niż 0,91. W celu zwiększenia precyzji
+obliczeń test został powtórzony dla wartości od 0,94 do 0,87, dla dwukrotnie
+większego odstępu czasu. Jego wynik przedstawia wykres na rysunku
+\ref{fig:wahadloNewtona2}.
+
+\begin{figure}
+\centering
+\input{diag/newton2.tex}
+\caption{Wykres zależności energii od czasu dla wahadła Newtona.}
+\label{fig:wahadloNewtona2}
+\end{figure}
+
+Dla żadnej wartości współczynnika, wartość energii nie utrzymuje stałego
+poziomu. Podobnie jak w przypadku testu z sekcji \ref{sec:odbicie1ciala}, przy
+występowaniu wysokiej wartości współczynnika sprężystości wynik nie jest
+przybliżeniem wartości rzeczywistej.
+
+%\subsubsection{Ciało na sprężynie}
+%\emph{TODO: j/w - przykład z pociskiem uderzającym w klocek na sprężynie?}
 
 \subsubsection{Model ciała sprężystego}
 \emph{TODO: jak zachowa się energia całego układu? - potrzebne źródło
 teoretyczne}
 
-\subsubsection{Gaz doskonały?}
-\emph{TODO: Może spróbowaćby zasymulować kilka zamkniętych kulek. Porównać
-wyniki pomiarów z wartościami teoretycznymi, wyznaczyć temperaturę, ciśnienie,
-energię wewnętrzną, stałą gazową, czy zachowane jest równanie Clapeyrona? czy
-słuszność ma równanie średniej drogi swobodnej?(można wykorzystać wykrywanie
-kolizji)}
+%\subsubsection{Gaz doskonały?}
+%\emph{TODO: Może spróbowaćby zasymulować kilka zamkniętych kulek. Porównać
+%wyniki pomiarów z wartościami teoretycznymi, wyznaczyć temperaturę, ciśnienie,
+%energię wewnętrzną, stałą gazową, czy zachowane jest równanie Clapeyrona? czy
+%słuszność ma równanie średniej drogi swobodnej?(można wykorzystać wykrywanie
+%kolizji)}
 
 \subsection{Zasada zachowania pędu}
 

@@ -57,13 +57,10 @@ public class DebugDrawer {
 		verticesBuffer.position(0);
     }
     
-	/*public static void drawLine(Vector3 from, Vector3 to, Vector3 colorFrom, Vector3 colorTo)
+	public static void drawLine(Vector3 from, Vector3 to, Vector3 colorFrom, Vector3 colorTo)
 	{
-		System.out.println("drawLine");
-		if(from.nanGuard()) return;
-		if(to.nanGuard()) return;
-		if(colorFrom.nanGuard()) return;
-		if(colorTo.nanGuard()) return;
+		gl.glLoadIdentity();
+		Camera.applyTransform(gl);
 		gl.glDisableClientState(GL10.GL_NORMAL_ARRAY);
 		setColors( new float[] { colorFrom.x, colorFrom.y, colorFrom.z, 1, colorTo.x, colorTo.y, colorTo.z, 1 });
 		setVertices( new float[] { from.x, from.y, from.z, to.x, to.y, to.z } );
@@ -73,7 +70,7 @@ public class DebugDrawer {
 		gl.glVertexPointer(3, GL10.GL_FLOAT, 0, verticesBuffer);
         gl.glColorPointer(4, GL10.GL_FLOAT, 0, colorBuffer);
         gl.glDrawElements(GL10.GL_LINES, 2, GL10.GL_UNSIGNED_SHORT, indicesBuffer);
-	}*/
+	}
     
     public static void drawLine()
 	{
@@ -93,7 +90,7 @@ public class DebugDrawer {
         gl.glColorPointer(4, GL10.GL_FLOAT, 0, colorBuffer);
         gl.glDrawElements(GL10.GL_LINES, 2, GL10.GL_UNSIGNED_SHORT, indicesBuffer);
 	}
-	
+
 	/*public void drawSphere(Vector3 p, float radius, Vector3 color)
 	{
 		gl.glEnableClientState(GL10.GL_NORMAL_ARRAY);

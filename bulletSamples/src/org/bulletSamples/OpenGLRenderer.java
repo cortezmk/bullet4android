@@ -44,6 +44,7 @@ public class OpenGLRenderer implements Renderer {
 		lastTime = Calendar.getInstance().getTimeInMillis();
    		phys = new DynamicsWorld();
    		//scene = new NewtonPendulumScene(phys);
+   		scene = new NewtonPendulumLogScene(phys);
    		//scene = new SimpleScene(phys);
    		//scene = new SimpleSphereScene(phys);
    		//scene = new SnookerScene(phys);
@@ -58,7 +59,8 @@ public class OpenGLRenderer implements Renderer {
    		//scene = new SimpleSnookerSceneSeparatedEnergies(phys);
    		//scene = new SimpleSnookerSceneFts(phys);
    		//scene = new RotTestScene(phys);
-   		scene = new CylinderShapeScene(phys);
+   		//scene = new CylinderShapeScene(phys);
+   		//scene = new InclinedPlaneScene(phys);
    		scene.create();
 	}
 

@@ -12,7 +12,7 @@ import org.bulletSamples.physics.UniversalConstraint;
 public class NewtonPendulumScene extends BaseScene {
 	public NewtonPendulumScene(DynamicsWorld dw) { super(dw); }
 
-	protected CollisionShape[] boxes;
+	protected CollisionShape[] spheres;
 	protected UniversalConstraint[] constraints;
 	protected Sphere sphere;
 	
@@ -20,7 +20,7 @@ public class NewtonPendulumScene extends BaseScene {
 	{
 		enableObjectDrag = true;
 		sphere = new Sphere(.5f);
-		boxes = new CollisionShape[] {
+		spheres = new CollisionShape[] {
 			dw.createShape(sphere, new Vector3(0f,7,-20), 0),
 			dw.createShape(sphere, new Vector3(0f,2,-20), 10),
 			dw.createShape(sphere, new Vector3(1f,7,-20), 0),
@@ -30,12 +30,12 @@ public class NewtonPendulumScene extends BaseScene {
 			dw.createShape(sphere, new Vector3(2f,7,-20), 0),
 			dw.createShape(sphere, new Vector3(2f,2f,-20), 10)
 		};
-		for(int i = 0; i < boxes.length; i++) boxes[i].setRestitution(.95f);
+		for(int i = 0; i < spheres.length; i++) spheres[i].setRestitution(.95f);
 		//boxes[5].applyCentralForce(new Vector3(-2000,0,0));
-		constraints = new UniversalConstraint[boxes.length/2];
-		for(int i = 0; i < boxes.length-1; i+=2)
+		constraints = new UniversalConstraint[spheres.length/2];
+		for(int i = 0; i < spheres.length-1; i+=2)
 		{
-			UniversalConstraint uc = new UniversalConstraint(dw, boxes[i], boxes[i+1], boxes[i].getTranslation(), new Vector3(1,0,0),new Vector3(0,0,1));
+			UniversalConstraint uc = new UniversalConstraint(dw, spheres[i], spheres[i+1], spheres[i].getTranslation(), new Vector3(1,0,0),new Vector3(0,0,1));
 	   		uc.setLowerLimit((float)(-Math.PI / 2.0), (float)(-Math.PI / 2.0));
 	   		uc.setUpperLimit((float)(Math.PI / 2.0), (float)(Math.PI / 2.0));
 			constraints[i/2] = uc;
@@ -45,9 +45,9 @@ public class NewtonPendulumScene extends BaseScene {
 	public void render(GL10 gl)
 	{
 		//dw.setGravity(Accelerometer.gravity);
-		for(int i = 0; i < boxes.length; i++)
+		for(int i = 0; i < spheres.length; i++)
 		{
-			boxes[i].render(gl);
+			spheres[i].render(gl);
 		}
 	}
 }
