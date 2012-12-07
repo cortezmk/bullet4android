@@ -10,8 +10,8 @@ cyrkulację cieczy. Aby zwiększyć wydajność tej operacji zostały zaprojekto
 specjalne procesory wektorowe wykonujące operacje na wielu zmiennych
 równocześnie. Współcześnie komputerowe wspomaganie obliczeń fizycznych jest
 używane w wielu dziedzinach: m in. przez meteorologów do przewidywania zmian
-warunków pogodowych, przetwarzania danych tuneli aerodynamicznych w lotnictwie,
-czy doborze proporcji materiałów podczas projektowania produktów. Testowanie
+warunków pogodowych, przetwarzania danych z tuneli aerodynamicznych w
+lotnictwie, czy doborze proporcji materiałów podczas projektowania produktów. Testowanie
 przy pomocy symulacji komputerowych jest o wiele tańsze i bezpieczniejsze. Rosnące
 zapotrzebowanie na wspomaganie obliczeń fizycznych spowodowało powstanie pojęcia
 silnika fizycznego.
@@ -61,7 +61,7 @@ roku narodziła się koncepcja sprzętowego wspomagania obliczeń, tak jak miał
 miejsce z renderingiem i kartami graficznymi. Firma Ageia opracowała PhysX -
 pierwszy procesor PPU (\emph{Physics Processing Unit}). PhysX PPU posiadało
 możliwość sprzętowego obliczania takich operacji jak dynamika bryły sztywnej, dynamika
-ciałą miękkiego, detekcja kolizji, dynamika płynów, symulacja zachowania
+ciała miękkiego, detekcja kolizji, dynamika płynów, symulacja zachowania
 elementów ubrań i włosów, analiza przy pomocy metody elementów skończonych.
 Podczas demonstracji specjalnie napisanego dema na targach Consumer Electronics
 Show 2006 komputer wyposażony w jednostkę PPU odtwarzał symulację z prędkością
@@ -110,7 +110,7 @@ będzie celem tej części pracy.\\
 
 \textbf{Ocena przydatności silnika w symulacjach fizycznych.}\\ Badany
 silnik uruchomiony zostanie na platformie mobilnej, których to moc obliczeniowa
-nie jest zwykle szczególnie wyskoa. Przez to wybrany silnik - Bullet nie jest
+nie jest zwykle szczególnie wysoka. Przez to wybrany silnik - Bullet nie jest
 wysokoprecyzyjnym silnikiem fizycznym i nie można się spodziewać wyników
 obliczeń bardzo zgodnych z rzeczywistością. Można jednak sprawdzić w jakich
 warunkach symulacje będą wykonywane najdokładniej.
@@ -120,43 +120,43 @@ warunkach symulacje będą wykonywane najdokładniej.
 W projekcie zostały wykorzystana następujące technologie:
 
 \subsection{Android OS}
-Bazujący na jądrze Linux system operacyjny zaprojektowany z myślą o
+Bazujący na jądrze Linux, system operacyjny zaprojektowany z myślą o
 urządzeniach mobilnych z ekranami dotykowymi, takimi jak smartfony i tablety.
 Początkowo tworzony przez Android Inc., później prawa do niego zostały wykupione
 przez firmę Google. Kod źródłowy systemu jest ogólnodostępny na licencji Apache. 
 Obecnie jest to najpopularniejszy system operacyjny na urządzenia mobilne.
 Standardowo jest on instalowany na urządzeniach takich firm jak HTC, Motorola,
 Samsung czy Sony Ericsson. Za sprawą wsparcia community, powstaje coraz większa
-ilość aplikacji które są dystrybuowane za pośrednictwem uruchomionej przez
+ilość aplikacji, które są dystrybuowane za pośrednictwem uruchomionej przez
 Google usługi Google Play (odpowiednik App Marketu na urządzenia firmy Apple).
 
 \subsection{Android SDK}
 Android Software Development Kit to zestaw narzędzi deweloperskich służących do
-tworzenia Aplikacji na platformę Android. W jeg oskład wchodzą debugger,
+tworzenia Aplikacji na platformę Android. W jego skład wchodzą debugger,
 biblioteki, emulator oparty na QEMU, dokumentacja, przykłądowy kod oraz
 tutoriale. Obecnie wspierane platformy to Linux, Mac OS X 10.5.8 lub nowszy,
 Windows XP lub nowszy. Oficjalnym wspieranym środowiskiem programistycznym jest
-Eclipse za pośrednictwem wtyczki ADT (\emph{Android Developer Tolls}). Aplikacje
-są zwykle pisane w języku Java, jednakże Android nie posiada oficjalnej
+Eclipse za pośrednictwem wtyczki ADT (\emph{Android Developers' Tolls}).
+Aplikacje są zwykle pisane w języku Java, jednakże Android nie posiada oficjalnej
 implementacji JVM. Zamiast tego na potrzeby systemu powstała specjalna
-wirtualna maszayna - Dalvik, która została zprojektowana z myślą o większej
+wirtualna maszyna - Dalvik, która została zprojektowana z myślą o większej
 oszczędności energii, czasu procesora i pamięci.
 
 \subsection{Silnik fizyczny Bullet}
 Bullet Physics jest obecnie najpopularniejszym darmowym, wysokowydajnościowym
 silnikiem fizycznym z otwartym źródłem. Jest szeroko wykorzystywany w grach
-wideo (m in. Grand Theft Auto 4, Gravitronix, Red Dead Redemption) jak i
+wideo (m in. ``Grand Theft Auto 4'', ``Red Dead Redemption''$ ^{L6} $) jak i
 mimo bycia sklasyfikowanym jako wysokowydajnościowy silnik, również w
-kinematografii (2012, Shrek, Sherlock Holmes). Bullet jest również domyślnie
-używanym silnikiem fizycznym ta takich projektach jak program graficzny
-Blender czy silnik gier 3d OGRE.
+kinematografii (``Shrek"$ ^{L2} $, ``Sherlock Holmes"$ ^{L3} $). Bullet jest
+również domyślnie używanym silnikiem fizycznym ta takich projektach jak program
+graficzny Blender$ ^{L4} $ czy silnik gier 3d OGRE$ ^{L5} $.
 
 \subsection{Android NDK}
 Biblioteki napisane w kodzie natywnym (C/C++) mogą być kompilowane na platformę
 ARM lub x86 i zainstalowane na urządzeniu używająć Android NDK (\emph{Native
 Development Kit}). Natywne biblioteki mogą być uruchomione przez maszynę
 wirtualną Dalvik używając metody \emph{System.LoadLibrary}. W przeciwieństwie do
-Android SDK który bazuje na pluginach do Eclipsa, NDK jest zestawem narzędzi
+Android SDK, który bazuje na pluginach do Eclipsa, NDK jest zestawem narzędzi
 wywoływanych z wiersza polecenia. Każde zbudowanie projektu musi więc odbyć się
 ręcznie. Możliwe jest jednak skonfigurowanie środowiska Eclipse aby kod natywny
 był kompilowany automatycznie podczas kompilacji całego projektu (zostało to
@@ -168,10 +168,7 @@ napisanym w języku Java.
 
 \subsection{OpenGL ES}
 To podzbiór graficznego API - OpenGL. Zostało zaprojektowane specjalnie na
-potrzeby mobilnych urządzeń. Charakteryzuje się zbiorczym przetwarzaniem
-danych, czyli do urządzenia graficznego przekazywane są całe bloki pamięci w
-przeciwieństwie do charakterystycznych dla OpenGL pojedynczych wywołań. Jego
-wersja 3.0 jest obsługiwana przez systemy Android od wersji 2.2.
+potrzeby mobilnych urządzeń.
 
 \newpage
 \section{Podstawowe koncepcje silników fizycznych.}
@@ -181,11 +178,10 @@ rozmaitych uproszczeń. W tej sekcji zostaną wymienione niektóre z nich.
 
 \subsection{Wykrywanie kolizji}
 Podstawowoym problemem każdego silnika fizycznego jest wykrywanie kolizji między
-dwoma obiektami. W zależności od tego czy celem jest uzyskanie wysokiej precyzji
-czy wydajności symulacji, do tego celu powstało kilka różnych technik.
+dwoma obiektami. Do tego celu powstało kilka różnych technik.
 
 \subsubsection{Kształty proste (bounding box)}
-Metoda polega na wpisaniu porównywanego obiektu najprostszą do sprawdzenia
+Metoda polega na wpisaniu porównywanego obiektu w najprostszą do sprawdzenia
 kolizji bryłę, jak kula czy prostopadłościan. Zbadanie wystąpienia kolizji
 między dwoma obiektami ogranicza się wtedy do sprawdzenia kilku prostych
 warunków (jak np. dla kul sprawdzenie czy odległość między środkami jest
@@ -193,11 +189,10 @@ mniejsza od sumy ich promieni). Metoda ta choć szybka ma bardzo niską
 dokładność. Udoskonaleniem tej techniki może być użycie kilku prostych kształtów
 do opisania jednego obiektu.
 
-\begin{figure}
+\begin{figure}[H]
 \centering
 \includegraphics[scale=0.5]{./img/boundingBox.jpg}
-\caption{Skomplikowana bryła wpisana w kształt prosty. Źródło:
-http://www.tcs.fudan.edu.cn}
+\caption{Skomplikowana bryła wpisana w kształt prosty$ ^{L8} $.}
 \label{fig:bbox}
 \end{figure}
 
@@ -220,11 +215,11 @@ metody kształtów prostych. Dokładnośc ta jest jednak wciąż ograniczona. Na
 przykład wystrzelony pocisk nie będzie mógł przelecieć przez ucho kubka,
 ponieważ dziura w kubku również wchodzi w skład bryły otoczki.
 
-\begin{figure}
+\begin{figure}[H]
 \centering
 \includegraphics[scale=0.5]{./img/convexhull.png}
 \caption{Przykład wyodrębnienia otoczki wypłukłej dla dwuwymiarowego zbioru
-punktów. Źródło: http://www.evanjones.ca/convexhulls.html}
+punktów$ ^{L9} $.}
 \label{fig:convexhull}
 \end{figure}
 
@@ -245,12 +240,11 @@ obliczeniową, metoda ta jest wykorzystywana niemal wyłącznie w silnikach
 wysokoprecyzyjnych. Silniki wysokowydajnościowe jak Bullet i Havok wykorzystują
 również uproszczony wariant tej metody do symulacji zachowań ciał miękkich i płynów.
 
-\begin{figure}
+\begin{figure}[H]
 \centering
 \includegraphics[scale=1]{./img/finiteElementApplication.jpg}
 \caption{Przykład zastosowania metody elementów skończonych dla symulacji
-rozbijającego się samochodu Źródło:
-http://en.wikipedia.org/wiki/Finite\_element}
+rozbijającego się samochodu$ ^{L10} $.}
 \label{fig:finiteElementApplication}
 \end{figure}
 
@@ -258,7 +252,7 @@ http://en.wikipedia.org/wiki/Finite\_element}
 W silniku Bullet wykrywanie kolizji odbywa się dwufazowo. Każde przetwarzanie
 ramki zaczyna się od ``fazy szerokiej'' (\emph{broadphase}), analizując po kolei
 wszystkie możliwe pary jakie mogą dokonać zderzenia metodą kształtów prostych.
-Następnie każda z par któta przeszła poprzedni test jest analizowana przez
+Następnie każda z par która przeszła poprzedni test jest analizowana przez
 dyspozytor (\emph{dispatcher}) pod względem zderzenia odpowiednim algorytmem (w
 zależności od tego czy np. rozpatrywane jest zderzenie bryły zdefinowanej przez
 otoczkę wypłukłą czy kształt prosty). W omawianym projekcie zastosowane są
@@ -281,7 +275,8 @@ ciała.
 %\emph{TODO: penalty methods, constraints(warunki), impulses}
 
 \newpage
-\section{Wykorzystanie Android NDK jako obudowania dla silnika Bullet}
+\section{Wykorzystanie Android NDK jako obudowania dla silnika
+Bullet} \label{sec:NDKuse}
 Aby ułatwić tworzenie testowych scen zostało stworzone obudowanie obiektów
 pozwalające korzystać z możliwości sinika Bullet z poziomu języka Java. Dzięki
 temu proces tworzenia scen testowych zostaje skrócony oraz możliwe jest
@@ -296,63 +291,93 @@ kompilacja ręczna z wiersza poleceń. Możliwe jest jednak skonfigurowanie
   
 Aby utworzyć projekt Androida z
 możliwością edycji i kompilacji bibliotek natywnych należy: \\
+
 1. Zainstalować środowisko Eclipse (i doinstalować do niego wtyczkę
 \emph{ADT}).\\
+
 2. Pobrać kolejno \emph{Android SDK} i \emph{NDK}. W celu ułatwienia edycji
 plików żródłowych w języku C++ warto również zainstalować wtyczkę 
-\emph{CDT}(C++ Development Tools). Potrzebny będzie rónież kod żródłowy
-biblioteki Bullet. Dodatki w eclipse instaluje się przez Help $ \rightarrow $
-Install  new software\ldots , wpisując adres
-http://download.eclipse.org/releases/galileo (lub zamisat galileo wpisać nazwę
-swojej wersji Eclipse).
-  
+\emph{CDT}(\emph{C++ Development Tools}) (rysunek \ref{fig:CDTinstall}).
+Potrzebny będzie rónież kod żródłowy biblioteki Bullet. Dodatki w eclipse
+instaluje się przez Help $ \rightarrow $ Install new software\ldots , wpisując adres
+\emph{http://download.eclipse.org/releases/galileo} (lub zamisat galileo wpisać
+nazwę swojej wersji Eclipse).\\
+\begin{figure}[h]
+\centering
 \includegraphics[width=\textwidth]{./img/CDT.png}
+\caption{Instalacja wtyczki CDT w środowisku Eclipse.}
+\label{fig:CDTinstall}
+\end{figure}
+
 3. Utworzyć nowy standardowy projekt aplikacji na system Android.\\
+
 4. Do projektu dodać folder \emph{jni} gdzie przechowywany będzie kod źródłowy
 w języku C++. Skopiować do niego foldery z kodu źródłowego biblioteki
 Bullet (będą potrzebne biblioteki \emph{BulletCollision},
 \emph{BulletDynamics} i \emph{LinearMath}, a także pliki \emph{btBulletCollisionCommon.h},
-\emph{btBulletDynamicsCommon.h}, \emph{Bullet-C-Api.h}).
-  
-\begin{center}
-\includegraphics{./img/bulletFoldery.png}
-\end{center}
-  
+\emph{btBulletDynamicsCommon.h}, \emph{Bullet-C-Api.h}). Zostało to
+zaprezentowane na rysunku \ref{fig:FolderTree}.\\
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=1]{./img/bulletFoldery.png}
+\caption{Struktura folderów do utworzenia w projekcie.}
+\label{fig:FolderTree}
+\end{figure}
+\newpage
 5. Umieścić w folderze plik \emph{Android.mk} . Zawiera on informacje jak
 powinien być zbudowany projekt w kodzie natywnym. Do tego pliku należy
 dodać informacje o plikach źródłowych biblioteki Bullet. Zawartość pliku
-\emph{Android.mk} znajduje się w załączniku \ref{att:Androidmk}.
+\emph{Android.mk} znajduje się w załączniku \ref{att:Androidmk}.\\
+
+6. Przekonwertować projekt java na java/C++ , przez menu File $ \rightarrow $
+New $ \rightarrow $ Other\ldots (rysunek \ref{fig:AndroidConversion})\\
   
-  6. Przekonwertować projekt java na java/C++ , przez menu File $ \rightarrow $
-  New $ \rightarrow $ Other\ldots
-  
-  \includegraphics{./img/convert.png}
-  
-  7. W Properties projektu ustawić budowanie kodu w C++ przez \emph{ndk-build}.
-  Najlepiej miejsce rozpakowania \emph{Android NDK} przypisać pod zmienną
-  środowiskową (np. \$ \{NDKROOT\}), co ułatwi przenośność projektu.
-  
-  \includegraphics[width=\textwidth]{./img/properties.png}
-  
-  W zakładce behavior należy odznaczyć checkboxa \emph{Clean} i usunąć tekst z
-  pola \emph{Build}.\\
-  8. W C++ General $ \rightarrow $ Paths And Symbols dodać ścieżkę dla nagłówków.
+7. We właściwościach (\emph{properties}) projektu ustawić budowanie kodu w C++
+przez \emph{ndk-build}.
+Najlepiej miejsce rozpakowania \emph{Android NDK} przypisać pod zmienną
+środowiskową (np. \$ \{NDKROOT\}), co ułatwi przenośność projektu (rysunek
+\ref{fig:EnvVariable}). W zakładce behavior należy odznaczyć opcję \emph{Clean}
+i usunąć tekst z pola \emph{Build}.\\
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{./img/properties.png}
+\caption{Ustawienie zmiennej środowiskowej.}
+\label{fig:EnvVariable}
+\end{figure}
+
+\newpage
+\begin{figure}[H]
+\centering
+\includegraphics[scale=1]{./img/convert.png}
+\caption{Konwersja projektu Android na projeckt C/C++.}
+\label{fig:AndroidConversion}
+\end{figure}
+
+8. W C++ General $ \rightarrow $ Paths And Symbols dodać ścieżkę dla
+nagłówków.\\
  
-  9. Ponieważ w projekcie będą wykorzystywane elementy biblioteki STL,
-  konieczne jest dodanie odpowiedniej ścieżki.\\
+9. Ponieważ w projekcie będą wykorzystywane elementy biblioteki STL,
+konieczne jest dodanie odpowiedniej ścieżki (rysunek \ref{fig:StlPath}).\\
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{./img/ndkroot.png}
+\caption{Dodanie ścieżki do biblioteki STL.}
+\label{fig:StlPath}
+\end{figure}
   
-  \includegraphics[width=\textwidth]{./img/ndkroot.png}
+Dodać również należy informację o wykorzystaniu STL w pliku
+\emph{Application.mk}(który również muisi być dodany do projektu).
   
-  Dodać również należy informację o wykorzystaniu STL w pliku
-  \emph{Application.mk}(który również muisi być dodany do projektu).
+\lstinputlisting[language=make, caption=Zawartość pliku Application.mk,
+label=andMake]{./listings/Application.mk}
   
-  \lstinputlisting[language=make, caption=Zawartość pliku Application.mk,
-  label=andMake]{./listings/Application.mk}
-  
-  Po tych czynnościach można edytować projekt ze składnią Javy jak i C++,
-  korzystając z autouzupełniania i jednolitej kompilacji. Należy jednak
-  pamiętać, że przy dodawaniu nowego pliku z kodem źródłowym w C++ do folderu
-  \emph{jni} konieczne jest umieszczenie o nim informacji w \emph{Android.mk} .
+Po tych czynnościach można edytować projekt ze składnią Javy jak i C++,
+korzystając z autouzupełniania i jednolitej kompilacji. Należy jednak
+pamiętać, że przy dodawaniu nowego pliku z kodem źródłowym w C++ do folderu
+\emph{jni} konieczne jest umieszczenie o nim informacji w \emph{Android.mk} .
 
 \subsection{Wywoływanie funkcji natywnych z poziomu Javy}
 Do wywoływania funkcji natywnych z poziomu języka Java Android NDK wykorzystuje
@@ -371,6 +396,7 @@ funkcji jest wskaźnik na zmienną typu \emph{JNIEnv}, która jest interfejsem
 środowiska uruchomieniowego Javy. Drugim jest zmienna typu \emph{jobject}
 zawierająca referencję do obiektu wywołującego daną metodę.
 
+\newpage
 \lstinputlisting[language=c++, linerange={3-4, 21-22}, caption=Implementacja
 natywnej metody w kodzie c++,
 label=lis:cppNative]{./listings/CollisionShape.cpp}
@@ -395,6 +421,7 @@ W kodzie natywnym wszystkie identyfikatory są przechowywane w mapie
 \emph{pointer\_map} z biblioteki STL. Za jej pomocą kojarzone są identyfikatory
 obudowujących obiektów Javy z obiektami biblioteki Bullet.
 
+\newpage
 \lstinputlisting[language=c++, caption=Zawartość pliku btObjects.h\,
 zawierającego mapę, label=lis:btObjects_h]{./listings/btObjects.h}
 
@@ -442,20 +469,28 @@ mapy] extern "C"
 }
 \end{lstlisting}
 
-Całą sekwencję tworzenia i wykonywania akcji na obiektach przedstawiono na
-poniższym diagramie.
+Diagram opisujący całą sekwencję tworzenia i wykonywania akcji na
+obiektach przedstawiono na rysunku \ref{fig:DiagWrapper}.
 
-\begin{center}
+\begin{figure}
+\centering
 \includegraphics[width=\textwidth]{./img/sequenceDiagram.png}
-\end{center}
+\caption{Diagram przedstawiający sekwencje czynności wykonywanych na obiektach
+opakowujących.}
+\label{fig:DiagWrapper}
+\end{figure}
 
+\newpage
 \subsection{Struktura biblioteki obudowującej}
 W celu ułatwienia składania scen testowych część klas biblioteki Bullet została
 opakowana w klasach języka Java. Strukturę zawierającej je paczki przedstawia
-poniższy schemat.
-\begin{center}
+rysunek \ref{fig:DiagStructure}.
+\begin{figure}[H]
+\centering
 \includegraphics[scale=0.5]{./img/packageDiagram.png}
-\end{center}
+\caption{Diagram przedstawiający strukturę klas opakowujących.}
+\label{fig:DiagStructure}
+\end{figure}
 
 \subsubsection{Typy geometryczne}
 Poza klasami odpowiadającymi za podstawową geometrię jak wektor (\emph{Vector3})
@@ -465,26 +500,44 @@ kulę(\emph{Sphere}). Klasy \emph{Box} i \emph{Sphere} posiadają
 odpowiednie metody pozwalające na renderowanie określonych kształtów
 o podanych rozmiarach.
 
+\newpage
 \subsubsection{Typy fizyczne}
 Dostępne metody obiektów opakowujących klasy silnika Bullet zostały
 przedstawione poniżej.
 
 \paragraph{DynamicsWorld}
 Klasa przedstawia środowisko fizyczne. Dodawane są do niego symulowane bryły
-sztywne i sprężyny.\\ \\
+sztywne i sprężyny. Struktura klasy została przedstawiona w tabeli \ref{tab:DynamicsWorld}.\\
+\begin{table}[H]
 \input{./tab/DynamicsWorld.tex}
+\caption{Struktura klasy DynamicsWorld.}
+\label{tab:DynamicsWorld}
+\end{table}
 
+\newpage
 \paragraph{CollisionShape}
-Klasa przedstawia symulowane obiekty brył sztywnych.\\ \\
+Klasa przedstawia symulowane obiekty brył sztywnych. Struktura została
+przedstawiona w tabeli \ref{tab:CollisionShape}\\
+
+\begin{table}[H]
 \input{./tab/CollisionShape.tex}
+\caption{Struktura klasy CollisionShape.}
+\label{tab:CollisionShape}
+\end{table}
 
 \paragraph{Spring}\label{sec:spring}
 Klasa przedstawia symulowane obiekty ciał sprężystych.\\
 W parametrach funkcji można znaleźć typ enumeracyjny \emph{DoF} -
 stopnie swobody (\emph{degrees of freedom}). Określają one do jakiego stopnia
-swobody odnosi się dane wywołanie metody. Dostępne wartości to:\\
+swobody odnosi się dane wywołanie metody. Dostępne wartości przedstawia tablea
+\ref{tab:dof}.\\
+
+\begin{table}[H]
 \input{./tab/DoF.tex}
-\\ \\
+\caption{Dostępne wartości dla struktury DoF.}
+\label{tab:dof}
+\end{table}
+
 Do zaobrazowania znaczenia poszczególnych parametrów funkcji klasy Spring
 zostanie wykorzystana poniższa scena:\\
 
@@ -498,10 +551,15 @@ label=lis:spring_demo]{./listings/spring_demo.java}
 \label{fig:spring_demo}
 \end{figure}
 
-Opisy metod w poniższej tabeli odnoszą się do oznaczeń na rysunku
+Opisy metod w tabeli \ref{tab:Spring} odnoszą się do oznaczeń na rysunku
 \ref{fig:spring_demo}. Wszystkie metody działąjące na stopień swobody sprężyny
 odnoszą się do ciała oznaczonego przez \textbf{B}.\\
+
+\begin{table}
 \input{./tab/Spring.tex}
+\caption{Struktura klasy Spring.}
+\label{tab:Spring}
+\end{table}
 
 \subsection{Przekazywanie argumentów i zwracanych wartości}
 Podczas wymiany argumentów przez funkcje między wirtualną maszyną Javy a kodem
@@ -531,8 +589,8 @@ nowego obiektu natywnego klasy \emph{btVector3}. Analogicznie realizowana jest
 konwersja obiektów natywnych na obiekty Javy.
 
 \subsection{Zwalnianie pamięci}
-Gdy dany opakowujący klasę biblioteki Bullet obiekt przestaje być potrzebny
-należy zwolnić zajmowaną przez niego pamięć. Niestety wbudowany w maszynę
+Gdy dany opakowujący klasę biblioteki Bullet obiekt, przestaje być potrzebny,
+należy zwolnić zajmowaną przez niego pamięć. Niestety, wbudowany w maszynę
 wirtualną Dalvik odśmiecacz pamięci (\emph{garbage collector}) nie może usunąć
 obiektu natywnego. Do tego celu wymagane jest zaimplementowanie destruktora dla
 klasy opakowującej. Pierwszym krokiem jest przeciążenie metody \emph{finalize}
@@ -565,18 +623,19 @@ JNIEXPORT void Java_org_bulletSamples_physics_DynamicsWorld_destructor( JNIEnv* 
 \end{lstlisting}
 
 W linijce 3 pobierany jest wskaźnik na obiekt typu
-\emph{btDiscreteDynamicsWorld} a następnie wskazywany przez niego obiekt jest
+\emph{btDiscreteDynamicsWorld}, a następnie wskazywany przez niego obiekt jest
 usuwany za pomocą polecenia \emph{delete}. W linijce 4 usuwany jest
 identyfikator wraz z wskaźnikiem na nieistniejący już obiekt z mapy
 \emph{btObjects}.
 
+\newpage
 \subsection{Sceny}
 W celu ułatwienia dodawania kolejnych testów silnika powstał mechanizm scen,
 które można wymieniać przed kompilacją aplikacji. Każda scena zawiera właściwe
 dla siebie obiekty fizyczne i związane z nimi instrukcje. Klasa \emph{BaseScene}
 jest klasą bazową dla wszystkich scen w projekcie.
 
-\begin{figure}
+\begin{figure}[H]
 \centering
 \includegraphics[scale=0.6]{./img/SceneClassDiagram.png}
 \caption{Diagram reprezentujący klasę SomeScene.}
@@ -588,9 +647,11 @@ przez konstruktor. Przeciążając metody \emph{create}, \emph{update} i
 \emph{render} można na scenie wykonać każdą akcję.
 
 \newpage
-\section{Implementacja i zastosowanie dodatkowych możliwośći silnika Bullet}
-W tej części pracy zostanie opisany przebieg implementacji dodatkowych funkcji
-wykorzystujących możliwości oferowane przez platformy mobilne i silnik Bullet.
+\section{Implementacja i zastosowanie dodatkowych możliwośći silnika
+Bullet}\label{sec:dod}
+W tej części pracy zostanie opisany przebieg implementacji
+dodatkowych funkcji wykorzystujących możliwości oferowane przez platformy
+mobilne i silnik Bullet.
 %\emph{TODO:
 %w jaki sposób zostały zaimplementowane pozostałe przydatne mechanizmy silnika i
 %jak zostały wykorzystane możliwości smartphone'a do uatrakcyjnienia
@@ -647,11 +708,11 @@ Każda oś wektora \emph{Accelerometer}.\emph{gravity} odpowiada osi nachylania
 urządrzenia na którym uruchomiona jest aplikacja. Rozkład tych osi
 zaprezentowano na rysunku \ref{fig:axis_device}.
 
-\begin{figure}
+\begin{figure}[H]
 \centering
 \includegraphics[scale = 0.6]{./img/axis_device.png}
 \caption{Rozłożenie osi wektora przyspieszenia dla akcelerometru w urządzeniu
-z systemem Android.}
+z systemem Android$ ^{L7} $.}
 \label{fig:axis_device}
 \end{figure}
 
@@ -678,6 +739,7 @@ public class SomeScene extends BaseScene {
 Akcelerometr można również zastosować do sterowania innymi parametrami jak na
 przykład kątem nachylenia kamery.
 
+\newpage
 \begin{lstlisting}[language=java, caption=Sterowanie kątem nachylenia kamery
 przy pomocy akcelerometru, label=lis:accCamera]import org.bulletSamples.Accelerometer;
 import org.bulletSamples.geometry.*;
@@ -698,7 +760,7 @@ Na listingu \ref{lis:accCamera} w linijce 21 zastosowano wektor pobrany z
 akcelerometru i pomnożony przez skalar 60 jako wektor pozycji dla kamery na
 scenie.
 
-\subsection{Przeciągnij i upuść}\label{sec:dragAndDrop}
+\subsection{Metoda przeciągnij i upuść}\label{sec:dragAndDrop}
 Inną możliwością wprowadzenia interakcji w aplikacji jest wykorzystanie ekranu
 dotykowego dostępnego w większości produkowanych dziś urządzeń mobilnych.
 Możliwe jest dzięki temu wprowadzenie funkcji ``przeciągnij i upuść''
@@ -810,7 +872,8 @@ $ p_{p} = \begin{bmatrix}x_{p}&y_{p}&z_{e}&1\end{bmatrix} $ \\
 $ p_{e} = \begin{bmatrix}x_{e}&y_{e}&0&1\end{bmatrix} $ \\
 \emph{W} to macierz świata wyświetlanej sceny (iloczyn odwrotnej macierzy
 translacji kamery i odwrotnego obrotu kamery).\\
-\\ \\
+\\
+\newpage
 Aby funkcja ``przeciągnij i upuść'' działała, konieczne jest przechwycenie przez
 aplikację zdarzenia dotknięcia ekranu dotykowego urządzenia, co prezentuje
 listing \ref{lis:onTouch}.
@@ -916,7 +979,7 @@ JNIEXPORT void Java_org_bulletSamples_physics_DynamicsWorld_NdragObject( JNIEnv*
 \end{lstlisting}
 
 Przechowywana sprężyna w zmiennej \emph{pickConstraint} otrzymuje nowe
-współrzędne ramek w których trzymany jest obiekt. Sa one obliczone na podstawie
+współrzędne. Sa one obliczone na podstawie
 wczęniej przechowanyvh wartości.
 
 Ostatnia metoda \emph{dropObject} jest wywoływana po oderwaniu palca od
@@ -940,16 +1003,16 @@ Po zaimplementowaniu powyższych funkcji w aplikacji możliwe jest przenoszenie
 widocznych na ekranie obiektów.
 
 \subsection{Linie pomocnicze}\label{sec:debugDrawer}
-W celu ułatwienia projektowania symulacji mozna wykorzystać
-wbudowaną w silniku bullet możliwość rysowania linii pomocniczych (\emph{debug
-draw}). Linie te zaznaczają miedzy innymi limity obrotów i wielkość ramki ciała
+W celu ułatwienia projektowania symulacji można wykorzystać
+wbudowaną w silniku Bullet możliwość rysowania linii pomocniczych (\emph{debug
+draw}). Linie te zaznaczają między innymi limity obrotów i wielkość ramki ciała
 zawieszonego na sprężynie. Rysowane linie pomocnicze można zauważyć na rysunku
 \ref{fig:spring_demo}.\\
 Aby możliwe było korzystanie z możliwości rysowania linii pomocniczych, należy
-zaimplementować interfejs silnika bullet \emph{btIDebugDraw}. Interfejs ten
+zaimplementować interfejs silnika Bullet \emph{btIDebugDraw}. Interfejs ten
 posiada metody odpowiadające za rysowanie prostych kształtów (np. \emph{drawLine}).
-Implementacja poszczególych metod pozwala na niezależne od silnika renderującego
-wyświetlanie pomocniczych kształtów.
+\newpage Implementacja poszczególych metod pozwala na niezależne od silnika
+renderującego wyświetlanie pomocniczych kształtów.
 
 W tym przykładzie zostanie zaimplementowana metoda \emph{drawLine}.
 Implementacja interfejsu w kodzie natywnym wygląda następująco:
@@ -976,13 +1039,14 @@ Metoda \emph{DebugDrawer::drawLine} odnosi sie do statycznej metody
 \emph{drawLine} klasy \emph{DebugDrawer} zaimplementowanej w Javie. W linijce
 11 pobrany zostaje identyfikator metody, który zostaje wykorzystany do jej
 wywołania w linijce 12 , przekazując jej swoje parametry wywołania. Zmienna
-\emph{globalEnv}, jest przechowywaną globalnie zmienną zawierającą wskażnik na
+\emph{globalEnv}, jest przechowywaną globalnie zmienną zawierającą wskaźnik na
 środowisko uruchomieniowe Javy. Jest ona odświeżana przy każdej rysowanej
 ramce. Ponieważ metoda \emph{drawLine} nie jest bezpośrednio wywoływana przez
 metodę w środowisku Javy, a przez obiekt klasy \emph{DynamicsWorld}, nie ma ona
 dostępu do obiektu \emph{env} przez parametr. W kodzie natywnym pobranie
 zmiennej \emph{globalEnv} wygląda nstępująco:
 
+\newpage
 \begin{lstlisting}[language=c++, caption=Deklaracja
 funkcji renewEnv w kodzie natywnym,label=lis:renewEnvNat]
 JNIEnv* globalEnv = 0;
@@ -1024,6 +1088,7 @@ Posiadając klasę implementującą metodę \emph{drawLine} możliwe jest przypi
 obiektu tej klasy do obiektu klasy \emph{DebugDrawer}. Przypisanie to następuje
 w konstruktorze klasy \emph{DebugDrawer}.
 
+\newpage
 \begin{lstlisting}[language=c++, caption=Przypisanie
 obiektu DebugDrawer obiektowi DynamicsWorld,label=lis:DynamicsWorldConstructor]
 JNIEXPORT jint Java_org_bulletSamples_physics_DynamicsWorld_constructor( JNIEnv* env, jobject self )
@@ -1042,7 +1107,7 @@ Po wprowadzeniu powyższych funkcji i zastosowaniu metody
 pomocnicze. Jednak po kilku klatkach aplikacja przestaje działać. W rejestrze
 błędów można zobaczyć:
 
-\begin{figure}
+\begin{figure}[H]
 \centering
 \includegraphics[scale = 0.6]{./img/logCat.PNG}
 \caption{Błędy widoczne po próbie zastosowania klasy DebugDrawer.}
@@ -1051,7 +1116,7 @@ błędów można zobaczyć:
 
 Widoczny błąd spowodowany jest przepełnieniem lokalnego bufora JNI. Podczas
 przekazywania parametrów przez funkcję \emph{drawLine} z listingu
-\ref{lis:debugDrawer_cpp} obiekty przekazywane przez parametry przechowywane są
+\ref{lis:debugDrawer_cpp}, obiekty przekazywane przez parametry przechowywane są
 w lokalnym buforze JNI, który ma ograniczoną pojemność. Problem ten można ominąć
 przez użycie tymczasowych, statycznych zmiennych przechowujących przekazywane
 parametry metodzie \emph{drawLine} po stronie Javy.
@@ -1067,6 +1132,7 @@ class DebugDrawer
 }
 \end{lstlisting}
 
+\newpage
 Kod funkcji \emph{DebugDrawer::drawLine} z listingu \ref{lis:debugDrawer_cpp}
 powinien wtedy wyglądać:
 
@@ -1090,10 +1156,11 @@ Po tym zabiegu możliwe jest bezbłędne renderowanie linii pomocniczych na scen
 %\emph{TODO: o możliwości logowania kolizkji wybranych obiektów}
 
 \newpage
-\section{Wykorzystanie silnika Bullet w doświadczeniach fizycznych}
-Do tej pory rozważane była jedynie kwestia samego działania silnika na
-platformie Android. Jakie jednak niesie on możliwości pod kątem symulacji
-fizycznych? Jako wysokowydajnościowy silnik Bullet nie ma wysokiej precyzji
+\section{Wykorzystanie silnika Bullet w doświadczeniach
+fizycznych}\label{sec:wykorzystanie}
+Do tej pory rozważane była jedynie kwestie
+samego działania silnika na platformie Android. Jakie jednak niesie on możliwości pod kątem symulacji
+fizycznych? Jako wysokowydajnościowy silnik, Bullet nie ma wysokiej precyzji
 pomiarów, ale możliwe jest sprawdzenie w jakich warunkach wyniki symulacji są
 zblizone do rzeczywistych.
 
@@ -1105,7 +1172,7 @@ pamięci urządzenia.
   label=lis:logger]{./listings/Logger.java}
 Należy również pamiętać o zezwoleniu aplikacji na manipulowanie pamięcią
 zewnętrzną. Konieczny jest wpis w manifeście aplikacji.
-\lstinputlisting[language=xml, caption=zawartość pliku AndroidManifest.xml,
+\lstinputlisting[language=xml, caption=Zawartość pliku AndroidManifest.xml,
   label=lis:manifest,linerange={6-9}]{./listings/AndroidManifest.xml}
 
 \subsection{Zasada zachowania energii}
@@ -1123,15 +1190,17 @@ pod uwagę będą dwa rodzaje energii kinetycznej: liniowa oraz obrotowa.\\
 
 \textbf{Liniowa energia kinetyczna}\\
 Jest to energia jaką posiada ciało za sprawą bycia w ruchu. Jest zdefinowana
-jako wartość pracy jaka jest wymagana do wprowadzenia będącego w stanie
+jako wartość pracy, jaka jest wymagana do wprowadzenia będącego w stanie
 spoczynku ciała w ruch z ustaloną prędkością. Wyrażana jest przez:
 \begin{equation}
 E_{K} = \frac{mv^{2}}{2}
 \end{equation}
-Gdzie \emph{m} to masa ciała, a \emph{v} to jego prędkość.\\
+Gdzie:\\
+\emph{m} to masa ciała\\
+\emph{v} to jego prędkość\\
 W klasie \emph{CollisionShape} jest wyrażana przez:
 
-\lstinputlisting[language=java, caption=fragment pliku
+\lstinputlisting[language=java, caption=Fragment pliku
 CollisionShape.java,
 label=lis:LinearEK,linerange={137-140}]{./listings/CollisionShape.java}
 
@@ -1139,21 +1208,22 @@ label=lis:LinearEK,linerange={137-140}]{./listings/CollisionShape.java}
 \textbf{Obrotowa energia kinetyczna}\\
 Jest to rodzaj energii właściwy dla ciał nie będących pojedynczymi punktami a
 zbiorem punktów materialnych, charakteryzujących się poza pozycją równiez
-obrotem. Zdefinowana jest jako wartość pracy jaka jest wymagana do wprowadzenia
+obrotem. Zdefinowana jest jako wartość pracy, jaka jest wymagana do wprowadzenia
 ciała w ruch obrotowy z daną prędkością kątową. Wyrażana jest przez:
 \begin{equation}
 E_{K} = \frac{I\omega^{2}}{2}
 \end{equation}
 Gdzie:\\
 $ \omega $ to wartość prędkości kątowej ciała względem jego środka masy.\\
-\emph{I} to skalarna wartość momentu bezwładności ciała. Moment bezwładności
+\emph{I} to skalarna wartość momentu bezwładności ciała.\\ Moment bezwładności
 jest wielkością tensorową. W przypadku obrotu wokół jednej osi układu
 współrzędnych jest jednak dopuszczalne, dla uproszczenia, użycie jego
 składowej wartości odpowiadającej osi obrotu jako wartości skalarnej.\\
 \\
+\newpage
 Moment bezwładności (\emph{moment of inertia}) to miara bezwładności ciała
 w ruchu obrotowym względem określonej, ustalonej osi obrotu. Odgrywa prawie taką samą
-rolę w dynamice ruchu obrotowego jak masa w dynamice ruchu postępowego, opisując
+rolę w dynamice ruchu obrotowego jak masa w dynamice ruchu postępowego. Opisuje
 relacje między momentem pędu, energią kinetyczną a prędkością kątową jak masa
 między pędem, energią kinetyczną a prędkością. Moment bezwładności pojedynczego
 punktu materialnego jest iloczynem jego masy \emph{m} i kwadratu odległości od
@@ -1162,11 +1232,14 @@ osi obrotu \emph{r}:
 I = mr^{2}
 \end{equation}
 
-\begin{center}
+\begin{figure}[h]
+\centering
 \includegraphics{./img/inertia.png}
-\end{center}
+\caption{Punkt i jego oś obrotu.}
+\label{fig:inertia}
+\end{figure}
 
-Zaś dla ciałą składającego się z \emph{n} punktów moment bezwładności jest sumą
+Zaś dla ciała składającego się z \emph{n} punktów, moment bezwładności jest sumą
 momentów bezwładności wszystkich punktów.
 \begin{equation}
 I = \sum_{i=1}^{n} m_{i}r_{i}^{2}
@@ -1174,17 +1247,27 @@ I = \sum_{i=1}^{n} m_{i}r_{i}^{2}
 Dla zaimplementowanych kształtów w omawianynej bibliotece obudowującej wartości
 momentu bezwładności są następujące:\\
 Dla kuli (\emph{sphere}):\\
-\begin{center}
+
+\begin{figure}[h]
+\centering
 \includegraphics{./img/inertiaSphere.png}
-\end{center}
+\caption{Moment bezwładności kuli.}
+\label{fig:inertiaSphere}
+\end{figure}
+
 \begin{equation}
 I = \frac{2}{5}mr^{2}
 \end{equation}
 Dla prostopadłościanu (\emph{box}):\\
-\begin{center}
+
+\begin{figure}[h]
+\centering
 \includegraphics{./img/inertiaBox.png}
-\end{center}
-Dla dowolnej osi obrotu $ \hat{n} $ przechodzącej przez środek masy sześcianu
+\caption{Prostopadłościan z zaznaczoną osią obrotu.}
+\label{fig:inertiaBox}
+\end{figure}
+
+Dla dowolnej osi obrotu $ \hat{n} $ przechodzącej przez środek masy sześcianu,
 moment bezwładności jest określany przez następuące równanie:
 \begin{equation}
 I = m\hat{n}^{T}\hat{I}\hat{n} = m
@@ -1199,17 +1282,18 @@ Wartości $n_{x}$, $n_{y}$ i $n_{z}$ to składowe wektora $\hat{n}$.\\
 Wartości \emph{x}, \emph{y} i \emph{z}, to kolejno szerokość, wysokość i długość
 rozważanego prostopadłościanu.\\ \\
 Nie jest konieczne implementowanie momentu bezwładności osobno dla każdego typu
-bryły. Silnik bullet przechowuje wartość macierzy momentu bezwładności dla
+bryły. Silnik Bullet przechowuje wartość macierzy momentu bezwładności dla
 każdego obiektu klasy \emph{btRigidBody}.
 
-\lstinputlisting[language=c++, caption=fragment pliku
+\lstinputlisting[language=c++, caption=Fragment pliku
 btRigidBody.h,
 label=lis:RigidBodyh,linerange={55-60}]{./listings/btRigidBody.h}
 
 Pole \emph{m\_invInertiaTensorWorld} zawiera odwrotną macierz momentu
 bezwładności w odniesieniu do macierzy świata symulacji.
+\newpage
 
-\lstinputlisting[language=c++, caption=fragment pliku
+\lstinputlisting[language=c++, caption=Fragment pliku
 CollisionShape.cpp,
 label=lis:CollisionShapecpp,linerange={162-168}]{./listings/CollisionShape.cpp}
 
@@ -1217,7 +1301,7 @@ W 6. linijce listingu \ref{lis:CollisionShapecpp} realizowane jest mnożenie wek
 \emph{n} (transpozycja jest realizowana przez iloczyn skalarny (\emph{dot})
 dwóch powstałych wektorów) z równaia \ref{eq:boxInertia}.
 
-\lstinputlisting[language=java, caption=fragment pliku
+\lstinputlisting[language=java, caption=Fragment pliku
 CollisionShape.java,
 label=lis:CollisionShapejava,linerange={38-38,142-145,
 147-153}]{./listings/CollisionShape.java}
@@ -1228,14 +1312,15 @@ oś obrotu zostaje obrany znormalizowany wektor prędkości kątowej (ln. 10).\\
 
 
 \textbf{Całkowita energia kinetyczna}\\
-Podsumowując, dla testów w tej podsekcji sprawdzone zostanie czy spełniony
-jest następujący warunek dla \emph{n} ciał:
+Podsumowując, dla testów w tej podsekcji będzie sprawdzone czy
+spełniony jest następujący warunek dla \emph{n} ciał:
 \begin{equation}
 E_{K} = \sum_{i=1}^{n}\left(\frac{mv^{2}}{2} + \frac{I\omega^{2}}{2}\right) =
 const.
 \end{equation}
+\newpage
 Warunek jest sprawdzany przez metodę:
-\lstinputlisting[language=java, caption=fragment
+\lstinputlisting[language=java, caption=Fragment
 pliku CollisionShape.java,
 label=lis:CollisionShapejava2,linerange={155-158}]{./listings/CollisionShape.java}
 
@@ -1250,7 +1335,7 @@ sprężystości.\\
 \textbf{Energia potencjalna grawitacji}\\
 Energia ta jest wynikiem znajdowania się ciała w polu grawitacynym innych ciał.
 Ogólnym wzorem na wyznaczenie jej wartości dla ciała o masie \emph{m}, przy
-założeniu, że ciała mają kształt kuli to:
+założeniu, że ciała mają kształt kuli jest:
 
 \begin{equation}
 E_{P} = mG\sum_{i=1}^{n}\frac{m_{i}}{r_{i}}
@@ -1261,15 +1346,17 @@ Gdzie:\\
 $ m_{i} $ jest masą \emph{i}-tego ciała tworzącego pole grawitacyjne.\\
 $ r_{i} $ to odległość badanego ciała od \emph{i}-tego ciała.\\
 
-Zakładając że ciałem wytwarzającym pole grawitacyjne jest kula ziemska i że
+Zakładając, że ciałem wytwarzającym pole grawitacyjne jest kula ziemska i że
 przyspieszenie ziemskie \emph{g} wynosi $ GM_{Z} $ wzór
 \ref{eq:epgravity} przyjmuje po uproszczeniu postać:
 
 \begin{equation}
 E_{P} = mgr_{Z}
 \end{equation}
-Gdzie $ r_{Z} $ to odległość środka ciała od środka Ziemi. Ponieważ podczas
-testów istotne będą jedynie zmiany wartości energii potencjalnej:
+Gdzie:\\
+$ r_{Z} $ to odległość środka ciała od środka Ziemi\\
+Ponieważ podczas testów istotne będą jedynie zmiany wartości energii
+potencjalnej:
 
 \begin{equation}
 \Delta E_{P} = mg\Delta h
@@ -1277,9 +1364,9 @@ testów istotne będą jedynie zmiany wartości energii potencjalnej:
 
 Do obliczenia wartości zostanie wykorzystana metoda klasy \emph{CollisionShape}.
 Obraną ustaloną wysokością będzie współrzędna \emph{y} ciała.
-
+\newpage
 \begin{lstlisting}[language=Java,
-caption=fragment pliku CollisionShape.java,label=lis:epgravity]
+caption=Fragment pliku CollisionShape.java,label=lis:epgravity]
 float getGravitationalPotentialEnergy()
 {
 	return mass*9.81f*getTranslation().y;
@@ -1288,7 +1375,7 @@ float getGravitationalPotentialEnergy()
 
 \textbf{Energia potencjalna sprężystości}\\
 Ten rodzaj energii jest właściwy dla ciał posiadających sprężystość. Pojawia się
-gdy ciało zostaje odkształcone, a jej wartość jest proporcjonalna do siły
+gdy ciało zostaje odkształcone. Jej wartość jest proporcjonalna do siły
 wymuszającej powrót do jego stabilnego stanu. Ogólnym wzorem wyznacząjącym
 wartość tej energii dla sprężyny jest:
 
@@ -1299,7 +1386,7 @@ Gdzie:\\
 \emph{k} to współczynnik sprężystości ciała.\\
 \emph{x} jest odległością na jaką została odkształcona spręzyna.\\
  \\
-Energia potencjalna spręzystości jest właściwa tylko dla ciał sprężystych,
+Energia potencjalna sprężystości jest właściwa tylko dla ciał sprężystych,
 dlatego zostaje zaimplementowana jedynie w klasie \emph{Spring}.
 
 \begin{lstlisting}[language=Java,
@@ -1361,36 +1448,48 @@ zmian energii kinetycznej ciała przy odbiciach od jego współczynnika
 sprężystośści.
 
 \lstinputlisting[language=Java,
-caption=scena testująca przypadek z jednym ciałem,
+caption=Scena testująca przypadek z jednym ciałem,
 label=lis:SimpleSnookerScene]{./listings/SimpleSnookerScene.java}
+\newpage
 Na niesprężystym (ln. 57) i całkowicie śliskim (ln. 55) podłożu zostaje
 umieszczona kulka (ln. 59), która przez nadaną jej prędkość początkową (ln. 62)
 odbija się kolejno od ścianek (ln. 49, 50). Sprężystość (\emph{restitution})
 kulki jak i ścianek jest regulowana na początku każdego testu (ln. 73, 74),
-która dla pierszego wynosi 0.9 (ln. 18) i jest liniowo zwiększana dla kolejnych
+która dla pierwszego wynosi 0,9 (ln. 18) i jest liniowo zwiększana dla kolejnych
 dziesięciu testów (ln. 21, 24, 94) aż do osiągnięcia wartości 1 (gdzie
 teoretycznie energia kulki powinna być stała).
 Dla każdej testowanej wartości przewidziano 20 odbić (ln. 22, 23, 81-97).
 Energia kinetyczna kulki jest zapisywana do pliku przy każdym odbiciu (ln.
 81-87).
 
-\begin{center}
+\begin{figure}[h]
+\centering
 \includegraphics[scale = 0.5]{./img/SimpleSnookerScene.png}
-\end{center}
+\caption{Render sceny z odbiciem jednego ciała.}
+\label{fig:render1}
+\end{figure}
 
-Zależność energii kinetycznej kulki przy kolejnych jej odbiciach od wartości
-sprężystości jest przedstawiona na poniższym wykresie.
-
+\begin{figure}[h]
 \input{./diag/EKjednoCialo.tex}
+\caption{Zależność energii kinetycznej kulki przy kolejnych jej odbiciach od wartości
+sprężystości.}
+\label{fig:EKjednoCialo}
+\end{figure}
 
-Jak widać w doświadczeniu nie osiągnięto spodziewanych rezultatów. Dla
-sprężystości o wartości 1 energia kinetyczna powinna być stała, natomiast tutaj
-gwałtownie wzrasta. Wydaje się, że dla utrzymania stałej energii kinetycznej
-konieczne jest użycie niższej wartości. Dla polepszenia widoczności poniższy
-wykres zawiera wartości energii kinetycznej dla wartości sprężystości od 0,94 do
-0,97.
+Jak widać na wykresie z rysunku \ref{fig:EKjednoCialo} w doświadczeniu nie
+osiągnięto spodziewanych rezultatów. Dla sprężystości o wartości 1 energia
+kinetyczna powinna być stała, natomiast tutaj gwałtownie wzrasta. Wydaje się,
+że dla utrzymania stałej energii kinetycznej konieczne jest użycie niższej
+wartości. Dla polepszenia widoczności wykres na rysunku
+\ref{fig:EKjednoCialo2} zawiera wartości energii kinetycznej dla wartości
+sprężystości od 0,94 do 0,97.
 
+\begin{figure}[h]
 \input{./diag/EKjednoCialo2.tex}
+\caption{Zależność energii kinetycznej kulki przy kolejnych jej odbiciach od wartości
+sprężystości.}
+\label{fig:EKjednoCialo2}
+\end{figure}
 
 Przy początkowej prędkości 5$\frac{m}{s}$ i masie 1 kg (listing
 \ref{lis:SimpleSnookerScene} ln. 72, 59) energia kinetyczna kulki powinna mieć
@@ -1401,28 +1500,42 @@ E_{K} = \frac{mv^{2}}{2} = \frac{1kg*(5\frac{m}{s})^{2}}{2} =
 \end{equation}
 Z prezentowanego wykresu wynika, że najbardziej odpowiednia wartość
 współczynnika sprężystości kulki i ścianek mieści się między 0,945 a 0,955.\\
+\newpage
 Dla ustalenia bardziej szczegółowej wartości test został powtórzony dla
 następujących parametrów z listingu \ref{lis:SimpleSnookerScene}:
 
-\lstinputlisting[language=Java,
-  label=lis:SimpleSnookerScene_additional]{./listings/SimpleSnookerScene_additional.java}
+\lstinputlisting[language=Java,caption=Parametry dla testu z wartościami
+wspólczynnika sprężystości od 0.945 do 0.955,
+label=lis:SimpleSnookerScene_additional]{./listings/SimpleSnookerScene_additional.java}
   
 Ilość odbić została zwiększona dwukrotnie, dzięki czemu możliwe jest sprawdzenie
-czy wyrównany poziom energii będzie się utrzymywać.
-  
+czy wyrównany poziom energii będzie się utrzymywać. Wyniki zostały przedstawione
+na rysunku \ref{fig:EKjednoCialo3}.
+
+\begin{figure}[h]
 \input{./diag/EKjednoCialo3.tex}
+\caption{Zależność energii kinetycznej kulki przy kolejnych jej odbiciach od wartości
+sprężystości.}
+\label{fig:EKjednoCialo3}
+\end{figure}
 
 Jak widać poziom energii nie utrzymuje się dla zwiększonej ilości odbić. W
 dodatku w losowych momentach (na prezentowanym wykresie dla wartości
 współczynnika sprężystości 0,945 dla 27. odbicia) można zaobserwować jego
 gwałtowne wzrosty. Dla złagodzenia efektów tych wzrostów na poniższym wykresie
-przedstawiono uśredniony wynik dziesięciu testów.
+przedstawiono uśredniony wynik dziesięciu testów. Zostało to przedstawione na
+wykresie z rysunku \ref{fig:EKjednoCialo4}.
 
+\begin{figure}[h]
 \input{./diag/EKjednoCialo4.tex}
+\caption{Zależność energii kinetycznej kulki przy kolejnych jej odbiciach od wartości
+sprężystości dla dziesięciu testów.}
+\label{fig:EKjednoCialo4}
+\end{figure}
 
 Spadki wartości energii kinetycznych sugerują, że nawet przy początkowo dobrze
 dobranych współczynnikach sprężystości, przy większej ilości odbić energia nie
-utrzymuje stałej wartości. Przy wartości współczynnika równej jedności energia
+utrzymuje stałej wartości. Przy wartości współczynnika równej jedności, energia
 nie utrzymuje stałej wartości, a wzrasta. Co jest tego przyczyną? \\
 W poszukiwaniu odpowiedzi na to pytanie można spojrzeć na wyniki poprzednich
 testów rozpatrując osobno zapisy energii kinetycznej liniowej i obrotowej.
@@ -1430,53 +1543,62 @@ Poniżej przedstawiono fragment zapisu dla testu przy watrości współczynnika
 sprężystości 0,98 (wartości energi liniowej energii kinetycznej znajdują się
 po lewej stronie, a obrotowej po lewej):
 
-\lstinputlisting[language=xml, caption=wartości energii kinetycznej,
+\lstinputlisting[language=xml, caption=Wartości energii kinetycznej,
   label=lis:linearAngle,linerange={6-12}]{./listings/0,98.txt}
 
 Okazuje się, że nawet na całkowicie śliskim podłożu ciało uzyskuje obrotową
 energię kinetyczną, co nie powinno mieć miejsca. Występowanie obrotu nie jest
 jednak spowodowane tarciem ciała o podłoże, a wynikiem błędów zaokrągleń
 kalkulacji silnika przy zderzeniach kulki ze ściankami.\\
+\newpage
 Na listingu \ref{lis:linearAngle} można zaobserwować gwałtowne zmiany obu
 energii, jednak wzrost energii kinetycznej liniowej jest zawsze poprzedzony
 wzrostem energii kinetycznej obrotowej. Liniowa energia kinetyczna sama w sobie
 nie ulega gwałtownym wzrostom. Przyczyną tego jest wzrost energii całkowitej.\\
-Podczas analitycznego rozważania odbicia ciała możliwe jest dokładne ustalenie
+Podczas analitycznego rozważania odbicia ciała, możliwe jest dokładne ustalenie
 czasu i miejsca zderzenia poprzez rozwiązanie odpowiedniego równania ruchu. W
 przypadku symulacji zderzenia ciał przez silnik fizyczny, symulacja ta jest
-dzielona na kroki. Każdy krok odpowiada minięciu kwantu czasu o z góry ustalonej
-wartości i wszystkie ciała uczestniczące w symulacji poruszają się adekwatnie do
+dzielona na kroki. Każdy krok odpowiada minięciu kwantu czasu, o ustalonej z
+góry wartości i wszystkie ciała uczestniczące w symulacji poruszają się adekwatnie do
 swojej prędkości. Prawie niemożliwe jest więc uzyskanie sytuacji w której
-zderzenie powierzchni sferycznej z płaską będzie tylko jednym punktem.
+zderzenie powierzchni sferycznej z płaską będzie tylko jednym punktem (tak jak
+zostało to zaobrazowane na rysunku \ref{fig:zderzenie1}).
 
-\begin{center}
+\begin{figure}[H]
+\centering
 \includegraphics{./img/zderzenie1.png}
-\end{center}
+\caption{Zaobrazowanie zderzenia ciała przy obliczeniach teoretycznych.}
+\label{fig:zderzenie1}
+\end{figure}
 
-W przypadku zderzenia w symulacji zderzenie nie jest punktem a powierzchnią.
+Podczas symulacji, zderzenia nie są punktami, tylko powierzchniami.
 Silnik Bullet do obliczenia parametrów reakcji na zderzenie potrzebuje
 określenia obszaru zderzenia jako punktu (który jest wybrany z powierzchni
-obszaru zderzenia oznaczonego na poniższej ilustracji czerwoną linią). Niestety
-im większy jest obszar zderzenia tym większe jest prawdopodobieństwo błędu w
-wyborze odpowiedniego punktu. Przesunięcie tego punktu względem właściwego
-umiejscowienia pozycji zderzenia wynikające z niedokładności obliczeniowej
-decyduje o nadmiarze lub niedoborze obrotowej energii kinetycznej.
+obszaru zderzenia oznaczonego na ilustracji \ref{fig:zderzenie2} czerwoną
+linią). Niestety, im większy jest obszar zderzenia tym większe jest
+prawdopodobieństwo błędu w wyborze odpowiedniego punktu. Przesunięcie tego
+punktu względem właściwego umiejscowienia pozycji zderzenia wynikające z
+niedokładności obliczeniowej decyduje o nadmiarze lub niedoborze obrotowej
+energii kinetycznej.
 
-\begin{center}
+\begin{figure}[H]
+\centering
 \includegraphics{./img/zderzenie2.png}
-\end{center}
+\caption{Zaobrazowanie zderzenia ciała przy obliczeniach teoretycznych.}
+\label{fig:zderzenie2}
+\end{figure}
 
 Aby zminimalizować możliwą wielkość obszaru zderzenia można zmniejszyć kwant
 czasu, minimalizując odległości przebywane przez ciała w każdym kroku
 symulacji.\\
 Aby tego dokonać należy przyjrzeć się prototypowi funkcji \emph{stepSimulation}.
 
-\lstinputlisting[language=c++,
+\lstinputlisting[language=c++, caption=Prototyp funkcji stepSimulation,
 label=lis:stepSimulation]{./listings/stepSimulation.cpp}
 
 Funkcja ta jest wywoływana w celu zaktualizowania symulacji o pewien
 czas (wywoływana jest dla każdej renderowanej klatki aplikacji). Według
-\emph{Bullet User Manual} (TODO:źródło z bibliografii) jej poszczególne
+\emph{Bullet User Manual}$ ^{1} $ jej poszczególne
 parametry oznaczają:\\
 \\
 \textbf{timeStep}: całkowita ilość czasu jaka musi minąć w danym kroku. W
@@ -1503,49 +1625,72 @@ Tym razem nie jest badana zależność energii kinetycznej od współczynnika
 sprężystości, a od parametru \emph{fixedTimeStep}. 
 
 \lstinputlisting[language=Java,
-  label=lis:SimpleSnookerSceneFts,caption=scena
+  label=lis:SimpleSnookerSceneFts,caption=Scena
   testująca zależność energii
   kinetycznej od fixedTimeStep]{./listings/SimpleSnookerSceneFts.java}
 
-Zależność energii kinetycznej od odbicia (poszczególne linie wykresu
-reprezentują wartości współczynnika ftsFactor). Dla czytelności wykresu $
-fixedTimeStep = \frac{1}{ftsFactor} $. Współczynnik sprężystości został
-ustawiony na 1. Prędkość ciała wynosi 5$\frac{m}{s}$.
+Wykres z rysunku \ref{fig:EKjednoCialoFTS} przedstawia zależność energii
+kinetycznej od odbicia (poszczególne linie reprezentują wartości współczynnika
+\emph{ftsFactor}). Dla czytelności wykresu $ fixedTimeStep =
+\frac{1}{ftsFactor} $. Współczynnik sprężystości został ustawiony na 1.
+Prędkość ciała wynosi 5$\frac{m}{s}$.
 
+\begin{figure}[H]
 \input{./diag/EKjednoCialoFTS.tex}
+\caption{Zależność energii kinetycznej kulki przy kolejnych jej odbiciach od wartości
+sprężystości dla różnych wartości kroków.}
+\label{fig:EKjednoCialoFTS}
+\end{figure}
 
-Dla lepszej czytelności wykresu poniżej znajdują się wartości energii dla
-pierwszych 15 odbić:
+\newpage
+Dla lepszej czytelności wykresu na rysunku \ref{fig:EKjednoCialoFTSz} znajdują
+się wartości energii dla pierwszych 15 odbić:
 
+\begin{figure}[H]
 \input{./diag/EKjednoCialoFTSz.tex}
+\caption{Zależność energii kinetycznej kulki przy kolejnych jej odbiciach od wartości
+sprężystości dla różnych wartości kroków.}
+\label{fig:EKjednoCialoFTSz}
+\end{figure}
 
 Z wyników można odczytać, że przy długości podkroku $ \frac{1}{260} $ sekundy
 zasada zachowanaia energii zostaje spełniona. Okazuje się również, że wartość
 tego parametru musi być odpowiednio dobrana (przy innych widoczne są
 niedobory/nadmiary energii). Aby sprawdzić czy jest ona uniwersalna, kolejny
-test zostanie przeprowadzony dla wartości prędkości 10$\frac{m}{s}$.
+test zostanie przeprowadzony dla wartości prędkości 10$\frac{m}{s}$. Wynik testu
+został przedstawiony na rysunku \ref{fig:EKjednoCialoFTS10}.
 
+\begin{figure}[H]
 \input{./diag/EKjednoCialoFTS10.tex}
+\caption{Zależność energii kinetycznej kulki przy kolejnych jej odbiciach od wartości
+sprężystości dla różnych wartości kroków.}
+\label{fig:EKjednoCialoFTS10}
+\end{figure}
 
 Jak widać odpowiednia wartość parametru \emph{fixedTimeStep} jest uzależniona od
-wartości prędkości. Poprawne zasymulowanie doświadczenia w którym ważną rolę
-odgrywają odbicia sprężyste przy użyciu silnika Bullet jest więc bardzo trudne.
+wartości prędkości. Poprawne przeporowadzenie symulacji, w
+której ważną rolę odgrywają odbicia sprężyste przy użyciu silnika Bullet jest
+więc bardzo trudne.
 
+\newpage
 \subsubsection{Odbicie sprężyste wielu ciał}\label{sec:odbicieWieluCial}
 
-W poprzednim doświadczeniu został zbadany przypadek dla jednego ciała i dla
-wartości kroku $ \frac{1}{260} $s i prędkości 5$ \frac{m}{s} $ energia
-kinetyczna pozostaje stała. Jak wyglądać będzie zależność energii kinetycznej od
-czasu w tych samych warunkach jeśli w symulacji będzie uczestniczyć wiele ciał?
-Przy pomocy poniższej sceny sprawdzone zostanie jaki wpływ ma parametr
-\emph{fixedTimeStep} na łączną energię poruszających się ciał.
+W poprzednim doświadczeniu został zbadany przypadek odbicia jednego ciała.
+Dla wartości kroku $ \frac{1}{260} $s i prędkości 5$ \frac{m}{s} $ energia
+kinetyczna zachowała stałą wartość. Jak wyglądać będzie zależność energii
+kinetycznej od czasu w tych samych warunkach, jeśli w symulacji będzie
+uczestniczyć wiele ciał? Przy pomocy poniższej sceny sprawdzone zostanie jaki
+wpływ ma parametr \emph{fixedTimeStep} na łączną energię poruszających się ciał.
 
-\begin{center}
+\begin{figure}[H]
+\centering
 \includegraphics[scale = 0.5]{./img/shot_2.png}
-\end{center}
+\caption{Render sceny z odbiciem wielu ciał.}
+\label{fig:shot_2}
+\end{figure}
 
 \lstinputlisting[language=Java,
-  label=lis:ClosedSnookerScene,caption=scena
+  label=lis:ClosedSnookerScene,caption=Scena
   testująca przypadek z wieloma ciałami]{./listings/ClosedSnookerScene3.java}
   
 Na obszarze otoczonym ściankami (ln. 44-50) zostaje umieszczonych dziewięć (ln.
@@ -1554,18 +1699,23 @@ losowych kierunkach z prędkością 5$ \frac{m}{s} $ (ln. 64). Wartość energii
 kinetycznej całego układu jest rejestrowana co 20 klatek (ln. 22, 105-111).
 Każdy test trwa 20*100 klatek (ln. 22, 24, 94), w każdym z nich wartość
 parametru \emph{ftsFactor} jest zwiększana (ln. 101).\\
-Poniżej przedstawiono wykres zależności całkowitej energii układu od
+Wykres na rysunku \ref{fig:EKwieleCial} zależności całkowitej energii układu od
 czasu (klatek animacji) dla różnych wartości \emph{ftsFactor}, a tym samym
-długości podkroku symulacji. Dla większej dokładności wykonane zostało dziesięć
-takich testów i wyciągnięta zostałą z nich średnia wartość energii.
+długości podkroku symulacji. Dla większej dokładności wykonanych zostało
+dziesięć takich testów i wyciągnięta została z nich średnia wartość energii.
 
+\begin{figure}[H]
 \input{./diag/EKwieleCial.tex}
+\caption{Zależność energii kinetycznej kulki przy kolejnych jej odbiciach od wartości
+sprężystości.}
+\label{fig:EKwieleCial}
+\end{figure}
 
 Jak widać do pewnej wartości parametru \emph{ftsFactor}(dla prędkości 5$
 \frac{m}{s} $: od 360 do 420) wartość łącznej energii rośnie w czasie. Po
 przekroczeniu tej wartości energia zaczyna maleć. Dla wartości \emph{ftsFactor}
 równej 260 energia układu nie pozostaje stała w czasie, jak miało to miejsce w
-teście dla jednego ciała. Dzieje się tak ponieważ podczas symulacji ciała
+teście dla jednego ciała. Dzieje się tak ponieważ podczas symulacji, ciała
 poprzez zderzenia mogą przekazywać sobie energię. Niemożliwe jest przez to
 utrzymanie stałej prędkości co powoduje, że dla każdego z ciał musi być
 ustawiona inna wartość parametru \emph{fixedTmeStep}. Stabilność układu zostaje
@@ -1575,7 +1725,7 @@ badanie oddziaływań ciał sprężystych.\\
 Fakt, że symulacje nie są dokładne dla wysokiego współczynnika sprężystości i
 niskiego tarcia został nawet wspomniany w kodzie źródłowym biblioteki Bullet.
 
-\lstinputlisting[language=c++, caption=fragment kodu pliku btRigidBody.h z
+\lstinputlisting[language=c++, caption=Fragment kodu pliku btRigidBody.h z
 biblioteki Bullet,
 label=lis:RigidBody,linerange={126-129}]{./listings/btRigidBody.h}
 
@@ -1587,10 +1737,10 @@ potencjalna dla ciała staczającego się po równi pochyłej z tarciem.
 Przetestowane zostaną dwa kształty staczających się brył: sześcian oraz kula.
 Wartości doświadczalnej prędkości ciał w konkretnych punktach zostaną porównane
 ze spodziewanymi wartościami teoretycznymi.\\
-W przypadku sześćianu wartość teoretyczna prędkości zostaje obliczona z zasady
-zachowania energii korzystając z energii kinetycznej, potencjalnej i spadku
-wartości energii spowodowanego siłą tarcia. Rozkład sił na równi pochyłej
-przedstawiono na rysunku \ref{fig:rownia}.
+W przypadku sześcianu, wartość teoretyczna prędkości zostaje obliczona z zasady
+zachowania energii. Energia mechaniczna jest określona jako suma energii
+kinetycznej, potencjalnej i spadku wartości energii spowodowanego siłą tarcia.
+Rozkład sił na równi pochyłej przedstawiono na rysunku \ref{fig:rownia}.
 
 \begin{figure}
 \centering
@@ -1617,22 +1767,25 @@ mgh = \frac{mv^{2}}{2} + fmgh \cos \alpha
 \label{eq:boxVelocity}
 v(h) = \sqrt{2gh(1-f \cos \alpha)}
 \end{equation}
-Gdzie \emph{f} jest wspólczynnikiem tarcia ciała o powierzchnię.\\
-Dla ciała o kształcie kuli staczjącej się bryle towarzyszy również poślizg, a
-siła tarcia nie powoduje opóźnienia staczania się a wprawia ciało w obrót. Aby
-ciało poruszało się bez poślizgu przyspieszenie kątowe ($ \varepsilon $) musi
-być odpowiednia dla przyspieszenia liniowego staczania (\emph{a}).
+Gdzie:\\
+\emph{f} jest współczynnikiem tarcia ciała o powierzchnię.\\
+Staczającej się bryle o kształcie kuli towarzyszy również poślizg, a
+siła tarcia nie powoduje opóźnienia staczania się a wprawia ciało w obrót.
+Aby ciało poruszało się bez poślizgu przyspieszenie kątowe ($ \varepsilon $) musi
+być odpowiednie dla przyspieszenia liniowego staczania (\emph{a}).
 \begin{equation}
 a = \varepsilon r
 \end{equation}
-Gdzie \emph{r} jest promeniem kuli. Korzystając z poniższych zależności:
+Gdzie:\\
+\emph{r} jest promeniem kuli.\\
+Korzystając z poniższych zależności:
 \begin{equation}
 a = \frac{F_{1}}{m}
 \end{equation}
 \begin{equation}
 F_{1} = mg \sin \alpha
 \end{equation}
-Momenty sił ciałą również muszą być zgodne:
+Momenty sił ciała również muszą być zgodne:
 \begin{equation}
 Tr = I \varepsilon
 \end{equation}
@@ -1681,8 +1834,9 @@ label=lis:InclinedPlaneScene]{./listings/InclinedPlaneScene.java}
 
 Z podstawy o długości 30 metrów (ln. 23, 25), staczają się dwa ciała (ln. 26, 
 27). Podstawa jest nachylona pod kątem $ 45^{\circ} $ (ln. 30). Współczynnik
-tarcia jest zgodny z tym z równania \ref{eq:friction} (ln. 37, 42). Pomiary
-wysokości i prędkości ciał są zapisywane w pliku CSV (ln. 42, 50).
+tarcia jest zgodny z wartością wynikającą z równania \ref{eq:friction} (ln. 37,
+42). Pomiary wysokości i prędkości ciał są zapisywane w pliku w formacie CSV
+(ln. 42, 50).
 
 \begin{figure}
 \centering
@@ -1715,14 +1869,14 @@ niewielka, co potwierdza stwierdzenie z końca testu z sekcji
 \ref{sec:odbicieWieluCial}: przy obecnym tarciu i braku sprężystości wynik
 symulacji ma niski odstęp od teoretycznego.
 
-\subsubsection{Kołyska Newtona}
+\subsubsection{Kołyska Newtona} \label{sec:kolyskaNewtona}
 W tym teście, tak jak w poprzednim, sprawdzona zostanie zasada zachowania
-energii zarówno przy braniu pod uwagę energii kinetycznej jak i potencjalnej.
+energii zarówno z uwzględnieniem energii kinetycznej jak i potencjalnej.
 Z tą różnicą, że brana pod uwagę będzie również sprężystość ciał tak jak w
 sekcjach \ref{sec:odbicie1ciala} i \ref{sec:odbicieWieluCial}. W celu
 przeprowadzenia tego testu zostanie użyta poniższa scena:
 
-\lstinputlisting[language=Java, caption=Kod sceny użytaj do testowania
+\lstinputlisting[language=Java, caption=Kod sceny użytej do testowania
 zachowania energii dla kołyski Newtona,
 label=lis:NewtonPendulumScene]{./listings/NewtonPendulumLogScene.java}
 
@@ -1752,7 +1906,9 @@ Z wykresu wynika, że wartość współczynnika sprężystości przy którym ca�
 energia się nie zmienia jest niższa niż 0,91. W celu zwiększenia precyzji
 obliczeń test został powtórzony dla wartości od 0,94 do 0,87, dla dwukrotnie
 większego odstępu czasu. Jego wynik przedstawia wykres na rysunku
-\ref{fig:wahadloNewtona2}.
+\ref{fig:wahadloNewtona2}. Wywnioskować można, że najbezpieczniej jest
+przeprowadzić symulację z niezerowym współczynnikiem tłumienia. Tak jak w
+przypadku prawdziwej symulacji, kołyska się zatzymuje.
 
 \begin{figure}
 \centering
@@ -1766,33 +1922,151 @@ poziomu. Podobnie jak w przypadku testu z sekcji \ref{sec:odbicie1ciala}, przy
 występowaniu wysokiej wartości współczynnika sprężystości wynik nie jest
 przybliżeniem wartości rzeczywistej.
 
-%\subsubsection{Ciało na sprężynie}
-%\emph{TODO: j/w - przykład z pociskiem uderzającym w klocek na sprężynie?}
-
 \subsubsection{Model ciała sprężystego}
-\emph{TODO: jak zachowa się energia całego układu? - potrzebne źródło
-teoretyczne}
+Test w tej sekcji ma na celu przetestowanie zachowania energii sprężystości w
+symulacjach. Utworzony zostanie model ciała sprężystego (kilka ciał kulistych
+połączonych sprężynami), zostanie on wprawiony w ruch i sprawdzone zostaną
+przemiany energii składowych sprężyn.\\
+Test ten zostanie przeprowadzony przy pomocy sceny z listingu
+\ref{lis:JellyLogScene}.
 
-%\subsubsection{Gaz doskonały?}
-%\emph{TODO: Może spróbowaćby zasymulować kilka zamkniętych kulek. Porównać
-%wyniki pomiarów z wartościami teoretycznymi, wyznaczyć temperaturę, ciśnienie,
-%energię wewnętrzną, stałą gazową, czy zachowane jest równanie Clapeyrona? czy
-%słuszność ma równanie średniej drogi swobodnej?(można wykorzystać wykrywanie
-%kolizji)}
+\lstinputlisting[language=Java, caption=Kod sceny użytej do testowania
+zachowania energii dla ciała elastycznego,
+label=lis:JellyLogScene]{./listings/JellyLogScene.java}
 
-\subsection{Zasada zachowania pędu}
+Kilka sprężyn połączonych ze sobą tworzą prostokątne elastyczne ciało. Sprężyny
+(ln. 38-55) połączone są ze sobą za pomocą kulistych łączników (ln. 23-37).
+Współczynnik tłumienia sprężyn wynosi 1 (ln. 63-55, trzeci argument funkcji).
+Łącznikowi o indeksie 7 zostaje dana początkowa prędkość (ln. 68) wprawiając w
+ruch całe ciało. Suma energii potencjalnych wszystkich sprężyn (ln. 79) jest
+zapisywana co 10 klatek (ln. 76) do pliku (ln. 69, 80). Scena wraz z oznaczonymi
+numerami indeksów łączników została zaprezentowana na rysunku
+\ref{fig:JellyScene}.
 
-\subsubsection{Zderzenie dwóch ciał}
-\emph{TODO: jak zachowany jest pęd a jak energia? Można też zbadać odbicia pod
-róznymi kątami}
+\begin{figure}
+\centering
+\includegraphics[scale=0.5]{img/JellyScene.png}
+\caption{Test ciała elastycznego z oznaczonymi indeksami łączników sprężyn.}
+\label{fig:JellyScene}
+\end{figure}
 
-\subsubsection{Zderzenie trzech ciał}
-\emph{TODO: czy rozpatrywane jest poprawnie?}
+Wynik testu dla 40.000 ($ \frac{40000 klatek}{60 fps} \approx 667 s \approx 11
+minut $) klatek został przedstawiony na rysunku \ref{fig:jellyTest2}.
 
-%\subsection{Odbicie podkręconej piłki}
+\begin{figure}
+\centering
+\input{diag/jelly2.tex}
+\caption{Wykres zależności sumy energii sprężyn od czasu.}
+\label{fig:jellyTest2}
+\end{figure}
+
+Energia układu zdaje się nieznacznie spadać. Dla większej dokładności powtórzono
+test dla 200.000 klatek ($ \frac{200000 klatek}{60 fps} \approx 3333 s \approx
+55 minut $). Zostało to przedstawione na rysunku \ref{fig:jellyTest}
+
+\begin{figure}
+\centering
+\input{diag/jelly.tex}
+\caption{Wykres zależności sumy energii sprężyn od czasu.}
+\label{fig:jellyTest}
+\end{figure}
+
+Spadek energii został odnotowany po 10.000 klatek. Przez resztę testu wartość
+energii utrzymuje stały poziom. Zasada zachowania energii dla ciał sprężystych
+jest spełniona.
+\newpage
+\subsection{Zderzenie trzech kulek}
+Jednym z problemów cyfrowej symulacji zjawisk fizycznych jest rozważanie kolizji
+ciał w parach. Mogą przez to wystąpić błędy podczas równoczesnych zderzeń więcej
+niż dwóch ciał. Ten test ma na celu zbadanie jak będą zachowywać się trzy ciała
+kuliste po równoczesnym zderzeniu. Kod sceny testującej przedstawiono na
+listingu \ref{lis:ThreeBallScene}.
+
+\lstinputlisting[language=Java, caption=Kod sceny użytej do testowania
+zachowania trzech kulek po równoczesnym zderzeniu,
+label=lis:ThreeBallScene]{./listings/ThreeBallScene.java}
+
+Trzy kulki ustawione tak, że tworzą trójkąt równoboczny (ln. 18-21, ułożenie
+zostało przedstawione na rysunku \ref{fig:ThreeBall}). Po rozpoczęciu testu
+zmierzają one w kierunku środka ciężkości trójkąta (ln. 23-25). Spodziewanym
+wynikiem testu jest zmiana zwrotów wektorów prędkości ciał. Ich kierunek ma
+zaś pozostać bez zmian.\\
+Dla zaobrazowania przebiegu testu zarejestrowane zostały składowe wektorów
+prędkości dla każdej z kul, przy rozpoczęciu testu jak i po zderzeniu.
+Przedstawione one zostały w tabelach \ref{tab:velocities} i
+\ref{tab:velocities2}. Jak jest widoczne w przedstawionych tabelach stosunek
+składowych \emph{x} i \emph{z} wektorów prędkości ulega pomijalnie małej
+zmianie. Oznacza to, że kierunki wektorów prędkości nie uległy zmianie. Zmieniły
+się jedynie ich zwroty. Oznacza to, że silnik Bullet poprawnie rozpatruje
+przypadki równoczesnych zderzeń więcej niż dwóch ciał.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{img/ThreeBall.png}
+\caption{Ułóżenie trzech ciał kulistych podczas testu.}
+\label{fig:ThreeBall}
+\end{figure}
+
+\newpage
+\begin{table}[H]
+\centering
+\input{./tab/Velocities.tex}
+\caption{Zestawienie składowych prędkości ciał kulistych zaraz po rozpoczęciu
+testu.}
+\label{tab:velocities}
+\end{table}
+
+\begin{table}[H]
+\centering
+\input{./tab/Velocities2.tex}
+\caption{Zestawienie składowych prędkości ciał kulistych po odbiciu kulek.}
+\label{tab:velocities2}
+\end{table}
 
 \newpage
 \section{Wnioski}
-\emph{Podsumowanie doświadczeń w pracy. Kiedy można wykorzystać silnik do
-symulacji fizycznych? Można też zwalić część winy złych wyników na spadek
-wydajności sprzętu przy dużym obciążeniu:).}
+%\emph{Podsumowanie doświadczeń w pracy. Kiedy można wykorzystać silnik do
+%symulacji fizycznych? Można też zwalić część winy złych wyników na spadek
+%wydajności sprzętu przy dużym obciążeniu:).}\\
+W tej sekcji zostały przedstawione wnioski dla poszczególnych celów pracy
+opisanych w sekcji \ref{subsec:celeProjektu}. \\
+
+\textbf{Uruchomienie silnika fizycznego na mobilnej platformie Android.}\\
+Jak zostało to pokazane w sekcji \ref{sec:NDKuse}, kod otwartej biblioteki
+Bullet można bez większych zmian skompilować na platformę ARM. Konieczne jest
+tylko uwzględnienie odmiennego sposobu kompilacji projektu i sporządzenia
+wymaganych przez Android NDK danych (jak plik \emph{Android.mk} przedstawiony w
+załączniku \ref{att:Androidmk}). Jedyną trudnością w tworzeniu projektów
+wykorzystujących silnik Bullet jest konieczność operowania na kodzie natywnym,
+co zmusza programistę do sporządzenia odpowiednich klas opakowujących dla
+środowiska Javy (jeśli kod sceny ma być pisany w tym języku). Ilość koniecznych
+do stworzenia klas opakowujących jest jednak zależna od ilości wymaganych
+przez projekt klas silnika Bullet.\\
+
+\textbf{Wykorzystanie możliwości platformy mobilnej pod kątem symulacji
+fizycznych.}\\
+Fakt uruchomienia symulacji na urządzeniu mobilnym posiadającym odmienne
+urządzenia wejścia niż typowa platforma PC, ma potencjał wprowadzenia
+dodatkowych możliwości dla symulacji. Przedstawione w sekcji \ref{sec:dod}
+metody wykorzystania niektórych z tych możliwości wykazują, że można je umieścić
+w aplikacji bez większych trudności. Jedynym probemem, podobnie jak w przypadku
+uruchomienia samego silnika Bullet, jest konieczność jednoczesnego wykonywania
+operacji w kodzie natywnym i maszynie wirtualnej \emph{Dalvik}. Może to
+doprowadzić do takich problemów jak przepełnienie lokalnego bufora NDK -
+problemu opisanego w sekcji \ref{sec:debugDrawer}.\\
+\newpage
+\textbf{Ocena przydatności silnika w symulacjach fizycznych.}\\
+W większości testowanych przypadków w sekcji \ref{sec:wykorzystanie}, nie
+występują duże przekłamania dla wartości energii wewnętrznej ciał. Jak to jednak
+zostało przedstawione w testach zawartych w sekcjach \ref{sec:odbicie1ciala} i
+\ref{sec:kolyskaNewtona}, ciała posiadające duży współczynnik sprężystości lub
+niski współczynnik tarcia mają tendencje do zaburzenia wartości energii
+wewnętrznej. Zaleca się unikanie symulacji dla takich warunków. Dla zwiększenia
+wydajności i dokładności symulacji możnaby zastosować obecnie testowaną
+implementację silnika Bullet wykorzystującą standard OpenCL, który pozwala na
+przeprowadzanie równoległych obliczeń korzystając z kart graficznych.
+Implementacja ta może poprawić wydajność silnika nie tylko na platformach
+stacjonarnych i mobilnych. Dzięki tworzonemu na wzór WebGL, opracowywanemu przez
+firmę Nokia, standardowi WebCL możliwe jest również tworzenie aplikacji
+przeglądarkowych. Rosnąca wydajność silników fizycznych nie tylko na platformach
+stacjonarnych znacznie zwiększa ich dostępność.

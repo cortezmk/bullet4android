@@ -54,6 +54,10 @@ mobilnej Android}
     \lstlistoflistings
     \addcontentsline{toc}{section}{Spis listingów}
     \newpage
+    \renewcommand{\cftlottitlefont}{\Large\bfseries\sffamily}
+    \listoftables
+    \addcontentsline{toc}{section}{Spis tablic}
+    \newpage
     %powrót do czerwonego koloru dla dalszych odnośników (spis literatury, przy włączonym pokazywaniu numerów stron, do których odnoszą się poszczególne pozycje)
     \hypersetup{linkcolor=red}
     %koniec spisu rysunków i~tablic
@@ -71,10 +75,11 @@ mobilnej Android}
     %koniec treści głównej dokumentu
 
     %bibliografia
-    %\bibliographystyle{plainnat}                    %styl bibliografii: w
-    % kolejności cytowania, zrozumiały dla pakietu hyperref.sty \addcontentsline{toc}{section}{Literatura}      %musi być wyżej niż
-    % \bibliography{bibliografia}, żeby w~spisie treści był właściwy numer strony
-    %\bibliography{bibliografia}
+    \newpage
+    \bibliographystyle{plainnat}                    %styl bibliografii: w
+     %kolejności cytowania, zrozumiały dla pakietu hyperref.sty
+     \addcontentsline{toc}{section}{Literatura}      %musi być wyżej niż
+     \input{bibliografia.tex}%żeby w~spisie treści był właściwy numer strony
     %koniec bibliografii
 
     %załączniki
